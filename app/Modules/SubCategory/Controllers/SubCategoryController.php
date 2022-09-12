@@ -3,8 +3,8 @@
 namespace App\Modules\SubCategory\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Auth\Requests\CreateSubCategoryRequest;
-use App\Modules\Auth\Services\SubCategoryService;
+use App\Modules\SubCategory\Requests\CreateSubCategoryRequest;
+use App\Modules\SubCategory\Services\SubCategoryService;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller

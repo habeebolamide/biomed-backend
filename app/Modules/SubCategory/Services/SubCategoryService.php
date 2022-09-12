@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Auth\Services;
+namespace App\Modules\SubCategory\Services;
 
 use App\Modules\Auth\Models\User;
 use App\Modules\Category\Models\Category;
@@ -14,14 +14,19 @@ class SubCategoryService
     use ApiResponseMessagesTrait;
    public function allSubCategories()
    {
-        $category = SubCategory::all();
+        $category = SubCategory::with('category')->get();
         return $this->success($category, "all sub-categories");
    }
 
    public function subCategory($sub_category_id)
    {
-        $category = SubCategory::where('id', $sub_category_id)->first();
-        return $this->success($category, "Sub Category");
+        try {
+            $category = SubCategory::with('category')->where('id', $sub_category_id)->firstOrFail();
+            return $this->success($category, "Sub Category");
+        } catch (\Throwable $th) {
+            return $this->badRequest("Sub category does not exist");
+        }
+        
    }
 
    public function showSubCategory($category_id)
@@ -43,12 +48,18 @@ class SubCategoryService
 
    public function updateSubCategory($data, $sub_category_id)
    {
-        $category = SubCategory::where('id', $sub_category_id)->update([
-            'category_id' => $data['category_id'],
-            'sub_category_name' => $data['category_name'],
-            'status' => $data['status'],
-        ])->get();
-        return $this->success($category, "Sub Category Updated Successfully");
+        try {
+            $category = SubCategory::where('id', $sub_category_id)->update([
+                'category_id' => $data['category_id'],
+                'sub_category_name' => $data['sub_category_name'],
+                'status' => $data['status'],
+            ]);
+            return $this->success($category, "Sub Category Updated Successfully");
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $this->badRequest($th->getMessage());
+        }
+        
    }
 
    public function deleteSubCategory($category_id)

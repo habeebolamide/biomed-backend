@@ -3,8 +3,8 @@
 namespace App\Modules\Category\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Auth\Requests\CreateCategoryRequest;
-use App\Modules\Auth\Services\CategoryService;
+use App\Modules\Category\Requests\CreateCategoryRequest;
+use App\Modules\Category\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller

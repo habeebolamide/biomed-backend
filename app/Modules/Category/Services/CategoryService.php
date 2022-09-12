@@ -1,24 +1,28 @@
 <?php
 
-namespace App\Modules\Auth\Services;
+namespace App\Modules\Category\Services;
 
 use App\Modules\Category\Models\Category;
 use App\Traits\ApiResponseMessagesTrait;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryService 
 {
     use ApiResponseMessagesTrait;
    public function allCategories()
    {
-        $category = Category::all();
+        $category = Category::with('subCategory')->get();
         return $this->success($category, "all categories");
    }
 
    public function category($category_id)
    {
-        $category = Category::where('id', $category_id)->first();
-        return $this->success($category, "all categories");
+        try {
+            $category = Category::with('subCategory')->where('id', $category_id)->firstOrFail();
+            return $this->success($category, "all categories");
+        } catch (\Throwable $th) {
+            return $this->badRequest("Category Does not exist");
+        }
+        
    }
 
    public function createCategory($data)
@@ -35,14 +39,14 @@ class CategoryService
         $category = Category::where('id', $category_id)->update([
             'category_name' => $data['category_name'],
             'status' => $data['status'],
-        ])->get();
+        ]);
         return $this->success($category, "Category Updated Successfully");
    }
 
    public function deleteCategory($category_id)
    {
     try {
-        Category::where('id', $category_id)->delete()->get();
+        Category::where('id', $category_id)->delete();
         return $this->success([], "Category deleted Successfully");
     } catch (\Throwable $th) {
         return $this->badRequest("Category Can'\t be deleted, it has been attached to a product");

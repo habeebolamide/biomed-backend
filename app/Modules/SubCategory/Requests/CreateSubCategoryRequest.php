@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Auth\Requests;
+namespace App\Modules\SubCategory\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,8 +26,8 @@ class CreateSubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'sub_category_name' => 'required|email',
-            'category_id' => 'required|email',
+            'sub_category_name' => 'required',
+            'category_id' => 'required',
             'status' => 'required|in:active,inactive',
         ];
     }
