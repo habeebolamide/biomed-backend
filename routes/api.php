@@ -42,3 +42,6 @@ Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{sub_category_id}', [SubCategoryController::class, 'update']);
     Route::delete('/{sub_category_id}', [SubCategoryController::class, 'destroy']);
 });
+Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
+    
+});
