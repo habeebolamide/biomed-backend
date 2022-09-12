@@ -5,6 +5,7 @@ namespace App\Modules\Auth\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Auth\Requests\LoginUserRequest;
 use App\Modules\Auth\Requests\RegisterUserRequest;
+use App\Modules\Auth\Requests\UpdateUserRequest;
 use App\Modules\Auth\Services\LoginUserService;
 use App\Modules\Auth\Services\RegisterUserService;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,14 @@ class AuthController extends Controller
         return (new LoginUserService)->login($request);
     }
 
+    public function updateUserProfile(UpdateUserRequest $request)
+    {
+        return (new RegisterUserService)->updateUser($request);
+    }
+
     public function logout(LoginUserRequest $request)
     {
+        // still working in this..
         // Get user who requested the logout
         $user = request()->user(); //or Auth::user()
         // Revoke current user token

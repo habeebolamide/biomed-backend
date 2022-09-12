@@ -13,26 +13,13 @@ class LoginUserService
    public function login($data)
    {
     try {
-
         if(!Auth::attempt($data->only(['email', 'password']))){
-            return response()->json([
-                'status' => false,
-                'message' => 'Email & Password does not match with our record.',
-            ], 401);
+            return $this->badRequest('Email & Password does not match with our record.');
         }
         $user = User::where('email', $data->email)->first();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'User Logged In Successfully',
-            'token' => $user->createToken("API TOKEN")->plainTextToken
-        ], 200);
-
+        return $this->success(['user' => $user, 'token' => $user->createToken("API TOKEN")->plainTextToken], 'User Logged In Successfully');
     } catch (\Throwable $th) {
-        return response()->json([
-            'status' => false,
-            'message' => $th->getMessage()
-        ], 500);
+        return $this->badRequest($th->getMessage());
     }
 
    }
