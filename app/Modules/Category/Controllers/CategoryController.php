@@ -5,7 +5,6 @@ namespace App\Modules\Category\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Auth\Requests\CreateCategoryRequest;
 use App\Modules\Auth\Services\CategoryService;
-use App\Modules\Category\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller

@@ -2,9 +2,7 @@
 
 namespace App\Modules\Auth\Services;
 
-use App\Modules\Auth\Models\User;
 use App\Modules\Category\Models\Category;
-use Illuminate\Support\Facades\Hash;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
 
