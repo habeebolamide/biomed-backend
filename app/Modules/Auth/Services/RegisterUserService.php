@@ -22,6 +22,7 @@ class RegisterUserService
         return response()->json([
             'status' => true,
             'message' => 'User Created Successfully',
+            'data' => auth()->user(),
             'token' => $user->createToken("API TOKEN")->plainTextToken
         ], 200);
 
