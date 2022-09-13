@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Auth\Requests;
+namespace App\Modules\Category\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 
-class RegisterUserRequest extends FormRequest
+class CreateCategoryRequest extends FormRequest
 {
    
     /**
@@ -26,11 +26,8 @@ class RegisterUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'username' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required'
+            'category_name' => 'required',
+            'status' => 'required|in:active,inactive',
         ];
     }
 

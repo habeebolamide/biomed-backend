@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 
-class RegisterUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
    
     /**
@@ -29,8 +29,7 @@ class RegisterUserRequest extends FormRequest
             'name' => 'required',
             'username' => 'required',
             'phone' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required'
+            'email' => 'required',
         ];
     }
 

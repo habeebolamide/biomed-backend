@@ -12,25 +12,34 @@ class RegisterUserService
    public function createUser($data)
    {
     try {
-
         $user = User::create([
             'name' =>$data['name'],
+            'username' =>$data['username'],
             'email' =>$data['email'],
+            'phone' =>$data['phone'],
             'password' => Hash::make($data['password'])
         ]);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'User Created Successfully',
-            'data' => auth()->user(),
-            'token' => $user->createToken("API TOKEN")->plainTextToken
-        ], 200);
+        return $this->success(['user' => $user, 'token' => $user->createToken("API TOKEN")->plainTextToken], 'Account created Successfully');
 
     } catch (\Throwable $th) {
-        return response()->json([
-            'status' => false,
-            'message' => $th->getMessage()
-        ], 500);
+        return $this->badRequest($th->getMessage());
+    }
+
+   }
+
+   public function updateUser($data)
+   {
+    try {
+        $user = User::where('email', request()->user()->email)->update([
+            'name' =>$data['name'],
+            'username' =>$data['username'],
+            'email' =>$data['email'],
+            'phone' =>$data['phone'],
+        ]);
+        return $this->success(['user' => $user], 'Account updated Successfully');
+
+    } catch (\Throwable $th) {
+        return $this->badRequest($th->getMessage());
     }
 
    }
