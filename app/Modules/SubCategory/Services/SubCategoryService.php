@@ -29,10 +29,18 @@ class SubCategoryService
         
    }
 
-   public function showSubCategory($category_id)
+   public function showSubCategory($category_id, $data)
    {
-       $category = SubCategory::where('category_id', $category_id)->get();
-       return $this->success($category, "Sub Categories");
+       $category = SubCategory::where('category_id', $category_id);
+
+       if($data["filters"]) {
+        if(!is_null($data["filters"]["search"])) {
+            $category->where('sub_category_name', "like", "%".$data["filters"]["search"]."%");
+            
+        }
+
+    }
+       return $this->success($category->orderBy('created_at', 'desc')->get(), "Sub Categories");
    }
 
 
@@ -41,6 +49,8 @@ class SubCategoryService
         $category = SubCategory::create([
             'category_id' => $data['category_id'],
             'sub_category_name' => $data['sub_category_name'],
+            'description' => $data['description'],
+            'slug' => $data['slug'],
             'status' => $data['status'],
         ])->get();
         return $this->success($category, "Category Created Successfully");
@@ -51,6 +61,8 @@ class SubCategoryService
         try {
             $category = SubCategory::where('id', $sub_category_id)->update([
                 'category_id' => $data['category_id'],
+                'description' => $data['description'],
+                'slug' => $data['slug'],
                 'sub_category_name' => $data['sub_category_name'],
                 'status' => $data['status'],
             ]);
@@ -65,7 +77,7 @@ class SubCategoryService
    public function deleteSubCategory($category_id)
    {
     try {
-        SubCategory::where('id', $category_id)->delete()->get();
+        SubCategory::where('id', $category_id)->delete();
         return $this->success([], "Category deleted Successfully");
     } catch (\Throwable $th) {
         return $this->badRequest("Category Can'\t be deleted, it has been attached to a product");

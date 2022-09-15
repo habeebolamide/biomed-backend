@@ -27,6 +27,8 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'category_name' => 'required',
+            'description' => 'required',
+            'slug' => 'required',
             'status' => 'required|in:active,inactive',
         ];
     }

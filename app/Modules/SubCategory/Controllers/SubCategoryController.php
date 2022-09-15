@@ -19,9 +19,9 @@ class SubCategoryController extends Controller
         return (new SubCategoryService)->subCategory($sub_category_id);
     }
 
-    public function showSubCategory($category_id)
+    public function showSubCategory($category_id, Request $request)
     {
-        return (new SubCategoryService)->showSubCategory($category_id);
+        return (new SubCategoryService)->showSubCategory($category_id, $request);
     }
 
     public function store(CreateSubCategoryRequest $request)

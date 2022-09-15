@@ -8,10 +8,19 @@ use App\Traits\ApiResponseMessagesTrait;
 class CategoryService 
 {
     use ApiResponseMessagesTrait;
-   public function allCategories()
+   public function allCategories($data)
    {
-        $category = Category::with('subCategory')->get();
-        return $this->success($category, "all categories");
+        $category = Category::with('subCategory');
+
+        if($data["filters"]) {
+            if(!is_null($data["filters"]["search"])) {
+                $category->where('category_name', "like", "%".$data["filters"]["search"]."%");
+                
+            }
+
+        }
+        
+        return $this->success($category->orderBy('created_at', 'desc')->get(), "all categories");
    }
 
    public function category($category_id)
@@ -29,6 +38,8 @@ class CategoryService
    {
         $category = Category::create([
             'category_name' => $data['category_name'],
+            'description' => $data['description'],
+            'slug' => $data['slug'],
             'status' => $data['status'],
         ])->get();
         return $this->success($category, "Category Created Successfully");
@@ -38,6 +49,8 @@ class CategoryService
    {
         $category = Category::where('id', $category_id)->update([
             'category_name' => $data['category_name'],
+            'description' => $data['description'],
+            'slug' => $data['slug'],
             'status' => $data['status'],
         ]);
         return $this->success($category, "Category Updated Successfully");
