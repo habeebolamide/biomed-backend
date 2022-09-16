@@ -10,7 +10,7 @@ class SubCategory extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ['category'];
+    protected $with = ['category', 'innerCategory'];
 
     public function category()
     {
