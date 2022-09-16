@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Auth\Requests\LoginUserRequest;
 use App\Modules\Auth\Requests\RegisterUserRequest;
 use App\Modules\Auth\Requests\UpdateUserRequest;
+use App\Modules\Auth\Services\AuthUserService;
 use App\Modules\Auth\Services\LoginUserService;
 use App\Modules\Auth\Services\RegisterUserService;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,11 @@ class AuthController extends Controller
     public function loginUser(LoginUserRequest $request)
     {
         return (new LoginUserService)->login($request);
+    }
+
+    public function user_type()
+    {
+        return (new AuthUserService)->auth_user_info();
     }
 
     public function updateUserProfile(UpdateUserRequest $request)

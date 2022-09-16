@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Category\Requests;
+namespace App\Modules\Product\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 
-class CreateCategoryRequest extends FormRequest
+class CreateProductDiseaseRequest extends FormRequest
 {
    
     /**
@@ -26,10 +26,7 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_name' => 'required',
-            'description' => 'required',
-            'slug' => 'required',
-            'status' => 'required|in:active,inactive',
+            "disease_name"=> "required",
         ];
     }
 

@@ -17,6 +17,8 @@ class CreateSubCategoriesTable extends Migration
             $table->id();
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->string('sub_category_name');
+            $table->string('slug')->nullable();
+            $table->string('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

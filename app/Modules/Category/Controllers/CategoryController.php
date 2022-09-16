@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return (new CategoryService)->allCategories();
+        return (new CategoryService)->allCategories($request->all());
     }
 
     public function show($category_id)

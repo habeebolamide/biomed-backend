@@ -10,9 +10,13 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ['subCategory'];
+    protected $with = ['subCategory', 'ProductDisease'];
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class);
+    }
+    public function ProductDisease()
+    {
+        return $this->belongsTo(ProductDisease::class);
     }
 }

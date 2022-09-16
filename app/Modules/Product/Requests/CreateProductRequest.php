@@ -26,11 +26,12 @@ class CreateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            "sub_category_id"=> "required",
             "product_name"=> "required",
+            "sub_category_id"=> "required",
+            "product_disease_id"=> "required",
+            "is_variant" => "required",
             "product_slug"=> "required",
             "keyword"=> "sometimes",
-            "brand"=> "sometimes",
             "model"=> "sometimes",
             "description"=> "required",
             "content"=> "required",

@@ -23,11 +23,11 @@ class ProductController extends Controller
 
     public function show($product_id)
     {
-        return (new ProductService)->createProduct($product_id);
+        return (new ProductService)->product($product_id);
     }
 
 
-    public function update(Request $request, $product_id)
+    public function update(CreateProductRequest $request, $product_id)
     {
        return (new ProductService)->updateProduct($request->validated(), $product_id);
     }

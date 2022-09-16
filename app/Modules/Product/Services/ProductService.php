@@ -18,14 +18,15 @@ class ProductService
    {
         $product = Product::create([
             "sub_category_id"=> $data["sub_category_id"],
+            "product_disease_id"=> $data["product_disease_id"],
             "product_name"=> $data["product_name"],
             "product_slug"=> $data["product_slug"],
             "keyword"=> $data["keyword"],
-            "brand"=> $data["brand"],
             "model"=> $data["model"],
             "description"=> $data["description"],
             "content"=> $data["content"],
             "manual"=> $data["manual"],
+            "is_variant"=> $data["is_variant"],
             "youtube_id"=> $data["youtube_id"],
             "measurement"=> $data["measurement"],
             'status' => $data["status"],
@@ -40,17 +41,18 @@ class ProductService
    }
 
    public function updateProduct($data, $product_id)
-   {
+   { 
         $product = Product::where('id', $product_id)->update([
             "sub_category_id"=> $data["sub_category_id"],
+            "product_disease_id"=> $data["product_disease_id"],
             "product_name"=> $data["product_name"],
             "product_slug"=> $data["product_slug"],
             "keyword"=> $data["keyword"],
-            "brand"=> $data["brand"],
             "model"=> $data["model"],
             "description"=> $data["description"],
             "content"=> $data["content"],
             "manual"=> $data["manual"],
+            "is_variant"=> $data["is_variant"],
             "youtube_id"=> $data["youtube_id"],
             "measurement"=> $data["measurement"],
             'status' => $data["status"],
