@@ -28,8 +28,8 @@ class CreateSubCategoryRequest extends FormRequest
         return [
             'sub_category_name' => 'required',
             'category_id' => 'required',
-            'description' => 'required',
-            'slug' => 'required',
+            'description' => 'sometimes',
+            'slug' => 'sometimes',
             'status' => 'required|in:active,inactive',
         ];
     }
