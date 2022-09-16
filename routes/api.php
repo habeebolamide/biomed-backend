@@ -2,6 +2,8 @@
 
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Category\Controllers\CategoryController;
+use App\Modules\Product\Controllers\ProductController;
+use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,26 +29,44 @@ Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware('auth:sanctum');
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-Route::middleware('auth:sanctum')->group(function() {
 
-    Route::prefix('category')->middleware('auth:sanctum')->group(function(){
-        Route::post('/all', [CategoryController::class, 'index']);
-        Route::post('/', [CategoryController::class, 'store']);
-        Route::get('/{category_id}', [CategoryController::class, 'show']);
-        Route::patch('/{category_id}', [CategoryController::class, 'update']);
-        Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
-    });
-    
-    Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
-        Route::get('/', [SubCategoryController::class, 'index']);
-        Route::post('/', [SubCategoryController::class, 'store']);
-        Route::get('/{sub_category_id}', [SubCategoryController::class, 'show']);
-        Route::post('/category/{category_id}', [SubCategoryController::class, 'showSubCategory']);
-        Route::patch('/{sub_category_id}', [SubCategoryController::class, 'update']);
-        Route::delete('/{sub_category_id}', [SubCategoryController::class, 'destroy']);
-    });
-    Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
-        
-    });
+Route::prefix('category')->middleware('auth:sanctum')->group(function(){
+    Route::post('/all', [CategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [CategoryController::class, 'store']);
+    Route::get('/{category_id}', [CategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    Route::patch('/{category_id}', [CategoryController::class, 'update']);
+    Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
 });
 
+Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [SubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [SubCategoryController::class, 'store']);
+    Route::get('/{sub_category_id}', [SubCategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    Route::post('/category/{category_id}', [SubCategoryController::class, 'showSubCategory']);
+    Route::patch('/{sub_category_id}', [SubCategoryController::class, 'update']);
+    Route::delete('/{sub_category_id}', [SubCategoryController::class, 'destroy']);
+});
+
+Route::prefix('disease')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [ProductDiseaseController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [ProductDiseaseController::class, 'store']);
+    Route::get('/{product_disease_id}', [ProductDiseaseController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    Route::patch('/{product_disease_id}', [ProductDiseaseController::class, 'update']);
+    Route::delete('/{product_disease_id}', [ProductDiseaseController::class, 'destroy']);
+});
+
+Route::prefix('product')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [ProductController::class, 'store']);
+    Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');    
+    Route::patch('/{product_id}', [ProductController::class, 'update']);
+    Route::delete('/{product_id}', [ProductController::class, 'destroy']);
+});
+
+// Route::prefix('picture')->middleware('auth:sanctum')->group(function(){
+//     Route::get('/', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
+//     Route::post('/', [ProductController::class, 'store']);
+//     Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');    
+//     Route::patch('/{product_id}', [ProductController::class, 'update']);
+//     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
+// });

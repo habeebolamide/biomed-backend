@@ -15,7 +15,6 @@ class CategoryService
         if($data["filters"]) {
             if(!is_null($data["filters"]["search"])) {
                 $category->where('category_name', "like", "%".$data["filters"]["search"]."%");
-                
             }
 
         }
@@ -41,7 +40,7 @@ class CategoryService
             'description' => $data['description'],
             'slug' => $data['slug'],
             'status' => $data['status'],
-        ])->get();
+        ]);
         return $this->success($category, "Category Created Successfully");
    }
 
