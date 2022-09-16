@@ -14,7 +14,7 @@ class SubCategoryService
     use ApiResponseMessagesTrait;
    public function allSubCategories()
    {
-        $category = SubCategory::with('category')->get();
+        $category = SubCategory::with(['category', 'innerCategory'])->get();
         return $this->success($category, "all sub-categories");
    }
 
