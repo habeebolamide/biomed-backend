@@ -3,6 +3,7 @@
 namespace App\Modules\SubCategory\Models;
 
 use App\Modules\Category\Models\Category;
+use App\Modules\InnerCategory\Models\InnerCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +19,7 @@ class SubCategory extends Model
     }
      public function innerCategory()
      {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(InnerCategory::class);
      }
     public function products()
     {
