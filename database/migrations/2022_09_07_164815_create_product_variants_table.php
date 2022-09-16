@@ -15,6 +15,7 @@ class CreateProductVariantsTable extends Migration
     {
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->references('id')->on('products');
             $table->string('size')->nullable();
             $table->string('material')->nullable();
             $table->string('variant')->nullable();

@@ -30,7 +30,7 @@ class CategoryService
         $category = Category::create([
             'category_name' => $data['category_name'],
             'status' => $data['status'],
-        ])->get();
+        ]);
         return $this->success($category, "Category Created Successfully");
    }
 

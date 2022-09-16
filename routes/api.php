@@ -2,6 +2,7 @@
 
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Category\Controllers\CategoryController;
+use App\Modules\Product\Controllers\ProductController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,10 @@ Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{sub_category_id}', [SubCategoryController::class, 'update']);
     Route::delete('/{sub_category_id}', [SubCategoryController::class, 'destroy']);
 });
-Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
-    
+Route::prefix('product')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [ProductController::class, 'index']);
+    Route::post('/', [ProductController::class, 'store']);
+    Route::get('/{product_id}', [ProductController::class, 'show']);    
+    Route::patch('/{product_id}', [ProductController::class, 'update']);
+    Route::delete('/{product_id}', [ProductController::class, 'destroy']);
 });
