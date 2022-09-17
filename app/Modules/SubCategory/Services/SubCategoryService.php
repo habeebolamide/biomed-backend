@@ -12,10 +12,17 @@ use Illuminate\Support\Facades\Auth;
 class SubCategoryService 
 {
     use ApiResponseMessagesTrait;
-   public function allSubCategories()
+   public function allSubCategories($data)
    {
-        $category = SubCategory::with('category')->get();
-        return $this->success($category, "all sub-categories");
+        $category = SubCategory::with('category');
+        if($data["active"]) {
+            if(!is_null($data["active"])) {
+                $category->where('status', "like", "active");
+                
+            }
+
+        }
+        return $this->success($category->orderBy('created_at', 'desc')->get(), "all sub-categories");
    }
 
    public function subCategory($sub_category_id)
@@ -34,12 +41,12 @@ class SubCategoryService
        $category = SubCategory::where('category_id', $category_id);
 
        if($data["filters"]) {
-        if(!is_null($data["filters"]["search"])) {
-            $category->where('sub_category_name', "like", "%".$data["filters"]["search"]."%");
-            
-        }
+            if(!is_null($data["filters"]["search"])) {
+                $category->where('sub_category_name', "like", "%".$data["filters"]["search"]."%");
+                
+            }
 
-    }
+        }
        return $this->success($category->orderBy('created_at', 'desc')->get(), "Sub Categories");
    }
 

@@ -39,7 +39,7 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function(){
 });
 
 Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
-    Route::get('/', [SubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/all', [SubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [SubCategoryController::class, 'store']);
     Route::get('/{sub_category_id}', [SubCategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::post('/category/{category_id}', [SubCategoryController::class, 'showSubCategory']);
