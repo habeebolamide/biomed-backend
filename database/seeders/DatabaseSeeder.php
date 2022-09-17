@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(SubCategorySeeder::class);
         $this->call(InnerCategorySeeder::class);
+        $this->call(DiseaseSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }
