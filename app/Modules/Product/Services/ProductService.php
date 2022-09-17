@@ -23,6 +23,8 @@ class ProductService
             "product_slug"=> $data["product_slug"],
             "keyword"=> $data["keyword"],
             "model"=> $data["model"],
+            "discount"=> $data["discount"],
+            "price"=> $data["price"],
             "description"=> $data["description"],
             "content"=> $data["content"],
             "manual"=> $data["manual"],

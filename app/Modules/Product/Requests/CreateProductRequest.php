@@ -34,6 +34,8 @@ class CreateProductRequest extends FormRequest
             "keyword"=> "sometimes",
             "model"=> "sometimes",
             "description"=> "required",
+            "discount"=> "required",
+            "price"=> "required",
             "content"=> "required",
             "manual"=> "sometimes",
             "youtube_id"=> "sometimes",
