@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Modules\SubCategory\Requests;
+namespace App\Modules\InnerCategory\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
-class CreateSubCategoryRequest extends FormRequest
+class CreateInnerCategoryRequest extends FormRequest
 {
-   
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,7 +13,7 @@ class CreateSubCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -26,12 +24,7 @@ class CreateSubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'sub_category_name' => 'required',
-            'category_id' => 'required',
-            'description' => 'sometimes',
-            'slug' => 'sometimes',
-            'status' => 'required|in:active,inactive',
+            //
         ];
     }
-
 }
