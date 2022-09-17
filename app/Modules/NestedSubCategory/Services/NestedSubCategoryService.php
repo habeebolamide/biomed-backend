@@ -38,11 +38,11 @@ class NestedSubCategoryService
 
    public function showSubCategory($category_id, $data)
    {
-       $category = ModelsNestedSubCategory::where('category_id', $category_id);
+       $category = ModelsNestedSubCategory::where('sub_category_id', $category_id);
 
        if($data["filters"]) {
             if(!is_null($data["filters"]["search"])) {
-                $category->where('sub_category_name', "like", "%".$data["filters"]["search"]."%");
+                $category->where('name', "like", "%".$data["filters"]["search"]."%");
                 
             }
 

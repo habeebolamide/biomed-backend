@@ -42,8 +42,8 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function(){
 Route::prefix('nested-sub-category')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [NestedSubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [NestedSubCategoryController::class, 'store']);
-    Route::get('/{sub_category_id}', [NestedSubCategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
-    Route::post('/category/{category_id}', [NestedSubCategoryController::class, 'showSubCategory']);
+    Route::get('/{nested_sub_category_id}', [NestedSubCategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    Route::post('/sub-category/{sub_category_id}', [NestedSubCategoryController::class, 'showSubCategory']);
     Route::patch('/{sub_category_id}', [NestedSubCategoryController::class, 'update']);
     Route::delete('/{sub_category_id}', [NestedSubCategoryController::class, 'destroy']);
 });

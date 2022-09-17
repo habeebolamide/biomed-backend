@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
 
-        DB::table('categories')->insert($this->seedCategories());        
+        DB::table('categories')->upsert($this->seedCategories(), ['category_name'], ['category_name']);        
     }
 
     private function seedCategories()

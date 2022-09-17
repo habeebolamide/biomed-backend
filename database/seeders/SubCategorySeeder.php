@@ -14,7 +14,9 @@ class SubCategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sub_categories')->insert($this->seedSubCategories());        
+        DB::table('sub_categories')->upsert($this->seedSubCategories(), [
+            'sub_category_name' 
+        ], ['sub_category_name']);        
 
     }
 
