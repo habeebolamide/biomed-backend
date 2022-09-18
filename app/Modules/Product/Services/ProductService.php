@@ -4,6 +4,7 @@ namespace App\Modules\Product\Services;
 
 use App\Modules\Product\Models\Product;
 use App\Traits\ApiResponseMessagesTrait;
+use Illuminate\Support\Facades\DB;
 
 class ProductService 
 {
@@ -44,44 +45,45 @@ class ProductService
 
    public function showProduct($category_id=null, $sub_category_id=null, $nested_sub_category_id=null, $disease_id=null)
    {
-        $product = Product::join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_categories')
+        $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
+                    ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
                     ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
-                    ->join('categories', 'categories.id', 'nested_sub_categories.category_id');
-        if ($category_id) {
-          $product->category_id = $category_id;
+                    ->join('categories', 'categories.id', 'sub_categories.category_id');
+        if (!is_null($category_id)) {
+          $product->where('category_id', $category_id);
         }
-        if($sub_category_id) {
-          $product->sub_category_id = $sub_category_id;
+        if(!is_null($sub_category_id)) {
+          $product->where('sub_category_id', $sub_category_id);
         }
-        if ($nested_sub_category_id) {
-          $product->nested_sub_category_id = $nested_sub_category_id;
+        if (!is_null($nested_sub_category_id)) {
+          $product->where('nested_sub_category_id', $nested_sub_category_id);
         }
-        if($disease_id) {
-          $product->disease_id = $disease_id;
+        if(!is_null($disease_id)){
+          $product->where('disease_id', $disease_id);
         }
-        $product->get();
-        return $this->success($product, "Product");
+          // return $product->toSql();
+        return $this->success($product->get(), "Product");
    }
 
    public function showProductByName($data)
    {
-     $product = Product::join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_categories')
-                    ->join('product_diseases', 'nested_sub_categories.id', 'products.nested_sub_categories')
+     $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
+                    ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
                     ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
-                    ->join('categories', 'categories.id', 'nested_sub_categories.category_id');
+                    ->join('categories', 'categories.id', 'sub_categories.category_id');
      
      if($data['search']){
-          $product->where('product_name','%LIKE%', $data['search'])
-                    ->where('product_slug', '%LIKE%', $data['search'])
-                    ->where('model', '%LIKE%', $data['search'])
-                    ->where('keyword', '%LIKE%', $data['search'])
-                    ->where('disease_name', '%LIKE%', $data['search'])
-                    ->where('sub_category_name', '%LIKE%', $data['search'])
-                    ->where('category_name', '%LIKE%', $data['search'])
-                    ->where('content', '%LIKE%', $data['search'])
-                    ;
+          $search = $data['search'];
+     // return $this->success($search, "Product");         
+
+               $product->where('product_name','like', '%'.$search.'%')
+                    ->orWhere('product_slug', 'like', '%'.$search.'%')
+                    ->orWhere('disease_name', 'like', '%'.$search.'%')
+                    ->orWhere('sub_category_name', 'like', '%'.$search.'%')
+                    ->orWhere('category_name', 'like', '%'.$search.'%')
+                    ->orWhere('content', 'like', '%'.$search.'%');
      }
-     return $this->success($product, "Product");         
+     return $this->success($product->get(), "Product");         
    }
    public function updateProduct($data, $product_id)
    { 
