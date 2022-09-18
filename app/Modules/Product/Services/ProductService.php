@@ -39,7 +39,7 @@ class ProductService
 
    public function product($product_id)
    {
-        $product = Product::find($product_id);
+        $product = Product::with('nestedSubCategory.sub_category')->find($product_id);
         return $this->success($product, "Product");
    }
 
