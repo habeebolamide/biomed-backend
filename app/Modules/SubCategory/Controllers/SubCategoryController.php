@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return (new SubCategoryService)->allSubCategories();
+        return (new SubCategoryService)->allSubCategories($request);
     }
 
     public function show($sub_category_id)

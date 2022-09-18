@@ -2,6 +2,7 @@
 
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Category\Controllers\CategoryController;
+use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
@@ -38,8 +39,17 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function(){
     Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
 });
 
+Route::prefix('nested-sub-category')->middleware('auth:sanctum')->group(function(){
+    Route::post('/all', [NestedSubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [NestedSubCategoryController::class, 'store']);
+    Route::get('/{nested_sub_category_id}', [NestedSubCategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    Route::post('/sub-category/{sub_category_id}', [NestedSubCategoryController::class, 'showSubCategory']);
+    Route::patch('/{sub_category_id}', [NestedSubCategoryController::class, 'update']);
+    Route::delete('/{sub_category_id}', [NestedSubCategoryController::class, 'destroy']);
+});
+
 Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
-    Route::get('/', [SubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/all', [SubCategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [SubCategoryController::class, 'store']);
     Route::get('/{sub_category_id}', [SubCategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::post('/category/{category_id}', [SubCategoryController::class, 'showSubCategory']);

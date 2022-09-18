@@ -17,12 +17,14 @@ class ProductService
    public function createProduct($data)
    {
         $product = Product::create([
-            "sub_category_id"=> $data["sub_category_id"],
+            "nested_sub_category_id"=> $data["nested_sub_category_id"],
             "product_disease_id"=> $data["product_disease_id"],
             "product_name"=> $data["product_name"],
             "product_slug"=> $data["product_slug"],
             "keyword"=> $data["keyword"],
             "model"=> $data["model"],
+            "discount"=> $data["discount"],
+            "price"=> $data["price"],
             "description"=> $data["description"],
             "content"=> $data["content"],
             "manual"=> $data["manual"],

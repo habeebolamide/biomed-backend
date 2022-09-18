@@ -27,13 +27,15 @@ class CreateProductRequest extends FormRequest
     {
         return [
             "product_name"=> "required",
-            "sub_category_id"=> "required",
+            "nested_sub_category_id"=> "required",
             "product_disease_id"=> "required",
             "is_variant" => "required",
             "product_slug"=> "required",
             "keyword"=> "sometimes",
             "model"=> "sometimes",
             "description"=> "required",
+            "discount"=> "required",
+            "price"=> "required",
             "content"=> "required",
             "manual"=> "sometimes",
             "youtube_id"=> "sometimes",
