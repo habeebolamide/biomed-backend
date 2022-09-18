@@ -42,17 +42,19 @@ class ProductService
         return $this->success($product, "Product");
    }
 
-   public function showProduct($category_id=null, $sub_category_id=null, $inner_category_id=null, $disease_id=null)
+   public function showProduct($category_id=null, $sub_category_id=null, $nested_sub_category_id=null, $disease_id=null)
    {
-        $product = Product::join('inner_categories', 'inner_categories.id', 'products.inner_category_id')->query();
+        $product = Product::join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_categories')
+                    ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
+                    ->join('categories', 'categories.id', 'nested_sub_categories.category_id');
         if ($category_id) {
           $product->category_id = $category_id;
         }
         if($sub_category_id) {
           $product->sub_category_id = $sub_category_id;
         }
-        if ($inner_category_id) {
-          $product->inner_category_id = $inner_category_id;
+        if ($nested_sub_category_id) {
+          $product->nested_sub_category_id = $nested_sub_category_id;
         }
         if($disease_id) {
           $product->disease_id = $disease_id;
@@ -61,6 +63,26 @@ class ProductService
         return $this->success($product, "Product");
    }
 
+   public function showProductByName($data)
+   {
+     $product = Product::join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_categories')
+                    ->join('product_diseases', 'nested_sub_categories.id', 'products.nested_sub_categories')
+                    ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
+                    ->join('categories', 'categories.id', 'nested_sub_categories.category_id');
+     
+     if($data['search']){
+          $product->where('product_name','%LIKE%', $data['search'])
+                    ->where('product_slug', '%LIKE%', $data['search'])
+                    ->where('model', '%LIKE%', $data['search'])
+                    ->where('keyword', '%LIKE%', $data['search'])
+                    ->where('disease_name', '%LIKE%', $data['search'])
+                    ->where('sub_category_name', '%LIKE%', $data['search'])
+                    ->where('category_name', '%LIKE%', $data['search'])
+                    ->where('content', '%LIKE%', $data['search'])
+                    ;
+     }
+     return $this->success($product, "Product");         
+   }
    public function updateProduct($data, $product_id)
    { 
         $product = Product::where('id', $product_id)->update([
