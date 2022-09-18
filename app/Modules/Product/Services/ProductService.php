@@ -83,7 +83,7 @@ class ProductService
                     ->orWhere('category_name', 'like', '%'.$search.'%')
                     ->orWhere('content', 'like', '%'.$search.'%');
      }
-     return $this->success($product->get(), "Product");         
+     return $this->success($product->paginate(30), "Product");         
    }
    public function updateProduct($data, $product_id)
    { 
