@@ -40,6 +40,25 @@ class ProductService
         return $this->success($product, "Product");
    }
 
+   public function showProduct($category_id=null, $sub_category_id=null, $inner_category_id=null, $disease_id=null)
+   {
+        $product = Product::join('inner_categories', 'inner_categories.id', 'products.inner_category_id')->query();
+        if ($category_id) {
+          $product->category_id = $category_id;
+        }
+        if($sub_category_id) {
+          $product->sub_category_id = $sub_category_id;
+        }
+        if ($inner_category_id) {
+          $product->inner_category_id = $inner_category_id;
+        }
+        if($disease_id) {
+          $product->disease_id = $disease_id;
+        }
+        $product->get();
+        return $this->success($product, "Product");
+   }
+
    public function updateProduct($data, $product_id)
    { 
         $product = Product::where('id', $product_id)->update([
