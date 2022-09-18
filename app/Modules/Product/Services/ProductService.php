@@ -62,7 +62,7 @@ class ProductService
           $product->where('disease_id', $disease_id);
         }
           // return $product->toSql();
-        return $this->success($product->get(), "Product");
+        return $this->success($product->paginate(30), "Product");
    }
 
    public function showProductByName($data)
