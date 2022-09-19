@@ -34,7 +34,7 @@ class WishListService
             'prduct_id' => $data['prduct_id'],
             'quantity' => $data['quantity']??1,
         ]);
-        return $this->success($wishList, "all users wishList");
+        return $this->success($wishList, "Product Added");
     }
 
     public function updateWishList($data, $wishList_id){
