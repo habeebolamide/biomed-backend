@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class ProductDiseaseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return (new ProductDiseaseService)->allProductDiseases();
+        return (new ProductDiseaseService)->allProductDiseases($request);
     }
 
     public function show($product_disease_id)

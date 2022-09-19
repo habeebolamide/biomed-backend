@@ -58,7 +58,7 @@ Route::prefix('sub-category')->middleware('auth:sanctum')->group(function(){
 });
 
 Route::prefix('disease')->middleware('auth:sanctum')->group(function(){
-    Route::get('/', [ProductDiseaseController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [ProductDiseaseController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [ProductDiseaseController::class, 'store']);
     Route::get('/{product_disease_id}', [ProductDiseaseController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::patch('/{product_disease_id}', [ProductDiseaseController::class, 'update']);
@@ -75,10 +75,10 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
 });
 
-// Route::prefix('picture')->middleware('auth:sanctum')->group(function(){
-//     Route::get('/', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
-//     Route::post('/', [ProductController::class, 'store']);
-//     Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');    
-//     Route::patch('/{product_id}', [ProductController::class, 'update']);
-//     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
-// });
+Route::prefix('picture')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [ProductController::class, 'store']);
+    Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');    
+    Route::patch('/{product_id}', [ProductController::class, 'update']);
+    Route::delete('/{product_id}', [ProductController::class, 'destroy']);
+});
