@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return (new ProductService)->allProducts();
+        return (new ProductService)->allProducts($request);
     }
 
     public function store(CreateProductRequest $request)

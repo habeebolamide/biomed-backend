@@ -12,6 +12,7 @@ class NestedSubCategory extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $appends = ['full_name'];
    //  protected $with = ['products', 'sub_category'];
     
     public function sub_category()
@@ -21,5 +22,15 @@ class NestedSubCategory extends Model
     public function products()
     {
        return $this->hasMany(Product::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+      $name= SubCategory::where('id', $this->sub_category_id)->first()->sub_category_name ?? null;
+      
+
+      return $this->name ." ($name)";
+         
+      return null;
     }
 }

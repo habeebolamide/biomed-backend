@@ -9,10 +9,33 @@ use Illuminate\Support\Facades\DB;
 class ProductService 
 {
     use ApiResponseMessagesTrait;
-   public function allProducts()
+   public function allProducts($data)
    {
-        $category = Product::all();
-        return $this->success($category, "all products");
+     $products = Product::select('*');
+     if($data["active"]) {
+          if(!is_null($data["active"])) {
+               $products->where('status', "like", "active");
+               
+          }
+     
+
+     }
+     if(!is_null($data["name"])) {
+          $products->where('product_name', "like", "%".$data["name"]."%");
+          
+     }
+
+     if(!is_null($data["status"])) {
+          
+          $products->where('status', $data["status"]);
+          
+     }
+
+     if(!is_null($data["nested_sub_category_id"])) {
+          $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
+          
+     }
+     return $this->success($products->paginate(30), "all products");
    }
 
    public function createProduct($data)
@@ -28,7 +51,7 @@ class ProductService
             "price"=> $data["price"],
             "description"=> $data["description"],
             "content"=> $data["content"],
-            "manual"=> $data["manual"],
+            "manual"=> $data["manual"] ?? null,
             "is_variant"=> $data["is_variant"],
             "youtube_id"=> $data["youtube_id"],
             "measurement"=> $data["measurement"],
@@ -85,7 +108,7 @@ class ProductService
                     ->orWhere('category_name', 'like', '%'.$search.'%')
                     ->orWhere('content', 'like', '%'.$search.'%');
      }
-     return $this->success($product->paginate(30), "Product");         
+     return $this->success($product->paginate(10), "Product");         
    }
    public function updateProduct($data, $product_id)
    { 

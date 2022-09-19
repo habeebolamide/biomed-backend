@@ -9,10 +9,18 @@ use App\Traits\ApiResponseMessagesTrait;
 class ProductDiseaseService 
 {
     use ApiResponseMessagesTrait;
-   public function allProductDiseases()
+   public function allProductDiseases($data)
    {
-        $category = ProductDisease::all();
-        return $this->success($category, "all products diseases");
+     $category = ProductDisease::all();
+
+     if($data["active"]) {
+          if(!is_null($data["active"])) {
+              $category->where('status', "like", "active");
+              
+          }
+
+     }
+     return $this->success($category, "all products diseases");
    }
 
    public function createDisease($data)
