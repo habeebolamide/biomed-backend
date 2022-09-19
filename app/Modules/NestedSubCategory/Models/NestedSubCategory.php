@@ -12,7 +12,7 @@ class NestedSubCategory extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ['products', 'sub_category'];
+   //  protected $with = ['products', 'sub_category'];
     
     public function sub_category()
      {

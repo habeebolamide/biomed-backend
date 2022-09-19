@@ -5,6 +5,7 @@ namespace App\Modules\Product\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Modules\Product\Requests\CreateProductRequest;
+use App\Modules\Product\Requests\SearchProductRequest;
 use App\Modules\Product\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,16 @@ class ProductController extends Controller
     public function show($product_id)
     {
         return (new ProductService)->product($product_id);
+    }
+
+    public function showProduct($category_id=null, $sub_category_id=null, $inner_category_id=null, $disease_id=null)
+    {
+        return (new ProductService)->showProduct($category_id, $sub_category_id, $inner_category_id);
+    }
+
+    public function showProductByName(SearchProductRequest $request)
+    {
+        return (new ProductService)->showProductByName($request->validated());
     }
 
 
