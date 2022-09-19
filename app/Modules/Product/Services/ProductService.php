@@ -48,7 +48,8 @@ class ProductService
         $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
                     ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
                     ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
-                    ->join('categories', 'categories.id', 'sub_categories.category_id');
+                    ->join('categories', 'categories.id', 'sub_categories.category_id')
+                    ->select('*', 'products.id');
         if (!is_null($category_id)) {
           $product->where('category_id', $category_id);
         }
@@ -70,7 +71,8 @@ class ProductService
      $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
                     ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
                     ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
-                    ->join('categories', 'categories.id', 'sub_categories.category_id');
+                    ->join('categories', 'categories.id', 'sub_categories.category_id')
+                    ->select('*', 'products.id');
      
      if($data['search']){
           $search = $data['search'];
