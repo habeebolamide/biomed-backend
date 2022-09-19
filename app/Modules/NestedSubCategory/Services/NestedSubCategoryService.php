@@ -17,7 +17,7 @@ class NestedSubCategoryService
         $category = ModelsNestedSubCategory::with('sub_category');
         if($data["active"]) {
             if(!is_null($data["active"])) {
-                $category->where('status', "like", "active");
+                $category->where('status', $data["active"]);
                 
             }
 

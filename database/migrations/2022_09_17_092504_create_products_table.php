@@ -24,8 +24,11 @@ class CreateProductsTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('content')->nullable();
             $table->longText('manual')->nullable();
+            $table->string('keyword')->nullable();
+            $table->string('model')->nullable();
             $table->string('youtube_id')->nullable();
             $table->string('measurement')->nullable();
+            $table->string('discount')->nullable();
             $table->enum('is_variant', ['yes', 'no'])->default('no');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
