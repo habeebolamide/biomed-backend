@@ -11,7 +11,7 @@ class ProductService
     use ApiResponseMessagesTrait;
    public function allProducts()
    {
-        $category = Product::all();
+        $category = Product::paginate(30);
         return $this->success($category, "all products");
    }
 
