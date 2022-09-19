@@ -30,7 +30,7 @@ class WishListService
     {
         $WishList = WishList::create([
             'user_id' => Auth::user()->id,
-            'reference_no' => $this->generateReferenceNumber(20, 'WishList'),
+            'reference_no' => rand(0, 20),
             'prduct_id' => $data['prduct_id'],
             'quantity' => $data['quantity']??1,
         ]);
