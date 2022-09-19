@@ -91,5 +91,38 @@ trait ApiResponseMessagesTrait {
         return response()->json(['message' => $message], 403);
     }
 
+    public function getMAcAddressExec()
+    {
+            // PHP code to get the MAC address of Server
+            $MAC = exec('getmac');
+            
+            // Storing 'getmac' value in $MAC
+            $MAC = strtok($MAC, ' ');
+            
+            // Updating $MAC value using strtok function, 
+            // strtok is used to split the string into tokens
+            // split character of strtok is defined as a space
+            // because getmac returns transport name after
+            // MAC address   
+            // echo "MAC address of Server is: $MAC";
+            return $MAC;
+    }
+
+    public function generateReferenceNumber($maxRegenerateCount, $model){
+        $base58 = new StephenHill\Base58();
+        $newCode = $base58->encode(random_bytes(32));
+    
+        $existingKey = $model::where('reference_no', $newCode)->first();
+    
+        if ($existingKey != null) {
+            $maxRegenerateCount -= 1;
+            if ($maxRegenerateCount >= 0) {
+                return $this->generateReferenceNumber($maxRegenerateCount, $model);
+            }
+            return null;
+        }
+        return $newCode;
+    }
+
 
 }

@@ -6,6 +6,7 @@ use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
+use App\Modules\WishList\Controllers\WishListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -75,10 +76,10 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
 });
 
-// Route::prefix('picture')->middleware('auth:sanctum')->group(function(){
-//     Route::get('/', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
-//     Route::post('/', [ProductController::class, 'store']);
-//     Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');    
-//     Route::patch('/{product_id}', [ProductController::class, 'update']);
-//     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
-// });
+Route::prefix('wish-list')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [WishListController::class, 'index']);
+    Route::get('/{wish_list_id}', [WishListController::class, 'show']);
+    Route::patch('/{wish_list_id}', [WishListController::class, 'update']);
+    Route::get('/remove/{wish_list_id}', [WishListController::class, 'remove']);
+    Route::post('/', [WishListController::class, 'store']);
+});
