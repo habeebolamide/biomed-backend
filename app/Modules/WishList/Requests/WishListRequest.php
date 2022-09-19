@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Wishlist\Requests;
+namespace App\Modules\WishList\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
