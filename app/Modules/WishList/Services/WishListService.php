@@ -16,47 +16,51 @@ class WishListService
    
     public function getWishList()
     {
-       $wishList = WishList::where('user_id', '=', Auth::user()->id)->get();
-       return $this->success($wishList, "all users wishList");
+       $WishList = WishList::where('user_id', '=', Auth::user()->id)
+       ->join('products','wish_lists.product_id','products.id')
+       ->select('*','wish_lists.id as wid')
+       ->get();
+       return $this->success($WishList, "all users WishList");
     }
 
-    public function removeWishList($wishList_id)
+    public function removeWishList($WishList_id)
     {
-        $wishList = WishList::where('is', '=', $wishList_id)->delete();
-        return $this->success($wishList, "all users wishList");
+        $WishList = WishList::where('is', '=', $WishList_id)->delete();
+        return $this->success($WishList, "all users WishList");
     }
 
     public function addWishList($data)
     {
-        $wishList = WishList::create([
+        $WishList = WishList::create([
+            'user_id' => Auth::user()->id,
+            'reference_no' => rand(0, 20),
+            'product_id' => $data['product_id'],
+            'quantity' => $data['quantity']??1,
+        ]);
+        return $this->success($WishList, "Product Added");
+    }
+
+    public function updateWishList($data, $WishList_id){
+        
+        $WishList = WishList::where('id', $WishList_id)->update([
             'user_id' => Auth::user()->id,
             'reference_no' => $this->generateReferenceNumber(20, 'WishList'),
-            'prduct_id' => $data['prduct_id'],
+            'product_id' => $data['product_id'],
             'quantity' => $data['quantity']??1,
         ]);
-        return $this->success($wishList, "all users wishList");
+        return $this->success($WishList, "all users WishList  d supdate");
     }
 
-    public function updateWishList($data, $wishList_id){
-
-        $wishList = WishList::where('id', $wishList_id)->update([
-            'user_id' => Auth::user()->id,
-            'prduct_id' => $data['prduct_id'],
-            'quantity' => $data['quantity']??1,
-        ]);
-        return $this->success($wishList, "all users wishList  d supdate");
-    }
-
-    public function getWishListById($wishList_id)
+    public function getWishListById($WishList_id)
     {
-        $wishList = WishList::where('id', '=', $wishList_id)->get();
-        return $this->success($wishList, "user's wishList");
+        $WishList = WishList::where('id', '=', $WishList_id)->get();
+        return $this->success($WishList, "user's WishList");
     }
 
-    public function removeWishListById($wishList_id)
+    public function removeWishListById($WishList_id)
     {
-        $wishList = WishList::where('id', '=', $wishList_id)->remove();
-        return $this->success([], "user's wishList reomved successfully");
+        $WishList = WishList::where('id', '=', $WishList_id)->delete();
+        return $this->success([], "Product reomved successfully");
     }
 
 }

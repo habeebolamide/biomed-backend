@@ -3,7 +3,7 @@
 namespace App\Modules\WishList\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Wishlist\Requests\WishListRequest;
+use App\Modules\WishList\Requests\WishListRequest;
 use App\Modules\WishList\Services\WishListService;
 use Illuminate\Http\Request;
 

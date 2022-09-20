@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Wishlist\Requests;
+namespace App\Modules\WishList\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,10 +26,10 @@ class WishListRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'product_id' => 'required',
-            'quantity' => 'sometimes',
-            'status' => 'required|in:active,inactive',
+            // 'quantity' => 'sometimes',
+            // 'status' => 'required|in:active,inactive',
         ];
     }
 
