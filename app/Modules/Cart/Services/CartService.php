@@ -4,7 +4,7 @@ namespace App\Modules\Cart\Services;
 
 use App\Modules\Auth\Models\User;
 use App\Modules\Cart\Models\Cart;
-use App\Modules\Models\Product\ProductQuantity;
+use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
 
