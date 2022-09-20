@@ -55,7 +55,6 @@ class UserAddressServices
             "state" => $data["state"],
             "city" => $data["city"],
             "address" => $data["address"],
-            "address" => $data["address"],
         ]);
         return $this->success([], "User Address Added successfully");
    }
