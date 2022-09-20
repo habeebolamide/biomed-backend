@@ -4,7 +4,7 @@ namespace App\Modules\Cart\Services;
 
 use App\Modules\Auth\Models\User;
 use App\Modules\Cart\Models\Cart;
-use App\Modules\Models\Product\ProductQuantity;
+use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,21 +15,21 @@ class CartService
     public function getCarts()
     {
        $cart = Cart::where('user_id', '=', Auth::user()->id)
+       ->with(['product'])
                 ->orWhere('mac_address', $this->getMAcAddressExec())->get();
        return $this->success($cart, "all users Carts");
     }
 
     public function addToCart($data)
     {
-        $prodQuantity = ProductQuantity::where('product_id', $data['prduct_id'])->first()->quantity;
+        $prodQuantity = ProductQuantity::where('product_id', $data['product_id'])->first()->quantity;
         if($prodQuantity < 1){
             return $this->badRequest("Product Out of Stock");
         }
         $cart = Cart::create([  
             'user_id' => Auth::user()->id, 
             'mac_address' => $this->getMAcAddressExec(),
-            'reference_no' => $this->generateReferenceNumber(20, 'Cart'),
-            'prduct_id' => $data['prduct_id'],
+            'product_id' => $data['product_id'],
             'quantity' => $data['quantity']??1,
         ]);
         
@@ -68,25 +68,30 @@ class CartService
     }
 
 
-    public function increment($cart_id)
+    public function increment($data, $cart_id)
     {
         $cart = Cart::where('id', $cart_id)->first();
         $quantity = ProductQuantity::where('product_id', $cart->product_id)->first()->quantity;
         if($quantity > 1){
-            $cart->quantity = $cart->quantity + 1;
-            $cart->save();
-            return $this->success($cart, "user cart");
+            if ($data['action'] == 'in') {
+                $cart->quantity = $cart->quantity + 1;
+                $cart->save();
+                $carts = Cart::where('user_id', '=', Auth::user()->id)
+                ->with(['product'])
+                ->orWhere('mac_address', $this->getMAcAddressExec())->get();
+                return $this->success($carts, "Cart Updated");
+            } else {
+                $cart->quantity = $cart->quantity - 1;
+                $cart->save();
+                $carts = Cart::where('user_id', '=', Auth::user()->id)
+                ->with(['product'])
+                ->orWhere('mac_address', $this->getMAcAddressExec())->get();
+                return $this->success($carts, "Cart Updated");
+            }
         }
         return $this->badRequest("Product Out of Stock");
     }
 
-    public function decrement($cart_id)
-    {
-        $cart = Cart::where('id', $cart_id)->first();
-        $cart->quantity = $cart->quantity - 1;
-        $cart->save();
-        return $this->success($cart, "user cart");
-    }
 
  
 }
