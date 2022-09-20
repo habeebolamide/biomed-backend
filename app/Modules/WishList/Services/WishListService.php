@@ -16,7 +16,7 @@ class WishListService
    
     public function getWishList()
     {
-       $WishList = WishList::where('user_id', '=', Auth::user()->id)->get();
+       $WishList = WishList::where('user_id', '=', Auth::user()->id)->with(['products'])->get();
        return $this->success($WishList, "all users WishList");
     }
 
