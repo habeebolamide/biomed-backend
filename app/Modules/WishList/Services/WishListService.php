@@ -58,8 +58,8 @@ class WishListService
 
     public function removeWishListById($WishList_id)
     {
-        $WishList = WishList::where('id', '=', $WishList_id)->remove();
-        return $this->success([], "user's WishList reomved successfully");
+        $WishList = WishList::where('id', '=', $WishList_id)->delete();
+        return $this->success([], "Product reomved successfully");
     }
 
 }
