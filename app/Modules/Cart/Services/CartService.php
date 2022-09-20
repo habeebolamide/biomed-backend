@@ -28,8 +28,7 @@ class CartService
         $cart = Cart::create([  
             'user_id' => Auth::user()->id, 
             'mac_address' => $this->getMAcAddressExec(),
-            'reference_no' => $this->generateReferenceNumber(20, 'Cart'),
-            'prduct_id' => $data['prduct_id'],
+            'product_id' => $data['product_id'],
             'quantity' => $data['quantity']??1,
         ]);
         
