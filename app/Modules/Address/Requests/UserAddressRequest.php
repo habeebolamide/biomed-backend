@@ -24,7 +24,14 @@ class UserAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => "required",
+            "email" => "required",
+            "phone" => "required",
+            "country" => "required",
+            "state" => "required",
+            "city" => "required",
+            "address" => "required",
+            "address" => "required",
         ];
     }
 }

@@ -12,9 +12,6 @@ class AuthUserService
     use ApiResponseMessagesTrait;
    public function auth_user_info()
    {
-       
-
-
         return $this->success( auth()->user(), 'Successs');
 
 
