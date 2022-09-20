@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Auth\Controllers\AuthController;
+use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Product\Controllers\ProductController;
@@ -82,4 +83,15 @@ Route::prefix('wish-list')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{wish_list_id}', [WishListController::class, 'update']);
     Route::get('/remove/{wish_list_id}', [WishListController::class, 'remove']);
     Route::post('/', [WishListController::class, 'store']);
+});
+
+Route::prefix('cart')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [CartController::class, 'getCarts']);
+    Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
+    Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
+    Route::patch('/{cart_id}', [CartController::class, 'incrementQuantity']);
+    Route::patch('/{cart_id}', [CartController::class, 'decrementQuantity']);
+    Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
+    Route::post('/', [CartController::class, 'addToCart']);
+    Route::post('/clear-cart', [CartController::class, 'clearCart']);
 });

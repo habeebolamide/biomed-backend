@@ -38,10 +38,9 @@ class WishListService
     }
 
     public function updateWishList($data, $wishList_id){
-        
+
         $wishList = WishList::where('id', $wishList_id)->update([
             'user_id' => Auth::user()->id,
-            'reference_no' => $this->generateReferenceNumber(20, 'WishList'),
             'prduct_id' => $data['prduct_id'],
             'quantity' => $data['quantity']??1,
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Product\Services;
 
+use App\Modules\Models\Product\ProductQuantity;
 use App\Modules\Product\Models\Product;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,10 @@ class ProductService
             "measurement"=> $data["measurement"],
             'status' => $data["status"],
         ]);
+        $prod = ProductQuantity::updateOrCreate([
+               'product_id' => $product->id,
+               'quantity' => 50
+               ]);
         return $this->success($product, "Product Created Successfully");
    }
 
