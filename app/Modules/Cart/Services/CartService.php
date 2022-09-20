@@ -21,7 +21,7 @@ class CartService
 
     public function addToCart($data)
     {
-        $prodQuantity = ProductQuantity::where('product_id', $data['prduct_id'])->first()->quantity;
+        $prodQuantity = ProductQuantity::where('product_id', $data['product_id'])->first()->quantity;
         if($prodQuantity < 1){
             return $this->badRequest("Product Out of Stock");
         }
