@@ -3,6 +3,7 @@
 namespace App\Modules\Cart\Models;
 
 use App\Modules\Auth\Models\User;
+use App\Modules\Product\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
