@@ -68,25 +68,24 @@ class CartService
     }
 
 
-    public function increment($cart_id)
+    public function increment($data, $cart_id)
     {
         $cart = Cart::where('id', $cart_id)->first();
         $quantity = ProductQuantity::where('product_id', $cart->product_id)->first()->quantity;
         if($quantity > 1){
-            $cart->quantity = $cart->quantity + 1;
-            $cart->save();
-            return $this->success($cart, "user cart");
+            if ($data['action'] == 'in') {
+                $cart->quantity = $cart->quantity + 1;
+                $cart->save();
+                return $this->success($cart, "Cart Updated");
+            } else {
+                $cart->quantity = $cart->quantity - 1;
+                $cart->save();
+                return $this->success($cart, "Cart Updated");
+            }
         }
         return $this->badRequest("Product Out of Stock");
     }
 
-    public function decrement($cart_id)
-    {
-        $cart = Cart::where('id', $cart_id)->first();
-        $cart->quantity = $cart->quantity - 1;
-        $cart->save();
-        return $this->success($cart, "user cart");
-    }
 
  
 }

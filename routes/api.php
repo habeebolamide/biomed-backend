@@ -90,8 +90,7 @@ Route::prefix('cart')->middleware('auth:sanctum')->group(function(){
     Route::get('/', [CartController::class, 'getCarts']);
     Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
     Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
-    Route::patch('/increment/{cart_id}', [CartController::class, 'incrementQuantity']);
-    Route::patch('/decrement/{cart_id}', [CartController::class, 'decrementQuantity']);
+    Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
     Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
     Route::post('/', [CartController::class, 'addToCart']);
     Route::post('/clear-cart', [CartController::class, 'clearCart']);
