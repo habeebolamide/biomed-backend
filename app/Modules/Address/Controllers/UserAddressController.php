@@ -36,7 +36,7 @@ class UserAddressController extends Controller
     public function addUserAddress(UserAddressRequest $request)
     {
         # this will add single address information of a user
-        return (new UserAddressServices)->addSingleAddress();
+        return (new UserAddressServices)->addSingleAddress($request->validated());
     }
 
     public function defaultAddress($user_address_id)
