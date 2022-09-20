@@ -76,11 +76,17 @@ class CartService
             if ($data['action'] == 'in') {
                 $cart->quantity = $cart->quantity + 1;
                 $cart->save();
-                return $this->success($cart, "Cart Updated");
+                $carts = Cart::where('user_id', '=', Auth::user()->id)
+                ->with(['product'])
+                ->orWhere('mac_address', $this->getMAcAddressExec())->get();
+                return $this->success($carts, "Cart Updated");
             } else {
                 $cart->quantity = $cart->quantity - 1;
                 $cart->save();
-                return $this->success($cart, "Cart Updated");
+                $carts = Cart::where('user_id', '=', Auth::user()->id)
+                ->with(['product'])
+                ->orWhere('mac_address', $this->getMAcAddressExec())->get();
+                return $this->success($carts, "Cart Updated");
             }
         }
         return $this->badRequest("Product Out of Stock");
