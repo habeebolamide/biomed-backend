@@ -40,11 +40,8 @@ class CartController extends Controller
         return (new CartService())->clearCart();
     }
 
-    public function incrementQuantity($cart_id){
-        return (new CartService())->increment($cart_id);
+    public function incrementQuantity($request, $cart_id){
+        return (new CartService())->increment($request, $cart_id);
     }
 
-    public function decrementQuantity($cart_id){
-        return (new CartService())->decrement($cart_id);
-    }
 }
