@@ -51,7 +51,7 @@ class CartService
     public function removeCart($cart_id)
     {
         $cart = Cart::where('id', '=', $cart_id)->delete();
-        return $this->success($cart, "all users Carts Removed Successfully");
+        return $this->success($cart, "Product Removed");
     }
 
     public function clearCart()
