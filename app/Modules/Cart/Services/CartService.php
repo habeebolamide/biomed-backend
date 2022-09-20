@@ -15,6 +15,7 @@ class CartService
     public function getCarts()
     {
        $cart = Cart::where('user_id', '=', Auth::user()->id)
+       ->with(['product'])
                 ->orWhere('mac_address', $this->getMAcAddressExec())->get();
        return $this->success($cart, "all users Carts");
     }
