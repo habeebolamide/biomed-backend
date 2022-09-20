@@ -31,7 +31,7 @@ class WishListService
         $WishList = WishList::create([
             'user_id' => Auth::user()->id,
             'reference_no' => rand(0, 20),
-            'prduct_id' => $data['prduct_id'],
+            'product_id' => $data['prduct_id'],
             'quantity' => $data['quantity']??1,
         ]);
         return $this->success($WishList, "Product Added");
