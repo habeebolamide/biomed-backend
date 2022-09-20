@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Address\Controllers\UserAddressController;
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
@@ -89,9 +90,17 @@ Route::prefix('cart')->middleware('auth:sanctum')->group(function(){
     Route::get('/', [CartController::class, 'getCarts']);
     Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
     Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
-    Route::patch('/{cart_id}', [CartController::class, 'incrementQuantity']);
-    Route::patch('/{cart_id}', [CartController::class, 'decrementQuantity']);
+    Route::patch('/increment/{cart_id}', [CartController::class, 'incrementQuantity']);
+    Route::patch('/decrement/{cart_id}', [CartController::class, 'decrementQuantity']);
     Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
     Route::post('/', [CartController::class, 'addToCart']);
     Route::post('/clear-cart', [CartController::class, 'clearCart']);
+});
+
+Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
+    Route::get('/', [UserAddressController::class, 'getUserAddress']);
+    Route::get('/{user_address_id}', [UserAddressController::class, 'getSingleUserAddress']);
+    Route::patch('/{user_address_id}', [UserAddressController::class, 'updateUserAddress']);
+    Route::get('/remove/{user_address_id}', [UserAddressController::class, 'removeUserAddress']);
+    Route::post('/', [UserAddressController::class, 'addUserAddress']);
 });
