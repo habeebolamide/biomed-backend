@@ -4,6 +4,7 @@ namespace App\Modules\Product\Services;
 
 use App\Modules\Models\Product\ProductQuantity;
 use App\Modules\Product\Models\Product;
+use App\Modules\Product\Models\ProductQuantity as ModelsProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -58,9 +59,9 @@ class ProductService
             "measurement"=> $data["measurement"],
             'status' => $data["status"],
         ]);
-        $prod = ProductQuantity::updateOrCreate([
+        $prod = ModelsProductQuantity::updateOrCreate([
                'product_id' => $product->id,
-               'quantity' => 50
+               'quantity' => $data["quantity"]
                ]);
         return $this->success($product, "Product Created Successfully");
    }
@@ -118,20 +119,28 @@ class ProductService
    public function updateProduct($data, $product_id)
    { 
         $product = Product::where('id', $product_id)->update([
-            "sub_category_id"=> $data["sub_category_id"],
-            "product_disease_id"=> $data["product_disease_id"],
-            "product_name"=> $data["product_name"],
-            "product_slug"=> $data["product_slug"],
-            "keyword"=> $data["keyword"],
-            "model"=> $data["model"],
-            "description"=> $data["description"],
-            "content"=> $data["content"],
-            "manual"=> $data["manual"],
-            "is_variant"=> $data["is_variant"],
-            "youtube_id"=> $data["youtube_id"],
-            "measurement"=> $data["measurement"],
-            'status' => $data["status"],
+          "nested_sub_category_id"=> $data["nested_sub_category_id"],
+          "product_disease_id"=> $data["product_disease_id"],
+          "product_name"=> $data["product_name"],
+          "product_slug"=> $data["product_slug"],
+          "keyword"=> $data["keyword"],
+          "model"=> $data["model"],
+          "discount"=> $data["discount"],
+          "price"=> $data["price"],
+          "description"=> $data["description"],
+          "content"=> $data["content"],
+          "manual"=> $data["manual"] ?? null,
+          "is_variant"=> $data["is_variant"],
+          "youtube_id"=> $data["youtube_id"],
+          "measurement"=> $data["measurement"],
+          'status' => $data["status"],
         ]);
+
+          $prod = ModelsProductQuantity::where([
+               'product_id' => $product_id
+          ])->update([
+               'quantity' => $data["quantity"]
+          ]);
         return $this->success($product, "Product Updated Successfully");
    }
 

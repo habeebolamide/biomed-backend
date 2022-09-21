@@ -38,6 +38,7 @@ class CreateProductRequest extends FormRequest
             "price"=> "required",
             "content"=> "required",
             "manual"=> "sometimes",
+            "quantity"=>"required",
             "youtube_id"=> "sometimes",
             "measurement"=> "sometimes",
             'status' => 'required|in:active,inactive',
