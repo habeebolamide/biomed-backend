@@ -33,15 +33,14 @@ class UserAddressServices
             "state" => $data["state"],
             "city" => $data["city"],
             "address" => $data["address"],
-            "address" => $data["address"],
         ]);
-        return $this->success($userAddress, "User Address Updated successfully");
+        return $this->success($userAddress, "Address Updated");
    }
 
    public function removeSingleAddress($user_address_id)
    {
         $userAddress = UserAddress::where('id', $user_address_id)->delete();
-        return $this->success([], "User Address Deleted successfully");
+        return $this->success([], "Address Deleted");
    }
 
    public function addSingleAddress($data)
@@ -68,6 +67,6 @@ class UserAddressServices
         UserAddress::where("id", $user_address_id)->update([
             "is_default" => "yes",
         ]); //
-        return $this->success([], "Operation Successful");
+        return $this->success([], "Address Updated");
    }
 }
