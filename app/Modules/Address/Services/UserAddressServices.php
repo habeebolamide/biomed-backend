@@ -13,7 +13,7 @@ class UserAddressServices
     use ApiResponseMessagesTrait;
    public function getUserAddresses()
    {
-        $user = UserAddress::where('user_id', '=',Auth::user())->first();
+        $user = UserAddress::where('user_id', '=',Auth::user()->id)->first();
         return $this->success($user, "User Addresses");
    }
 
