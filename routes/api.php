@@ -109,4 +109,5 @@ Route::prefix('order')->middleware('auth:sanctum')->group(function(){
     Route::get('/get-order/{order_no}', [OrderController::class, 'getOrder']);
     Route::get('/place-order', [OrderController::class, 'placeOrder']);
     Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
+    Route::post('/', [UserAddressController::class, 'addUserAddress']);
 });
