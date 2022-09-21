@@ -3,6 +3,8 @@
 namespace App\Traits;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 trait ApiResponseMessagesTrait {
 
@@ -108,11 +110,11 @@ trait ApiResponseMessagesTrait {
             return $MAC;
     }
 
-    public function generateReferenceNumber($maxRegenerateCount, $model){
-        $base58 = new StephenHill\Base58();
-        $newCode = $base58->encode(random_bytes(32));
+    public function generateReferenceNumber($maxRegenerateCount = 10, $model){
+        $reference_no = Str::random(30);
+        // $newCode = $base58->encode(random_bytes(32));
     
-        $existingKey = $model::where('reference_no', $newCode)->first();
+        $existingKey = $model::where('reference_no', $reference_no)->first();
     
         if ($existingKey != null) {
             $maxRegenerateCount -= 1;
@@ -121,7 +123,7 @@ trait ApiResponseMessagesTrait {
             }
             return null;
         }
-        return $newCode;
+        return $reference_no;
     }
 
 
