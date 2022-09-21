@@ -2,6 +2,7 @@
 
 namespace App\Modules\Product\Services;
 
+use App\Modules\Models\Product\ProductQuantity;
 use App\Modules\Product\Models\Product;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,10 @@ class ProductService
             "measurement"=> $data["measurement"],
             'status' => $data["status"],
         ]);
+        $prod = ProductQuantity::updateOrCreate([
+               'product_id' => $product->id,
+               'quantity' => 50
+               ]);
         return $this->success($product, "Product Created Successfully");
    }
 
@@ -90,7 +95,7 @@ class ProductService
    }
 
    public function showProductByName($data)
-   {
+   {      
      $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
                     ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
                     ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')

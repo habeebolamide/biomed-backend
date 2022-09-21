@@ -15,6 +15,7 @@ class ProductsSeeder extends Seeder
     public function run()
     {
         DB::table('products')->insert($this->seedProducts());
+        DB::select('INSERT INTO product_quantities (product_id, quantity) SELECT id, 50 FROM products');
     }
     private function seedProducts()
     {

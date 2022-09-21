@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Models;
 
+use App\Modules\Address\Models\UserAddress;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,4 +38,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function WishLists()
+    {
+        return $this->hasMany(WishLists::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(WishLists::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
 }
