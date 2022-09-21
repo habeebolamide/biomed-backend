@@ -13,7 +13,7 @@ class UserAddressServices
     use ApiResponseMessagesTrait;
    public function getUserAddresses()
    {
-        $user = User::with('addresses')->where('user_id', '=',Auth::user())->first();
+        $user = UserAddress::where('user_id', '=',Auth::user())->first();
         return $this->success($user, "User Addresses");
    }
 
@@ -56,7 +56,7 @@ class UserAddressServices
             "city" => $data["city"],
             "address" => $data["address"],
         ]);
-        return $this->success([], "User Address Added successfully");
+        return $this->success([], "Address Added");
    }
 
    public function defaultAddress($user_address_id)
