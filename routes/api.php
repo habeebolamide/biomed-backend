@@ -101,6 +101,7 @@ Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
     Route::get('/', [UserAddressController::class, 'getUserAddress']);
     Route::get('/{user_address_id}', [UserAddressController::class, 'getSingleUserAddress']);
     Route::patch('/{user_address_id}', [UserAddressController::class, 'updateUserAddress']);
+    Route::patch('/make-default/{user_address_id}', [UserAddressController::class, 'defaultAddress']);
     Route::get('/remove/{user_address_id}', [UserAddressController::class, 'removeUserAddress']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
 });
