@@ -101,5 +101,5 @@ Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
     Route::get('/{user_address_id}', [UserAddressController::class, 'getSingleUserAddress']);
     Route::patch('/{user_address_id}', [UserAddressController::class, 'updateUserAddress']);
     Route::get('/remove/{user_address_id}', [UserAddressController::class, 'removeUserAddress']);
-    Route::post('/', [UserAddressController::class, 'addUserAddress']);
+    Route::post('/', [UserAddressController::class, 'addUserAddress'])->withoutMiddleware('auth:sanctum');
 });
