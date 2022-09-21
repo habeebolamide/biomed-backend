@@ -5,6 +5,7 @@ use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
+use App\Modules\Order\Controllers\OrderController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
@@ -102,4 +103,10 @@ Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{user_address_id}', [UserAddressController::class, 'updateUserAddress']);
     Route::get('/remove/{user_address_id}', [UserAddressController::class, 'removeUserAddress']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
+});
+
+Route::prefix('order')->middleware('auth:sanctum')->group(function(){
+    Route::get('/get-order/{order_no}', [OrderController::class, 'getOrder']);
+    Route::get('/place-order', [OrderController::class, 'placeOrder']);
+    Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
 });
