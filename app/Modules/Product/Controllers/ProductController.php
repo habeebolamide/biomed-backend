@@ -34,7 +34,6 @@ class ProductController extends Controller
 
     public function showProductByName(SearchProductRequest $request)
     {
-        return $ipAddr= substr(exec('getmac'), 0, 17);
         return (new ProductService)->showProductByName($request->validated());
     }
 
