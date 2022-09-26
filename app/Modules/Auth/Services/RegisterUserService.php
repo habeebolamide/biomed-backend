@@ -17,6 +17,7 @@ class RegisterUserService
             'username' =>$data['username'],
             'email' =>$data['email'],
             'phone' =>$data['phone'],
+            'status' => 'active',
             'password' => Hash::make($data['password'])
         ]);
         return $this->success(['user' => $user, 'token' => $user->createToken("API TOKEN")->plainTextToken], 'Account created Successfully');

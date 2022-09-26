@@ -4,6 +4,7 @@ use App\Modules\Address\Controllers\UserAddressController;
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
+use App\Modules\Customers\Controllers\CustomersController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Order\Controllers\OrderController;
 use App\Modules\Product\Controllers\ProductController;
@@ -34,7 +35,7 @@ Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware('auth:sanctum');
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-
+// ADMIN ROUTES
 Route::prefix('category')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CategoryController::class, 'store']);
@@ -78,7 +79,15 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{product_id}', [ProductController::class, 'update']);
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
 });
+Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
+    Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [CustomersController::class, 'store']);
+      
+    Route::patch('/{user_id}', [CustomersController::class, 'update']);
+    Route::delete('/{user_id}', [CustomersController::class, 'destroy']);
+});
 
+// CLIENT ROUTES
 Route::prefix('wish-list')->middleware('auth:sanctum')->group(function(){
     Route::get('/', [WishListController::class, 'index']);
     Route::get('/{wish_list_id}', [WishListController::class, 'show']);
