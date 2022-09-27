@@ -5,6 +5,7 @@ use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
 use App\Modules\Coupon\Controllers\CouponController;
+use App\Modules\Customers\Controllers\CustomersController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Order\Controllers\OrderController;
 use App\Modules\Product\Controllers\ProductController;
@@ -35,7 +36,7 @@ Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware('auth:sanctum');
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-
+// ADMIN ROUTES
 Route::prefix('category')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CategoryController::class, 'store']);
@@ -79,7 +80,15 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{product_id}', [ProductController::class, 'update']);
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
 });
+Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
+    Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [CustomersController::class, 'store']);
+      
+    Route::patch('/{user_id}', [CustomersController::class, 'update']);
+    Route::delete('/{user_id}', [CustomersController::class, 'destroy']);
+});
 
+// CLIENT ROUTES
 Route::prefix('wish-list')->middleware('auth:sanctum')->group(function(){
     Route::get('/', [WishListController::class, 'index']);
     Route::get('/{wish_list_id}', [WishListController::class, 'show']);
@@ -102,6 +111,7 @@ Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
     Route::get('/', [UserAddressController::class, 'getUserAddress']);
     Route::get('/{user_address_id}', [UserAddressController::class, 'getSingleUserAddress']);
     Route::patch('/{user_address_id}', [UserAddressController::class, 'updateUserAddress']);
+    Route::patch('/make-default/{user_address_id}', [UserAddressController::class, 'defaultAddress']);
     Route::get('/remove/{user_address_id}', [UserAddressController::class, 'removeUserAddress']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
 });
@@ -118,4 +128,11 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
     Route::get('/generate-Coupon', [CouponController::class, 'generateCoupon']);
     Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
+
+
+    Route::prefix('admin')->group(function(){
+        Route::post('/get-all-order', [OrderController::class, 'getAllOrder']);
+        Route::post('/change-status', [OrderController::class, 'change_status']);
+        
+    });
 });

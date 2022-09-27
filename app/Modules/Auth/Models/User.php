@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\Models;
 
 use App\Modules\Address\Models\UserAddress;
+use App\Modules\Order\Models\Order;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +49,11 @@ class User extends Authenticatable
     public function carts()
     {
         return $this->hasMany(WishLists::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function addresses()

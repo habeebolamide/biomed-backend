@@ -23,4 +23,15 @@ class OrderController extends Controller
     {
         # code...
     }
+
+
+    public function getAllOrder(Request $request)
+    {
+        return (new OrderService)->getAllOrder($request);
+    }
+
+    public function change_status(Request $request)
+    {
+        return (new OrderService)->change_status($request);
+    }
 }

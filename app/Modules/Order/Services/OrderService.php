@@ -38,5 +38,72 @@ class OrderService
         # code...
         $carts = Order::where('user_id', Auth::user()->id)->groupBy('order_no')->get();
     }
+
+    public function getAllOrder($data)
+    {
+       $allOrders= Order::select('*');
+
+        if($data["filters"]) {
+            
+            if(array_key_exists("search", $data["filters"])) {
+                if(!is_null($data["filters"]["search"])) {
+                    $allOrders->whereHas('products', function($q)use($data) {
+                        $q->where('product_name', "like", "%".$data["filters"]["search"]."%");
+    
+                    });
+                    
+                }
+                
+            }
+            if(array_key_exists("nested_sub_category_id", $data["filters"])) {
+                if(!is_null($data["filters"]["nested_sub_category_id"])) {
+                    $allOrders->whereHas('products', function($q)use($data) {
+                        $q->whereHas('nestedSubCategory', function($query) use($data) {
+                            $query->where('id',$data["filters"]["nestedSubCategory"]);
+    
+                        });
+    
+                    });
+                    
+                }
+
+            }
+
+            if(array_key_exists("status", $data["filters"])) {
+                if(!is_null($data["filters"]["status"])) {
+                    $allOrders->where('status', $data["filters"]["status"]);
+                    
+                }
+
+            }
+
+
+        }
+
+        return $this->success($allOrders->orderBy('created_at', 'desc')->orderby('status', 'asc')->paginate(40), "All Order");
+
+
+    }
+
+
+    public function change_status($data)
+    {
+        $column=$data["every_order_no"] ? "order_no" : "id";
+
+       
+        
+        $order=Order::where([
+            $column => $data["reference"]
+        ])->update([
+            'status' => $data["status"]
+        ]);
+
+        if($order > 0) return $this->success($order, "Order updated Successfully");
+
+        return $this->badRequest("Unable to update status");
+
+
+
+    }
  
 }

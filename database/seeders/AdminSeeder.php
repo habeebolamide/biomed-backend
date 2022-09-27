@@ -20,6 +20,8 @@ class AdminSeeder extends Seeder
             "username" => "myadmin",
             "email" => "myadmin@app.com",
             "phone" => "0818181818",
+            'user_type' =>'admin',
+            'status' => 'active',
             "password" => Hash::make("12345678"),
         ];
 

@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_no')->nullable();
             $table->foreignId('product_id')->references('id')->on('products');
             $table->string('quantity')->nullable();
+            $table->string('amount')->nullable();
             $table->enum('status', ['pending', 'processing', 'completed'])->default('pending');
 
             $table->timestamps();
