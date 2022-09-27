@@ -4,6 +4,7 @@ use App\Modules\Address\Controllers\UserAddressController;
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
+use App\Modules\Coupon\Controllers\CouponController;
 use App\Modules\Customers\Controllers\CustomersController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Order\Controllers\OrderController;
@@ -118,6 +119,13 @@ Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
 Route::prefix('order')->middleware('auth:sanctum')->group(function(){
     Route::get('/get-order/{order_no}', [OrderController::class, 'getOrder']);
     Route::get('/place-order', [OrderController::class, 'placeOrder']);
+    Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
+    Route::post('/', [UserAddressController::class, 'addUserAddress']);
+});
+
+Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
+    Route::get('/get-coupon/{coupon}', [CouponController::class, 'getCoupon']);
+    Route::get('/generate-Coupon', [CouponController::class, 'generateCoupon']);
     Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
 

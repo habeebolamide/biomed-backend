@@ -2,9 +2,11 @@
 
 namespace App\Traits;
 
+use App\Modules\Coupon\Models\Coupon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 trait ApiResponseMessagesTrait {
 
@@ -120,6 +122,21 @@ trait ApiResponseMessagesTrait {
             $maxRegenerateCount -= 1;
             if ($maxRegenerateCount >= 0) {
                 return $this->generateReferenceNumber($maxRegenerateCount, $model);
+            }
+            return null;
+        }
+        return $reference_no;
+    }
+
+    public function generateCoupons($length, $maxRegenerateCount = 10)
+    {
+        $reference_no = Uuid::uuid4($length);
+        $existingKey = Coupon::where('coupon', $reference_no)->first();
+    
+        if ($existingKey != null) {
+            $maxRegenerateCount -= 1;
+            if ($maxRegenerateCount >= 0) {
+                return $this->generateCoupons($length,$maxRegenerateCount);
             }
             return null;
         }
