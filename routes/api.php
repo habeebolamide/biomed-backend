@@ -76,8 +76,7 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::post('/', [ProductController::class, 'store']);
     Route::post('/{name}', [ProductController::class, 'showProductByName'])->withoutMiddleware('auth:sanctum');
     Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');    
-    Route::get(
-    '/product-search/{category_id?}/{sub_category_id?}/{inner_category_id?}/{price_range?}', [ProductController::class, 'showProduct'])->withoutMiddleware('auth:sanctum');
+    Route::get('/product-search/{category_id?}/{sub_category_id?}/{inner_category_id?}/{price_range?}', [ProductController::class, 'showProduct'])->withoutMiddleware('auth:sanctum');
     Route::post('/product-filter', [ProductController::class, 'filterProduct'])->withoutMiddleware('auth:sanctum');    
     Route::patch('/{product_id}', [ProductController::class, 'update']);
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
