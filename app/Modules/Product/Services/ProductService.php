@@ -72,7 +72,7 @@ class ProductService
         return $this->success($product, "Product");
    }
 
-   public function showProduct($category_id=null, $sub_category_id=null, $nested_sub_category_id=null, $disease_id=null)
+   public function showProduct($category_id=null, $sub_category_id=null, $nested_sub_category_id=null, $disease_id=null, $price_range=null)
    {
         $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
                     ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
@@ -85,6 +85,11 @@ class ProductService
         if(!is_null($sub_category_id)) {
           $product->where('sub_category_id', $sub_category_id);
         }
+          if (!is_null($price_range)) {
+               if ($price_range == 1000) {
+                    $product->where('price', '<', $price_range);
+               }
+          }
         if (!is_null($nested_sub_category_id)) {
           $product->where('nested_sub_category_id', $nested_sub_category_id);
         }
