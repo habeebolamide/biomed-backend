@@ -31,6 +31,7 @@ class ProductController extends Controller
     {
         return (new ProductService)->showProduct($category_id, $sub_category_id, $inner_category_id, $price_range);
     }
+    
     public function filterProduct()
     {
         return (new ProductService)->filterProduct();
