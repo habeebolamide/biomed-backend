@@ -122,7 +122,7 @@ class ProductService
           }
           
           // return $product->toSql();
-          return $this->success($product->paginate(30), "Product");
+          return $this->success(ProductResource::collection($product->orderBy('created_at', 'desc')->paginate(30)), "Product");
      }
 
    public function showProductByName($data)
