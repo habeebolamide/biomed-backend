@@ -25,9 +25,9 @@ class SearchProductRequest extends FormRequest
      */
     public function rules()
     {
-        // return [
+        return [
         //     "search"=> "required",
-        // ];
+        ];
     }
 
 }
