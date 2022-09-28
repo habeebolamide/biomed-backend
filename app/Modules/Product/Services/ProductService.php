@@ -110,8 +110,11 @@ class ProductService
           if (!is_null(request()->price_range)) {
                if (request()->price_range == 1000) {
                     $product->where('price', '<', request()->price_range);
+               } else {
+                    $product->whereBetween('price', [request()->from, request()->to]);
                }
           }
+          
           // return $product->toSql();
           return $this->success($product->paginate(30), "Product");
      }
