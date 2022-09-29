@@ -37,18 +37,7 @@ class ProductService
           $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           
      }
-          if (!is_null($data['price_range'])) {
-               if ($data['price_range'] == 1000) {
-                    dd(1);
-                    $products->where('price', '<', $data['price_range']);
-               } else {
-                    $products->whereBetween('price', [$data['from'], $data['to']]);
-               }
-          }
-     if(!is_null($data["discount"])) {
-          $products->where('discount', $data["discount"]);
-          
-     }
+     
 
      return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
    }
@@ -126,6 +115,9 @@ class ProductService
                } else {
                     $product->whereBetween('price', [request()->from, request()->to]);
                }
+          }
+          if (!is_null(request()->discount)) {
+               $product->where('discount', request()->discount);
           }
           
           // return $product->toSql();
