@@ -37,37 +37,37 @@ class ProductsSeeder extends Seeder
             array('nested_sub_category_id' => '1', 'product_disease_id' => '3', 'product_name' =>
             'ID Screen® Newcastle Disease Indirect Conventional Vaccines', 'price' => '195', 'product_slug' => 'NDICV', 'code' => 'VDEA08', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-indirect-conventional-vaccines/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '3', 'product_name' =>
-            'ID Screen® Newcastle Disease Nucleoprotein Indirect', 'price' => '135', 'product_slug' => 'NDNI', 'code' => 'VDEA09', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-nucleoprotein-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Newcastle Disease Nucleoprotein Indirect', 'price' => '135', 'product_slug' => 'NDNI', 'code' => 'VDEA09', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-nucleoprotein-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '4', 'product_name' =>
-            'ID Screen® Avian Reovirus Indirect', 'price' => '198', 'product_slug' => 'ARI', 'code' => 'VDEA09', 'description' => 'https://www.id-vet.com/produit/id-screen-avian-reovirus-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Avian Reovirus Indirect', 'price' => '198', 'product_slug' => 'ARI', 'code' => 'VDEA09', 'description' => 'https://www.id-vet.com/produit/id-screen-avian-reovirus-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
 
             array('nested_sub_category_id' => '2', 'product_disease_id' => '5', 'product_name' =>
-            'ID Screen® Akabane Competition', 'price' => '28', 'product_slug' => 'SAC', 'code' => 'VDER01', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Akabane Competition', 'price' => '28', 'product_slug' => 'SAC', 'code' => 'VDER01', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '2', 'product_disease_id' => '6', 'product_name' =>
-            'ID Screen® Besnoitia Indirect 2.0', 'price' => '38', 'product_slug' => 'SBI', 'code' => 'VDER02', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Besnoitia Indirect 2.0', 'price' => '38', 'product_slug' => 'SBI', 'code' => 'VDER02', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '2', 'product_disease_id' => '6', 'product_name' =>
-            'ID Screen® Besnoitia Milk Indirect', 'price' => '30', 'product_slug' => 'BMI', 'code' => 'VDER03', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Besnoitia Milk Indirect', 'price' => '30', 'product_slug' => 'BMI', 'code' => 'VDER03', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '2', 'product_disease_id' => '7', 'product_name' =>
-            'ID Screen® BHV-2 Indirect', 'price' => '30', 'product_slug' => 'BHV', 'code' => 'VDER04', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® BHV-2 Indirect', 'price' => '30', 'product_slug' => 'BHV', 'code' => 'VDER04', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '2', 'product_disease_id' => '9', 'product_name' =>
-            'ID Screen® FMD NSP Competition', 'price' => '80', 'product_slug' => 'NSP', 'code' => 'VDER06', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® FMD NSP Competition', 'price' => '80', 'product_slug' => 'NSP', 'code' => 'VDER06', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '2', 'product_disease_id' => '9', 'product_name' =>
-            'ID Screen® FMD Type O Competition', 'price' => '180', 'product_slug' => 'TPOC', 'code' => 'VDER08', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® FMD Type O Competition', 'price' => '180', 'product_slug' => 'TPOC', 'code' => 'VDER08', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
 
             array('nested_sub_category_id' => '6', 'product_disease_id' => '10', 'product_name' =>
-                'ID Gene™ Infectious Bronchitis Duplex', 'price' => '280', 'product_slug' => 'IBD', 'code' => 'VDPA01', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+                'ID Gene™ Infectious Bronchitis Duplex', 'price' => '280', 'product_slug' => 'IBD', 'code' => 'VDPA01', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '6', 'product_disease_id' => '11', 'product_name' =>
-            'ID Gene™ Influenza H5/H7 Triplex – Export version', 'price' => '30', 'product_slug' => 'IFT', 'code' => 'VDPA02', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Gene™ Influenza H5/H7 Triplex – Export version', 'price' => '30', 'product_slug' => 'IFT', 'code' => 'VDPA02', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '6', 'product_disease_id' => '11', 'product_name' =>
-            'ID Gene™ Influenza H9 Lineage G1-like Duplex', 'price' => '25', 'product_slug' => 'IHL', 'code' => 'VDPA04', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Gene™ Influenza H9 Lineage G1-like Duplex', 'price' => '25', 'product_slug' => 'IHL', 'code' => 'VDPA04', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
 
 
             array('nested_sub_category_id' => '7', 'product_disease_id' => '12', 'product_name' =>
-            'ID Gene™ African Swine Fever Duplex', 'price' => '85', 'product_slug' => 'ASFD', 'code' => 'VDPR01', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Gene™ African Swine Fever Duplex', 'price' => '85', 'product_slug' => 'ASFD', 'code' => 'VDPR01', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '30'),
             array('nested_sub_category_id' => '7', 'product_disease_id' => '13', 'product_name' =>
-            'ID Gene™ Anaplasma phagocytophilum Duplex', 'price' => '875', 'product_slug' => 'APD', 'code' => 'VDPR02', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Gene™ Anaplasma phagocytophilum Duplex', 'price' => '875', 'product_slug' => 'APD', 'code' => 'VDPR02', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '7', 'product_disease_id' => '14', 'product_name' =>
-            'ID Gene™ BlueTongue Duplex', 'price' => '472', 'product_slug' => 'BTD', 'code' => 'VDPR03', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Gene™ BlueTongue Duplex', 'price' => '472', 'product_slug' => 'BTD', 'code' => 'VDPR03', 'description' => 'https://www.id-vet.com/produit/id-screen-akabane-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
 
         );
     }
