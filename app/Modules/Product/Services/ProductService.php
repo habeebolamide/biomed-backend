@@ -5,7 +5,6 @@ namespace App\Modules\Product\Services;
 use App\Modules\Models\Product\ProductQuantity;
 use App\Modules\Product\Models\Product;
 use App\Modules\Product\Models\ProductQuantity as ModelsProductQuantity;
-use App\Modules\Product\Resources\ProductResource;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +16,8 @@ class ProductService
      $products = Product::select('*');
      if($data["active"]) {
           if(!is_null($data["active"])) {
-               $products->where('status', "like", "active");  
+               $products->where('status', "like", "active");
+               
           }
      
 
@@ -37,9 +37,7 @@ class ProductService
           $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           
      }
-     
-
-     return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
+     return $this->success($products->orderBy('created_at', 'desc')->paginate(30), "all products");
    }
 
    public function createProduct($data)
@@ -116,12 +114,9 @@ class ProductService
                     $product->whereBetween('price', [request()->from, request()->to]);
                }
           }
-          if (!is_null(request()->discount)) {
-               $product->whereIn('discount', request()->discount);
-          }
           
           // return $product->toSql();
-          return $this->success(ProductResource::collection($product->orderBy('products.created_at', 'desc')->paginate(30)), "Product");
+          return $this->success($product->paginate(30), "Product");
      }
 
    public function showProductByName($data)
