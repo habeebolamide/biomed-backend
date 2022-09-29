@@ -39,6 +39,7 @@ class ProductService
      }
           if (!is_null($data['price_range'])) {
                if ($data['price_range'] == 1000) {
+                    dd(1);
                     $products->where('price', '<', $data['price_range']);
                } else {
                     $products->whereBetween('price', [$data['from'], $data['to']]);
