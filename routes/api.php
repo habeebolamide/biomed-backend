@@ -39,7 +39,7 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 // ADMIN ROUTES
 Route::prefix('category')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
-    Route::post('/', [CategoryController::class, 'store']);
+    Route::post('/', [CategoryController::class, 'store'])->withoutMiddleware('auth:sanctum');
     Route::get('/{category_id}', [CategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::patch('/{category_id}', [CategoryController::class, 'update']);
     Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
