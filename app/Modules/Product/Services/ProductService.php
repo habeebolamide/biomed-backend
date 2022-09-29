@@ -5,6 +5,7 @@ namespace App\Modules\Product\Services;
 use App\Modules\Models\Product\ProductQuantity;
 use App\Modules\Product\Models\Product;
 use App\Modules\Product\Models\ProductQuantity as ModelsProductQuantity;
+use App\Modules\Product\Resources\ProductResource;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,7 @@ class ProductService
           $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           
      }
-     return $this->success($products->orderBy('created_at', 'desc')->paginate(30), "all products");
+     return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
    }
 
    public function createProduct($data)
@@ -69,7 +70,7 @@ class ProductService
    public function product($product_id)
    {
         $product = Product::with('nestedSubCategory.sub_category')->find($product_id);
-        return $this->success($product, "Product");
+        return $this->success(new ProductResource($product) , "Product");
    }
 
    public function showProduct($category_id=null, $sub_category_id=null, $nested_sub_category_id=null, $disease_id=null, $price_range=null)
