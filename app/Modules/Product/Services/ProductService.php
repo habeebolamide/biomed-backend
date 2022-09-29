@@ -117,7 +117,7 @@ class ProductService
                }
           }
           if (!is_null(request()->discount)) {
-               $product->where('discount', request()->discount);
+               $product->whereIn('discount', request()->discount);
           }
           
           // return $product->toSql();
