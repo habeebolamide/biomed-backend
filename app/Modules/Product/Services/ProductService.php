@@ -115,9 +115,9 @@ class ProductService
                     $product->whereBetween('price', [request()->from, request()->to]);
                }
           }
-          
+
           // return $product->toSql();
-          return $this->success($product->paginate(30), "Product");
+          return $this->success(ProductResource::collection($product->paginate(30)), "Product");
      }
 
    public function showProductByName($data)
