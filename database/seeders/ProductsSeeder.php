@@ -21,21 +21,21 @@ class ProductsSeeder extends Seeder
     {
         return $cat = array(
             array('nested_sub_category_id' => '1', 'product_disease_id' => '1', 'product_name' =>
-            'ID Screen® Infectious Bronchitis Competition', 'price' => '120', 'product_slug' => 'IIB', 'code' => 'VDEA01', 'description' => 'https://www.id-vet.com/produit/id-screen-infectious-bronchitis-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Infectious Bronchitis Competition', 'price' => '120', 'product_slug' => 'IIB', 'code' => 'VDEA01', 'description' => 'https://www.id-vet.com/produit/id-screen-infectious-bronchitis-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '10'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '1', 'product_name' =>
-            'ID Screen® Infectious Bronchitis Indirect', 'price' => '150', 'product_slug' => 'IBI', 'code' => 'VDEA02', 'description' => 'https://www.id-vet.com/produit/id-screen-infectious-bronchitis-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Infectious Bronchitis Indirect', 'price' => '150', 'product_slug' => 'IBI', 'code' => 'VDEA02', 'description' => 'https://www.id-vet.com/produit/id-screen-infectious-bronchitis-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '10'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '2', 'product_name' =>
-            'ID Screen® ILT gB Indirect', 'price' => '180', 'product_slug' => 'ILTGBI', 'code' => 'VDEA03', 'description' => 'https://www.id-vet.com/produit/id-screen-ilt-gb-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® ILT gB Indirect', 'price' => '180', 'product_slug' => 'ILTGBI', 'code' => 'VDEA03', 'description' => 'https://www.id-vet.com/produit/id-screen-ilt-gb-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '5'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '2', 'product_name' =>
-            'ID Screen® ILT gI Indirect', 'price' => '280', 'product_slug' => 'ILTGII', 'code' => 'VDEA04', 'description' => 'https://www.id-vet.com/produit/id-screen-ilt-gi-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® ILT gI Indirect', 'price' => '280', 'product_slug' => 'ILTGII', 'code' => 'VDEA04', 'description' => 'https://www.id-vet.com/produit/id-screen-ilt-gi-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '2'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '2', 'product_name' =>
-            'ID Screen® ILT Indirect', 'price' => '80', 'product_slug' => 'ILTI', 'code' => 'VDEA05', 'description' => 'https://www.id-vet.com/produit/id-screen-ilt-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® ILT Indirect', 'price' => '80', 'product_slug' => 'ILTI', 'code' => 'VDEA05', 'description' => 'https://www.id-vet.com/produit/id-screen-ilt-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '5'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '3', 'product_name' =>
-            'ID Screen® Newcastle Disease Competition', 'price' => '45', 'product_slug' => 'NDC', 'code' => 'VDEA06', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-competition/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Newcastle Disease Competition', 'price' => '45', 'product_slug' => 'NDC', 'code' => 'VDEA06', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-competition/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '5'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '3', 'product_name' =>
-            'ID Screen® Newcastle Disease Indirect', 'price' => '145', 'product_slug' => 'NDI', 'code' => 'VDEA07', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-indirect/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Newcastle Disease Indirect', 'price' => '145', 'product_slug' => 'NDI', 'code' => 'VDEA07', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-indirect/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '10'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '3', 'product_name' =>
-            'ID Screen® Newcastle Disease Indirect Conventional Vaccines', 'price' => '195', 'product_slug' => 'NDICV', 'code' => 'VDEA08', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-indirect-conventional-vaccines/', 'is_variant' => 'no', 'status' => 'active'),
+            'ID Screen® Newcastle Disease Indirect Conventional Vaccines', 'price' => '195', 'product_slug' => 'NDICV', 'code' => 'VDEA08', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-indirect-conventional-vaccines/', 'is_variant' => 'no', 'status' => 'active', 'discount' => '20'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '3', 'product_name' =>
             'ID Screen® Newcastle Disease Nucleoprotein Indirect', 'price' => '135', 'product_slug' => 'NDNI', 'code' => 'VDEA09', 'description' => 'https://www.id-vet.com/produit/id-screen-newcastle-disease-nucleoprotein-indirect/', 'is_variant' => 'no', 'status' => 'active'),
             array('nested_sub_category_id' => '1', 'product_disease_id' => '4', 'product_name' =>

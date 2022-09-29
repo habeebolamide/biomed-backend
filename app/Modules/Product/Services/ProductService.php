@@ -37,7 +37,13 @@ class ProductService
           $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           
      }
-
+          if (!is_null($data['price_range'])) {
+               if ($data['price_range'] == 1000) {
+                    $products->where('price', '<', $data['price_range']);
+               } else {
+                    $products->whereBetween('price', [$data['from'], $data['to']]);
+               }
+          }
      if(!is_null($data["discount"])) {
           $products->where('discount', $data["discount"]);
           
