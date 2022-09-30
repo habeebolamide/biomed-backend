@@ -4,6 +4,7 @@ namespace App\Modules\Category\Services;
 
 use App\Modules\Category\Models\Category;
 use App\Traits\ApiResponseMessagesTrait;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryService 
 {
@@ -35,10 +36,23 @@ class CategoryService
 
    public function createCategory($data)
    {
+        $category_image = null;
+        if ($data['category_image']) {
+            $image_parts = explode(';base64,', $data['category_image']);
+            $image_type = 'png';
+            $image_base64 = base64_decode($image_parts[1]);
+            $filename = $data['slug']??time().'.'.$image_type;
+
+             //here you can define any directory name whatever you want, if dir is not exist it will created automatically.
+            Storage::disk('local')->put("public/images/categories/".$filename, $image_base64);
+            $category_image = asset('images/categories/'.$filename) ?? null;
+        }
+
         $category = Category::create([
             'category_name' => $data['category_name'],
             'description' => $data['description'],
             'slug' => $data['slug'],
+            'category_image' => $category_image,
             'status' => $data['status'],
         ]);
         return $this->success($category, "Category Created Successfully");
@@ -46,11 +60,24 @@ class CategoryService
 
    public function updateCategory($data, $category_id)
    {
+    $category_image = null;
+        if ($data['category_image']) {
+            $image_parts = explode(';base64,', $data['category_image']);
+            $image_type = 'png';
+            $image_base64 = base64_decode($image_parts[1]);
+            $filename = $data['slug']??time().'.'.$image_type;
+
+             //here you can define any directory name whatever you want, if dir is not exist it will created automatically.
+            Storage::disk('local')->put("public/images/categories/".$filename, $image_base64);
+            $category_image = asset('images/categories/'.$filename) ?? null;
+        }
         $category = Category::where('id', $category_id)->update([
             'category_name' => $data['category_name'],
             'description' => $data['description'],
             'slug' => $data['slug'],
             'status' => $data['status'],
+            'category_image' => $category_image,
+            
         ]);
         return $this->success($category, "Category Updated Successfully");
    }

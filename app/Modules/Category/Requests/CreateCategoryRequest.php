@@ -29,6 +29,7 @@ class CreateCategoryRequest extends FormRequest
             'category_name' => 'required',
             'description' => 'sometimes',
             'slug' => 'sometimes',
+            'category_image' => 'sometimes',
             'status' => 'required|in:active,inactive',
         ];
     }

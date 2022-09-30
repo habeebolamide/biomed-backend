@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('nested_sub_category_id')->references('id')->on('nested_sub_categories');
             $table->foreignId('product_disease_id')->references('id')->on('product_diseases');
             $table->string('product_name');
-            $table->string('price')->nullable();
+            $table->integer('price')->nullable();
             $table->string('product_slug')->nullable();
             $table->string('code')->nullable();
             $table->longText('description')->nullable();
@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->string('model')->nullable();
             $table->string('youtube_id')->nullable();
             $table->string('measurement')->nullable();
-            $table->string('discount')->nullable();
+            $table->integer('discount')->nullable();
             $table->enum('is_variant', ['yes', 'no'])->default('no');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
