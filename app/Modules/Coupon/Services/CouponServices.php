@@ -25,13 +25,13 @@ class CouponServices
             'description' => $data->description,
             'percent' => $data->percent,
             'amount' => $data->amount,
-            'expires_at' => Carbon::now();
+            'expires_at' => Carbon::now()
         ]);
        }
     }
 
     public function isCouponActive($coupon)
     {
-       
+       Coupon::where(['coupon' => $coupon])
     }
 }
