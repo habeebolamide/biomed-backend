@@ -5,6 +5,7 @@ namespace App\Modules\Coupon\Services;
 use App\Modules\Coupon\Models\Coupon;
 use App\Traits\ApiResponseMessagesTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CouponServices
 {
@@ -41,7 +42,7 @@ class CouponServices
             'coupon' => $coupon,
             'description' => $data->description,
             'percent' => $data->percent,
-            // 'amount' => $data->amount,
+            'no_of_usage' => $data->no_of_usage,
             'expires_at' => $data->expires_at
         ]);
        }
@@ -51,8 +52,25 @@ class CouponServices
 
     }
 
+    public function attachToUser($data)
+    {
+        if(!DB::table('users')->where('id', $data['user_id'])->exists()) return $this->badRequest('Could not find reference to the given user');
+
+        if(!DB::table('coupons')->where('id', $data['id'])->exists()) return $this->badRequest('Could not find reference to the given user');
+
+        $updateCount= Coupon::where('id', $data['id'])->update([
+            'user_id' => $data['user_id']
+        ]);
+
+        if($updateCount > 0) return  $this->success([], "Coupon Attached Successfully");
+        return $this->badRequest('Something went wrong while attaching coupon to user.');
+
+    }
+
     public function isCouponActive($coupon)
     {
        
     }
+
+
 }

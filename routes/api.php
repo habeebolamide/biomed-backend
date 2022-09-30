@@ -136,6 +136,7 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
     Route::get('/get-coupon/{coupon}', [CouponController::class, 'getCoupon']);
     Route::post('/all', [CouponController::class, 'getAllCoupon']);
     Route::post('/generate-Coupon', [CouponController::class, 'generateCoupon']);
+    Route::get('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
     Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
 
 

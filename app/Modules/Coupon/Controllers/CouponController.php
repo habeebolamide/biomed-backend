@@ -23,6 +23,11 @@ class CouponController extends Controller
         return (new CouponServices)->generateCoupon($request);
     }
 
+    public function attatchToUser($id, $user_id)
+    {
+        return (new CouponServices)->attachToUser(['id'=>$id, 'user_id'=>$user_id]);
+    }
+
     public function isCouponActive($coupon)
     {
         return (new CouponServices)->isCouponActive($coupon);
