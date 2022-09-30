@@ -13,6 +13,10 @@ class CouponController extends Controller
     {
         return (new CouponServices)->getCoupon($coupon);
     }
+    public function getAllCoupon(Request $request)
+    {
+        return (new CouponServices)->getAllCoupon($request);
+    }
 
     public function generateCoupon(GenerateCouponRequest $request)
     {

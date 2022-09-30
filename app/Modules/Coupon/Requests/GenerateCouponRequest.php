@@ -28,8 +28,9 @@ class GenerateCouponRequest extends FormRequest
         return [
             'description' => 'required',
             'count' => 'required',
+            'expires_at' => 'required',
             'percent' => 'sometimes',
-            'amount' => 'sometimes',
+            // 'amount' => 'sometimes',
         ];
     }
 
