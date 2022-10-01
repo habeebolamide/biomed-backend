@@ -13,10 +13,19 @@ class CouponController extends Controller
     {
         return (new CouponServices)->getCoupon($coupon);
     }
+    public function getAllCoupon(Request $request)
+    {
+        return (new CouponServices)->getAllCoupon($request);
+    }
 
     public function generateCoupon(GenerateCouponRequest $request)
     {
         return (new CouponServices)->generateCoupon($request);
+    }
+
+    public function attatchToUser($id, $user_id)
+    {
+        return (new CouponServices)->attachToUser(['id'=>$id, 'user_id'=>$user_id]);
     }
 
     public function isCouponActive($coupon)

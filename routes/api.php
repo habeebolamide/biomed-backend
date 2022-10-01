@@ -122,12 +122,6 @@ Route::prefix('order')->middleware('auth:sanctum')->group(function(){
     Route::get('/place-order', [OrderController::class, 'placeOrder']);
     Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
-});
-
-Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
-    Route::get('/get-coupon/{coupon}', [CouponController::class, 'getCoupon']);
-    Route::get('/generate-Coupon', [CouponController::class, 'generateCoupon']);
-    Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
     Route::post('/', [UserAddressController::class, 'addUserAddress']);
 
 
@@ -136,4 +130,15 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
         Route::post('/change-status', [OrderController::class, 'change_status']);
         
     });
+});
+
+Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
+    Route::get('/get-coupon/{coupon}', [CouponController::class, 'getCoupon']);
+    Route::post('/all', [CouponController::class, 'getAllCoupon']);
+    Route::post('/generate-Coupon', [CouponController::class, 'generateCoupon']);
+    Route::get('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
+    Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
+
+
+   
 });

@@ -17,8 +17,11 @@ class CreateCouponsTable extends Migration
             $table->id();
             $table->string('coupon')->unique();
             $table->string('description');
+            $table->integer('no_of_usage');
+            $table->integer('total_used')->default(0);
             $table->integer('percent')->nullable();
             $table->integer('amount')->nullable();
+            $table->foreignId('user_id')->nullable()->references('id')->on('users');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->date('expires_at');
             $table->timestamps();
