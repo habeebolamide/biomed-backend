@@ -5,6 +5,7 @@ namespace App\Modules\Coupon\Services;
 use App\Modules\Coupon\Models\Coupon;
 use App\Traits\ApiResponseMessagesTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CouponServices
@@ -42,6 +43,7 @@ class CouponServices
             'coupon' => $coupon,
             'description' => $data->description,
             'percent' => $data->percent,
+            'amount' => $data->amount,
             'no_of_usage' => $data->no_of_usage,
             'expires_at' => $data->expires_at
         ]);
@@ -80,7 +82,12 @@ class CouponServices
 
     public function isCouponActive($coupon)
     {
-       
+       $coupon = Coupon::where(['coupon' => $coupon, 'user_id' => Auth::user()->id]);
+       if(!$coupon){
+        $this->badRequest('This coupon does not exist.');
+       }
+
+
     }
 
 
