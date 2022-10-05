@@ -84,6 +84,8 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CustomersController::class, 'store']);
+    Route::post('/', [CustomersController::class, 'store']);
+    Route::get('search-user/{id}', [CustomersController::class, 'search_user']);
       
     Route::patch('/{user_id}', [CustomersController::class, 'update']);
     Route::delete('/{user_id}', [CustomersController::class, 'destroy']);
@@ -136,8 +138,8 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
     Route::get('/get-coupon/{coupon}', [CouponController::class, 'getCoupon']);
     Route::post('/all', [CouponController::class, 'getAllCoupon']);
     Route::post('/generate-Coupon', [CouponController::class, 'generateCoupon']);
-    Route::get('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
-    Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
+    Route::post('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
+    Route::post('/user/{user_id}', [CouponController::class, 'userCoupon']);
 
 
    

@@ -144,4 +144,21 @@ trait ApiResponseMessagesTrait {
     }
 
 
+    public function generateBarcodeNumber() {
+        $number = mt_rand(1000000000, 9999999999); 
+        
+        if ($this->barcodeNumberExists($number)) {
+            return $this->generateBarcodeNumber();
+        }
+    
+        // otherwise, it's valid and can be used
+        return $number;
+    }
+    
+    private function barcodeNumberExists($number) {
+        
+        return Coupon::where('coupon',$number)->exists();
+    }
+
+
 }
