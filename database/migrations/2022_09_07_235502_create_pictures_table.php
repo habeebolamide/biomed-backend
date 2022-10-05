@@ -16,6 +16,8 @@ class CreatePicturesTable extends Migration
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
             $table->string('picture');
+            $table->string('pictureable_id');
+            $table->string('pictureable_type');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

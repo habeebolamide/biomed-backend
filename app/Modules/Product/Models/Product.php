@@ -4,6 +4,7 @@ namespace App\Modules\Product\Models;
 
 use App\Modules\NestedSubCategory\Models\NestedSubCategory;
 use App\Modules\SubCategory\Models\SubCategory;
+use App\Modules\Pictures\Models\Picture;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +27,9 @@ class Product extends Model
         return $this->HasOne(ProductQuantity::class, 'product_id', 'id');
     }
 
+    public function picture()
+    {
+        return $this->morphOne(Picture::class, 'pictureable');
+    }
    
 }
