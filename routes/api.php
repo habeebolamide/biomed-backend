@@ -128,7 +128,6 @@ Route::prefix('order')->middleware('auth:sanctum')->group(function(){
     Route::prefix('admin')->group(function(){
         Route::post('/get-all-order', [OrderController::class, 'getAllOrder']);
         Route::post('/change-status', [OrderController::class, 'change_status']);
-        
     });
 });
 
@@ -138,7 +137,4 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
     Route::post('/generate-Coupon', [CouponController::class, 'generateCoupon']);
     Route::get('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
     Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
-
-
-   
 });
