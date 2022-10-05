@@ -5,6 +5,7 @@ namespace App\Modules\Coupon\Services;
 use App\Modules\Coupon\Models\Coupon;
 use App\Traits\ApiResponseMessagesTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CouponServices
@@ -31,17 +32,18 @@ class CouponServices
             }
 
         }
-        return $this->success($coupon->paginate(20), "Coupon Fetched Successfully");
+        return $this->success($coupon->orderBy('created_at', 'desc')->paginate(20), "Coupon Fetched Successfully");
     }
 
     public function generateCoupon($data)
     {
        for($i = 0; $i < $data->count; $i++){
-        $coupon = $this->generateCoupons(10);
+        $coupon = $this->generateCoupons(2);
         Coupon::create([
             'coupon' => $coupon,
             'description' => $data->description,
             'percent' => $data->percent,
+            'amount' => $data->amount,
             'no_of_usage' => $data->no_of_usage,
             'expires_at' => $data->expires_at
         ]);
@@ -67,9 +69,25 @@ class CouponServices
 
     }
 
+    public function findMyCoupon($data, $id)
+    {
+       $coupon= Coupon::where(['coupon'=> $data["coupon"], 'user_id' => $id])->first();
+
+       if(blank($coupon)) return $this->badRequest('Coupon not found .');
+       if($coupon->status !='active') $this->badRequest('Coupon is not active .');
+
+       return  $this->success($coupon, "User Coupon");
+
+    }
+
     public function isCouponActive($coupon)
     {
-       
+       $coupon = Coupon::where(['coupon' => $coupon, 'user_id' => Auth::user()->id]);
+       if(!$coupon){
+        $this->badRequest('This coupon does not exist.');
+       }
+
+
     }
 
 

@@ -8,6 +8,7 @@ use App\Modules\Coupon\Controllers\CouponController;
 use App\Modules\Customers\Controllers\CustomersController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Order\Controllers\OrderController;
+use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
@@ -80,10 +81,17 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::patch('/{product_id}', [ProductController::class, 'update']);
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
     Route::post('/{name}', [ProductController::class, 'showProductByName'])->withoutMiddleware('auth:sanctum');
+
+    Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
+        Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
+        Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
+    });
 });
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CustomersController::class, 'store']);
+    Route::post('/', [CustomersController::class, 'store']);
+    Route::get('search-user/{id}', [CustomersController::class, 'search_user']);
       
     Route::patch('/{user_id}', [CustomersController::class, 'update']);
     Route::delete('/{user_id}', [CustomersController::class, 'destroy']);
@@ -135,6 +143,9 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function(){
     Route::get('/get-coupon/{coupon}', [CouponController::class, 'getCoupon']);
     Route::post('/all', [CouponController::class, 'getAllCoupon']);
     Route::post('/generate-Coupon', [CouponController::class, 'generateCoupon']);
-    Route::get('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
-    Route::get('/get-user-order', [OrderController::class, 'getAllUserOrders']);
+    Route::post('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
+    Route::post('/user/{user_id}', [CouponController::class, 'userCoupon']);
+
+
+   
 });
