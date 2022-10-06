@@ -36,6 +36,35 @@ class PictureService
         return $this->success([], "Picture Uploaded successfully");
     }
 
+
+    public function removePicture($picture_id)
+    {
+        Picture::find($picture_id)->delete();
+        return $this->success([], "Picture deleted successfully");
+    }
+
+    public function updatePicture($data, $picture_id)
+    {
+        $page_link = uniqid();
+
+        if ($data['picture']) {
+            $folderPath = public_path().'/'.'Image/';
+            $image_parts = explode(';base64,', $data['picture']);
+            $image_type = 'png';
+            $image_base64 = base64_decode($image_parts[1]);
+
+            $filename = $page_link.'.'.$image_type;
+            // file_put_contents($folderPath.$filename, $image_base64);
+            File::put($folderPath.$filename, $image_base64);
+            $picture = asset('Image/'.$filename) ?? null;
+        }
+        Picture::where('id',$picture_id)->update([
+            "picture" => $picture
+        ]);
+        return $this->success([], "Picture deleted successfully");
+    }
+
+
     public function attachCategoryPicture($data, $category_id)
     {
         $page_link = uniqid();

@@ -136,7 +136,6 @@ Route::prefix('order')->middleware('auth:sanctum')->group(function(){
     Route::prefix('admin')->group(function(){
         Route::post('/get-all-order', [OrderController::class, 'getAllOrder']);
         Route::post('/change-status', [OrderController::class, 'change_status']);
-        
     });
 });
 

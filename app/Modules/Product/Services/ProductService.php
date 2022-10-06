@@ -133,8 +133,8 @@ class ProductService
                     ->join('categories', 'categories.id', 'sub_categories.category_id')
                     ->select('*', 'products.id');
      
-     if($data['search']){
-          $search = $data['search'];
+     if(request()->search){
+          $search = request()->search;
      // return $this->success($search, "Product");         
 
                $product->where('product_name','like', '%'.$search.'%')
