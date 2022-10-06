@@ -20,6 +20,13 @@ class CustomersController extends Controller
     }
 
 
+    public function search_user($rearch)
+    {
+        return (new CustomerService)->searchUser($rearch);
+
+    }
+
+
     
 
     public function update(CreateCustomerRequest $request, $id)

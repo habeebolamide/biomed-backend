@@ -36,6 +36,20 @@ class CustomerService
      return $this->success($user->orderBy('created_at', 'desc')->paginate(30), "all users");
    }
 
+   public function searchUser($rearch)
+   {
+     $user=User::where('name','like','%'.$rearch.'%')
+     ->orWhere('phone','like','%'.$rearch.'%')
+     ->orWhere('username','like','%'.$rearch.'%')
+     ->orWhere('email','like','%'.$rearch.'%')
+     ->first();
+     if(!$user)  return $this->badRequest('User not found');
+
+     return $this->success($user, " User record");
+
+            
+   }
+
    public function create($data)
    {
         $user = User::create([

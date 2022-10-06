@@ -32,13 +32,13 @@ class CouponServices
             }
 
         }
-        return $this->success($coupon->paginate(20), "Coupon Fetched Successfully");
+        return $this->success($coupon->orderBy('created_at', 'desc')->paginate(20), "Coupon Fetched Successfully");
     }
 
     public function generateCoupon($data)
     {
        for($i = 0; $i < $data->count; $i++){
-        $coupon = $this->generateCoupons(10);
+        $coupon = $this->generateCoupons(2);
         Coupon::create([
             'coupon' => $coupon,
             'description' => $data->description,
@@ -66,6 +66,17 @@ class CouponServices
 
         if($updateCount > 0) return  $this->success([], "Coupon Attached Successfully");
         return $this->badRequest('Something went wrong while attaching coupon to user.');
+
+    }
+
+    public function findMyCoupon($data, $id)
+    {
+       $coupon= Coupon::where(['coupon'=> $data["coupon"], 'user_id' => $id])->first();
+
+       if(blank($coupon)) return $this->badRequest('Coupon not found .');
+       if($coupon->status !='active') $this->badRequest('Coupon is not active .');
+
+       return  $this->success($coupon, "User Coupon");
 
     }
 
