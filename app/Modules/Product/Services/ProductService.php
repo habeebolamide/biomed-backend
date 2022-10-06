@@ -38,6 +38,7 @@ class ProductService
           $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           
      }
+     return $this->success($products->orderBy('created_at', 'desc')->paginate(30), "all products");
      return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
    }
 
