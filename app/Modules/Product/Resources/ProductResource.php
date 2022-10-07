@@ -17,7 +17,10 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             "nested_sub_category_id"=> $this->nested_sub_category_id,
+            "nested_sub_category"=> $this->nestedSubCategory->sub_category,
+            "product_disease"=> $this->ProductDisease,
             "product_disease_id"=> $this->product_disease_id,
+            "product_quantity_id"=> $this->ProductQuantity,
             "product_name"=> $this->product_name,
             "product_slug"=> $this->product_slug,
             "keyword"=> $this->keyword,
