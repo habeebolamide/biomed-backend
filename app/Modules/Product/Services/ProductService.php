@@ -38,8 +38,37 @@ class ProductService
           $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           
      }
-     return $this->success($products->orderBy('created_at', 'desc')->paginate(30), "all products");
      return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
+   }
+
+   public function allAdminProducts($data)
+   {
+     $products = Product::select('*');
+     if($data["active"]) {
+          if(!is_null($data["active"])) {
+               $products->where('status', "like", "active");
+               
+          }
+     
+
+     }
+     if(!is_null($data["name"])) {
+          $products->where('product_name', "like", "%".$data["name"]."%");
+          
+     }
+
+     if(!is_null($data["status"])) {
+          
+          $products->where('status', $data["status"]);
+          
+     }
+
+     if(!is_null($data["nested_sub_category_id"])) {
+          $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
+          
+     }
+     return $this->success($products->orderBy('created_at', 'desc')->paginate(30), "all products");
+
    }
 
    public function createProduct($data)

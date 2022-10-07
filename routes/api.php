@@ -82,10 +82,17 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
     Route::post('/{name}', [ProductController::class, 'showProductByName'])->withoutMiddleware('auth:sanctum');
 
-    Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
+    Route::prefix('admin')->middleware('auth:sanctum')->group(function(){
+        Route::post('/all', [ProductController::class, 'admin_index'])->withoutMiddleware('auth:sanctum');
+
         Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
         Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
     });
+    // Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
+    //     Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
+    //     Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
+    // });
+    
 });
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');

@@ -15,6 +15,10 @@ class ProductController extends Controller
     {
         return (new ProductService)->allProducts($request);
     }
+    public function admin_index(Request $request)
+    {
+        return (new ProductService)->allAdminProducts($request);
+    }
 
     public function store(CreateProductRequest $request)
     {
