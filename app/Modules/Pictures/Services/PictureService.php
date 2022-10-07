@@ -23,6 +23,9 @@ class PictureService
             $image_base64 = base64_decode($image_parts[1]);
 
             $filename = $page_link.'.'.$image_type;
+            if (!file_exists(public_path().'/'.'Image/')) {
+                mkdir(public_path().'/'.'Image/', 0777, true);
+            }
             // file_put_contents($folderPath.$filename, $image_base64);
             File::put($folderPath.$filename, $image_base64);
             $picture = asset('Image/'.$filename) ?? null;
