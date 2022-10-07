@@ -14,11 +14,22 @@ class CartService
    
     public function getCarts()
     {
+        return $this->GetMAC();
+
+        
        $cart = Cart::where('user_id', '=', Auth::user()->id)
        ->with(['product'])
                 ->orWhere('mac_address', $this->getMAcAddressExec())->get();
        return $this->success($cart, "all users Carts");
     }
+    public function GetMAC(){
+        ob_start();
+        system('getmac');
+        $Content = ob_get_contents();
+        ob_clean();
+        return substr($Content, strpos($Content, "\n")-20, 17);
+    }
+        
 
     public function addToCart($data)
     {
