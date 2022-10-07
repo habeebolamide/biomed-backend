@@ -15,7 +15,7 @@ class Product extends Model
     protected $with = ['ProductDisease','picture', 'nestedSubCategory', 'ProductQuantity'];
     public function nestedSubCategory()
     {
-        return $this->belongsTo(NestedSubCategory::class, 'nested_sub_category_id', 'id');
+        return $this->belongsTo(NestedSubCategory::class);
     }
     public function ProductDisease()
     {
