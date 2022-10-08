@@ -22,7 +22,7 @@ class CartService
         // Storing 'getmac' value in $MAC 
 
         $MAC = strtok($MAC, ' '); 
-        return $MAC;
+        return "Mac".$MAC;
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
