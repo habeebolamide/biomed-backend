@@ -16,7 +16,8 @@ class CartService
     public function getCarts()
     {
 
-        $shellexec = shell_exec('getmac');
+        $shellexec =
+        substr(shell_exec('getmac'), 159, 20);;
         return "MAC".$shellexec;
 
         
