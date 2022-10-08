@@ -139,7 +139,7 @@ class ProductService
           ->join('categories', 'categories.id', 'sub_categories.category_id')
           ->select('*', 'products.id');
           if (!is_null(request()->price_range)) {
-               if (request()->price_range == 1000) {
+               if (request()->from == 1000 && request()->to == 1000) {
                     $product->where('price', '<', request()->price_range);
                } else {
                     $product->whereBetween('price', [request()->from, request()->to]);
