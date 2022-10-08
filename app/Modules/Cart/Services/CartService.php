@@ -7,6 +7,7 @@ use App\Modules\Cart\Models\Cart;
 use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
+require_once './public/BlakeGardner/MacAddress.php';
 use BlakeGardner\MacAddress;
 class CartService 
 {
