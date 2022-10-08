@@ -7,22 +7,15 @@ use App\Modules\Cart\Models\Cart;
 use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
-
+use BlakeGardner\MacAddress;
 class CartService 
 {
     use ApiResponseMessagesTrait;
    
     public function getCarts()
     {
-        // PHP code to get the MAC address of Server 
-
-        $MAC = exec('getmac');
-
-
-        // Storing 'getmac' value in $MAC 
-
-        $MAC = strtok($MAC, ' '); 
-        return "Mac".$MAC;
+        
+        return "Mac". MacAddress::getCurrentMacAddress('eth0');
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
