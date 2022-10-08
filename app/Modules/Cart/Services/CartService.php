@@ -18,7 +18,7 @@ class CartService
 
         $shellexec =
         substr(shell_exec('getmac'), 159, 20);;
-        return "MAC".$shellexec;
+        dd($shellexec);
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
