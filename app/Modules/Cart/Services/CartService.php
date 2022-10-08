@@ -14,7 +14,15 @@ class CartService
    
     public function getCarts()
     {
-        return $this->GetMAC();
+        // PHP code to get the MAC address of Server 
+
+        $MAC = exec('getmac');
+
+
+        // Storing 'getmac' value in $MAC 
+
+        $MAC = strtok($MAC, ' '); 
+        return $MAC;
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
