@@ -23,6 +23,7 @@ class CartService
        return $this->success($cart, "all users Carts");
     }
     public function GetMAC(){
+        return 1;
         ob_start();
         system('getmac');
         $Content = ob_get_contents();
