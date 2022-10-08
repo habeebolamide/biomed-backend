@@ -12,6 +12,7 @@ use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
+use App\Modules\UserMessage\Controllers\UserMessageController;
 use App\Modules\WishList\Controllers\WishListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,10 +83,17 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     Route::delete('/{product_id}', [ProductController::class, 'destroy']);
     Route::post('/{name}', [ProductController::class, 'showProductByName'])->withoutMiddleware('auth:sanctum');
 
-    Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
+    Route::prefix('admin')->middleware('auth:sanctum')->group(function(){
+        Route::post('/all', [ProductController::class, 'admin_index'])->withoutMiddleware('auth:sanctum');
+
         Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
         Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
     });
+    // Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
+    //     Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
+    //     Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
+    // });
+    
 });
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
@@ -95,6 +103,11 @@ Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
       
     Route::patch('/{user_id}', [CustomersController::class, 'update']);
     Route::delete('/{user_id}', [CustomersController::class, 'destroy']);
+    Route::prefix('message')->group(function(){
+        
+        Route::post('/', [UserMessageController::class, 'store']);
+        
+    });
 });
 
 // CLIENT ROUTES
