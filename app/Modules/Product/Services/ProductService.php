@@ -116,10 +116,10 @@ class ProductService
                     $product->whereBetween('price', [request()->from, request()->to]);
                }
           }
-          if (!is_null(request()->discount)) {
-               $product->whereIn('discount', request()->discount);
+          // if (!is_null(request()->discount)) {
+          //      $product->whereIn('discount', request()->discount);
                
-          }
+          // }
 
           // return $product->toSql();
           return $this->success(ProductResource::collection($product->paginate(30)), "Product");
