@@ -12,6 +12,7 @@ use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
+use App\Modules\UserMessage\Controllers\UserMessageController;
 use App\Modules\WishList\Controllers\WishListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +103,11 @@ Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
       
     Route::patch('/{user_id}', [CustomersController::class, 'update']);
     Route::delete('/{user_id}', [CustomersController::class, 'destroy']);
+    Route::prefix('message')->group(function(){
+        
+        Route::post('/', [UserMessageController::class, 'store']);
+        
+    });
 });
 
 // CLIENT ROUTES

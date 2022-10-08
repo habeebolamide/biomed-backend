@@ -4,8 +4,10 @@ namespace App\Modules\Auth\Models;
 
 use App\Modules\Address\Models\UserAddress;
 use App\Modules\Order\Models\Order;
+use App\Modules\UserMessage\Models\UserMessages;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -54,6 +56,11 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function user_messages():HasMany
+    {
+       return $this->hasMany(UserMessages::class, 'user_id', 'id');
     }
 
     public function addresses()
