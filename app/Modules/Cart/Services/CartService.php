@@ -8,15 +8,16 @@ use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
 // require_once './public/BlakeGardner/MacAddress.php';
-use BlakeGardner\MacAddress;
+// use BlakeGardner\MacAddress;
 class CartService 
 {
     use ApiResponseMessagesTrait;
    
     public function getCarts()
     {
-        
-        return "Mac". MacAddress::getCurrentMacAddress('eth0');
+
+        $shellexec = shell_exec('getmac');
+        dd($shellexec);
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
