@@ -16,9 +16,9 @@ class CartService
     public function getCarts()
     {
 
-        $shellexec =
-        substr(shell_exec('getmac'), 159, 20);;
-        dd($shellexec);
+        // $shellexec =
+        // substr(shell_exec('getmac'), 159, 20);;
+        // dd($shellexec);
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
