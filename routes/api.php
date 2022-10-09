@@ -6,6 +6,7 @@ use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
 use App\Modules\Coupon\Controllers\CouponController;
 use App\Modules\Customers\Controllers\CustomersController;
+use App\Modules\Invoice\Controllers\InvoiceController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Order\Controllers\OrderController;
 use App\Modules\Pictures\Controllers\PictureController;
@@ -126,7 +127,15 @@ Route::prefix('cart')->middleware('auth:sanctum')->group(function(){
     Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
     Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
     Route::post('/', [CartController::class, 'addToCart']);
+    Route::post('/generate_invoice', [CartController::class, 'generate_invoice']);
     Route::post('/clear-cart', [CartController::class, 'clearCart']);
+});
+
+Route::prefix('invoice')->middleware('auth:sanctum')->group(function(){
+    
+    Route::post('/generate_invoice', [InvoiceController::class, 'generate_invoice']);
+    Route::post('/discard_invoice', [InvoiceController::class, 'discard_invoice']);
+    
 });
 
 Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
