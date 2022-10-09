@@ -141,7 +141,7 @@ class ProductService
           if (!is_null(request()->price_range)) {
                // dd(1);
                if (request()->from == 1000 && request()->to == 1000) {
-                    // return 1;
+                    return request()->price_range;
                     $product->where('price', '<', request()->price_range);
                } else {
                     // return 2;
