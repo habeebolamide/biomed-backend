@@ -7,14 +7,18 @@ use App\Modules\Cart\Models\Cart;
 use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
-
+// require_once './public/BlakeGardner/MacAddress.php';
+// use BlakeGardner\MacAddress;
 class CartService 
 {
     use ApiResponseMessagesTrait;
    
     public function getCarts()
     {
-        return $this->GetMAC();
+
+        $shellexec =
+        substr(shell_exec('getmac'), 159, 20);;
+        dd($shellexec);
 
         
        $cart = Cart::where('user_id', '=', Auth::user()->id)
@@ -23,11 +27,19 @@ class CartService
        return $this->success($cart, "all users Carts");
     }
     public function GetMAC(){
-        ob_start();
-        system('getmac');
-        $Content = ob_get_contents();
-        ob_clean();
-        return substr($Content, strpos($Content, "\n")-20, 17);
+        $macAddr = false;
+        $arp = `arp -n`;
+        $lines = explode("\n", $arp);
+
+        foreach ($lines as $line) {
+            $cols = preg_split('/\s+/', trim($line));
+
+            if ($cols[0] == $_SERVER['REMOTE_ADDR']) {
+                $macAddr = $cols[2];
+            }
+        }
+
+        return $macAddr;
     }
         
 
