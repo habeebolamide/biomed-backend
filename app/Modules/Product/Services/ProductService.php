@@ -149,7 +149,7 @@ class ProductService
                     $product->whereBetween('price', [request()->from, request()->to]);
                }
           }
-          if (!is_null(sizeof(request()->discount))) {
+          if (sizeof(request()->discount)) {
                $product->whereIn('discount', request()->discount);
                
           }
