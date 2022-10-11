@@ -139,16 +139,20 @@ class ProductService
           ->join('categories', 'categories.id', 'sub_categories.category_id')
           ->select('*', 'products.id');
           if (!is_null(request()->price_range)) {
+               // dd(1);
                if (request()->from == 1000 && request()->to == 1000) {
-                    $product->where('price', '<', request()->price_range);
+                    // return request()->price_range;
+                    $product->where('price', '<=', request()->price_range);
                } else {
+                    // return 2;
+
                     $product->whereBetween('price', [request()->from, request()->to]);
                }
           }
-          // if (!is_null(request()->discount)) {
-          //      $product->whereIn('discount', request()->discount);
+          if (sizeof(request()->discount)) {
+               $product->whereIn('discount', request()->discount);
                
-          // }
+          }
 
           // return $product->toSql();
           return $this->success(ProductResource::collection($product->paginate(30)), "Product");
