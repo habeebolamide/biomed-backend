@@ -42,7 +42,29 @@ class PictureService
 
     public function removePicture($picture_id)
     {
-        Picture::find($picture_id)->delete();
+        $picture=Picture::find($picture_id);
+        if(is_null($picture)) return $this->badRequest("Could not find reference for the given ID");
+        $name= explode("/", $picture->picture);
+        
+        if(file_exists(public_path().'/'.'Image/Categories/').$name[count($name) -1]) {
+            unlink(public_path().'/'.'Image/Categories/'.$name[count($name) -1]);
+            $picture->delete();
+        }
+        
+        return $this->success([], "Picture deleted successfully");
+    }
+
+    public function removeProductPicture($picture_id)
+    {
+        $picture=Picture::find($picture_id);
+        if(is_null($picture)) return $this->badRequest("Could not find reference for the given ID");
+        $name= explode("/", $picture->picture);
+        
+        if(file_exists(public_path().'/'.'Image/').$name[count($name) -1]) {
+            unlink(public_path().'/'.'Image/'.$name[count($name) -1]);
+            $picture->delete();
+        }
+        
         return $this->success([], "Picture deleted successfully");
     }
 
@@ -73,15 +95,18 @@ class PictureService
         $page_link = uniqid();
 
         if ($data['picture']) {
-            $folderPath = public_path().'/'.'Image/';
+            $folderPath = public_path().'/'.'Image/Categories/';
             $image_parts = explode(';base64,', $data['picture']);
             $image_type = 'png';
             $image_base64 = base64_decode($image_parts[1]);
 
             $filename = $page_link.'.'.$image_type;
+            if (!file_exists(public_path().'/'.'Image/Categories/')) {
+                mkdir(public_path().'/'.'Image/Categories/', 0777, true);
+            }
             // file_put_contents($folderPath.$filename, $image_base64);
             File::put($folderPath.$filename, $image_base64);
-            $picture = asset('Image/'.$filename) ?? null;
+            $picture = asset('Image/Categories/'.$filename) ?? null;
         }
 
         $picture = Picture::create([

@@ -28,4 +28,11 @@ class PictureController extends Controller
     {
        return (new PictureService)->attachCategoryPicture($request->validated(), $category_id);
     }
+
+
+    public function removeProductPicture($picture_id)
+    {
+       return (new PictureService)->removeProductPicture($picture_id);
+    }
+    
 }
