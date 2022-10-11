@@ -46,6 +46,12 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function(){
     Route::get('/{category_id}', [CategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::patch('/{category_id}', [CategoryController::class, 'update']);
     Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
+    Route::prefix('admin')->middleware('auth:sanctum')->group(function(){
+        
+        Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
+        Route::delete('/remove-category-pics/{picture_id}', [PictureController::class, 'removePicture']);
+    });
+
 });
 
 Route::prefix('nested-sub-category')->middleware('auth:sanctum')->group(function(){
@@ -88,7 +94,8 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
         Route::post('/all', [ProductController::class, 'admin_index'])->withoutMiddleware('auth:sanctum');
 
         Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
-        Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
+        Route::delete('/remove-product-pics/{picture_id}', [PictureController::class, 'removeProductPicture']);
+
     });
     // Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
     //     Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);

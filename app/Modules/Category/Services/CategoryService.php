@@ -11,7 +11,7 @@ class CategoryService
     use ApiResponseMessagesTrait;
    public function allCategories($data)
    {
-        $category = Category::with('subCategory');
+        $category = Category::with(['subCategory', 'picture']);
 
         if($data["filters"]) {
             if(!is_null($data["filters"]["search"])) {
