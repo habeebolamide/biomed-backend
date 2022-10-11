@@ -15,7 +15,12 @@ class CouponServices
     public function getCoupon($coupon)
     {
         $coupon = Coupon::where('coupon', $coupon)->first();
-        return $this->success($coupon, "Coupon Fetched Successfully");
+        if ($coupon) {
+            return $this->success($coupon, "Coupon Fetched Successfully");
+        } else {
+            return $this->error([], "Coupon Not Found");
+
+        }
     }
 
     public function getAllCoupon($data)
