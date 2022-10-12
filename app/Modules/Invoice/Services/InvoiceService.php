@@ -21,14 +21,15 @@ class InvoiceService
         $userCart= Cart::with('product')->where('user_id', $validateUser->id)->get();
         if(count($userCart) < 1) return $this->badRequest('Cart empty');
         
-        $invoice_id= uniqid('INVOICE');
-        $coupon=false;
+        if ($data['coupon']) {
+            $invoice_id = uniqid('INVOICE');
+            $coupon = false;
 
-        if(array_key_exists('coupon', $data->toArray())) {
+            if (array_key_exists('coupon', $data->toArray())) {
 
-            $coupon= Coupon::where('coupon', $data['coupon'])->first()->coupon ?? null;
-            if($coupon ==null) return $this->badRequest('Invalid Coupon');
-            
+                $coupon = Coupon::where('coupon', $data['coupon'])->first()->coupon ?? null;
+                if ($coupon == null) return $this->badRequest('Invalid Coupon');
+            }
         }
 
         foreach ($userCart as $key => $value) {
