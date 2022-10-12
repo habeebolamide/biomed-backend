@@ -26,21 +26,7 @@ class CartService
                 ->orWhere('mac_address', $this->getMAcAddressExec())->get();
        return $this->success($cart, "all users Carts");
     }
-    public function GetMAC(){
-        $macAddr = false;
-        $arp = `arp -n`;
-        $lines = explode("\n", $arp);
 
-        foreach ($lines as $line) {
-            $cols = preg_split('/\s+/', trim($line));
-
-            if ($cols[0] == $_SERVER['REMOTE_ADDR']) {
-                $macAddr = $cols[2];
-            }
-        }
-
-        return $macAddr;
-    }
         
 
     public function addToCart($data)
