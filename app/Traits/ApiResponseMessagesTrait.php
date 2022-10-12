@@ -36,11 +36,12 @@ trait ApiResponseMessagesTrait {
         return response()->json($result, 200);
     }
 
-    public function error($result)
+    public function error($result, $message="")
     {
         $response = [
             'success' => false,
             'data' => $result,
+            'message' => $message,
         ];
         return response()->json($response, 408);
     }
