@@ -20,14 +20,15 @@ class InvoiceService
         $validateUser=User::where('id', $data['user_id'])->firstOrFail();
 
         $userCart= Cart::with('product')->where('user_id', $validateUser->id)->get();
-
+        if(count($userCart) < 1) return $this->badRequest('Cart empty');
+        
         $invoice_id= uniqid('INVOICE');
         $coupon=false;
 
-        if(!array_key_exists($data['coupon'], $data)) {
+        if(array_key_exists('coupon', $data->toArray())) {
 
             $coupon= Coupon::where('coupon', $data['coupon'])->first()->coupon ?? null;
-            if($coupon ==null) return response()->json('Invalid coupon', 400);
+            if($coupon ==null) return $this->badRequest('Invalid Coupon');
             
         }
 
@@ -48,7 +49,7 @@ class InvoiceService
             
         }
 
-        $userCart->delete();
+        Cart::with('product')->where('user_id', $validateUser->id)->delete();
 
         return $this->success([], "Invoice Generated successfully");
 
