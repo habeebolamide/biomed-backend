@@ -45,7 +45,7 @@ class InvoiceService
             if($coupon) 
             $userInvoice->coupon_disount=  $coupon;
 
-            $coupon->save();
+            $userInvoice->save();
             
         }
 
