@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class InvoiceController extends Controller
 {
    
-    public function genrate_invoice(InvoiceRequest $request)
+    public function generate_invoice(InvoiceRequest $request)
     {
        
         return (new InvoiceService)->generateInvoice($request);
