@@ -20,7 +20,7 @@ class InvoiceService
         $validateUser=User::where('id', Auth::user()->id)->firstOrFail();
         $userCart= Cart::with('product')->where('user_id', $validateUser->id)->get();
         if(count($userCart) < 1) return $this->badRequest('Cart empty');
-        // $invoice_id= "";
+        $coupon= false;
         $invoice_id = uniqid('INVOICE');
         if ($data['coupon']) {
             $coupon = false;
