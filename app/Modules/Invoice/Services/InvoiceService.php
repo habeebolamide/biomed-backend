@@ -17,7 +17,7 @@ class InvoiceService
    
     public function generateInvoice($data)
     {
-        $validateUser=User::where('id', $data['user_id'])->firstOrFail();
+        $validateUser=User::where('id', auth()->user()->id)->firstOrFail();
 
         $userCart= Cart::with('product')->where('user_id', $validateUser->id)->get();
 
