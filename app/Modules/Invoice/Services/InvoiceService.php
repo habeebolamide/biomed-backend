@@ -46,7 +46,7 @@ class InvoiceService
             $userInvoice->product_discount=  $value['product']['discount'];
 
             if($coupon) 
-            $userInvoice->coupon_disount=  $coupon;
+            $userInvoice->coupon_disount=  $coupon->percent;
 
             $userInvoice->save();
             
