@@ -2,6 +2,7 @@
 
 namespace App\Modules\Invoice\Services;
 
+use App\Modules\Address\Models\UserAddress;
 use App\Modules\Auth\Models\User;
 use App\Modules\Cart\Models\Cart;
 use App\Modules\Coupon\Models\Coupon;
@@ -18,6 +19,7 @@ class InvoiceService
     public function generateInvoice($data)
     {
         $validateUser=User::where('id', Auth::user()->id)->firstOrFail();
+        $address = UserAddress::where(["user_id" => Auth::user()->id, "is_default" => 'yes'])->first();
         $userCart= Cart::with('product')->where('user_id', $validateUser->id)->get();
         if(count($userCart) < 1) return $this->badRequest('Cart empty');
         $coupon= false;
@@ -38,6 +40,7 @@ class InvoiceService
             $userInvoice->user_id=  $validateUser->id;
             $userInvoice->product_id=  $value['product_id'];
             $userInvoice->quantity=  $value['quantity'];
+            $userInvoice->address_id =  $address->id;
             $userInvoice->invoice_id=  $invoice_id;
             $userInvoice->product_price=  $value['product']['price'];
             $userInvoice->product_discount=  $value['product']['discount'];

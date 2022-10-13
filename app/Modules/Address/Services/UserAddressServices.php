@@ -67,7 +67,7 @@ class UserAddressServices
         UserAddress::where("id", $user_address_id)->update([
             "is_default" => "yes",
         ]); //
-        $add = UserAddress::where("is_default", 'yes')->first();
+        $add = UserAddress::where(["user_id" => Auth::user()->id,"is_default" => 'yes'])->first();
         return $this->success($add, "Address Updated");
    }
 }
