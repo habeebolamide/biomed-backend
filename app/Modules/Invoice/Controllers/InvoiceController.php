@@ -19,6 +19,12 @@ class InvoiceController extends Controller
         return (new InvoiceService)->generateInvoice($request);
     }
 
+    public function get_invoice(InvoiceRequest $request, $invoice_id)
+    {
+
+        return (new InvoiceService)->getInvoice($invoice_id);
+    }
+
     public function discard_invoice(Request $request)
     {
         $request->validate([

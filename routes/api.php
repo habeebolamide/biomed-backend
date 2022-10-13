@@ -141,6 +141,7 @@ Route::prefix('cart')->middleware('auth:sanctum')->group(function(){
 Route::prefix('invoice')->middleware('auth:sanctum')->group(function(){
     
     Route::post('/generate_invoice', [InvoiceController::class, 'generate_invoice']);
+    Route::get('/{invoice_id}', [InvoiceController::class, 'get_invoice']);
     Route::post('/discard_invoice', [InvoiceController::class, 'discard_invoice']);
     
 });
