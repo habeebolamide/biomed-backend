@@ -2,6 +2,7 @@
 
 namespace App\Modules\Invoice\Models;
 
+use App\Modules\Address\Models\UserAddress;
 use App\Modules\Auth\Models\User;
 use App\Modules\Product\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ["product","user"];
+    protected $with = ["product","user","address"];
     /**
      * The attributes that should be cast.
      */
@@ -23,5 +24,10 @@ class Invoice extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(UserAddress::class);
     }
 }
