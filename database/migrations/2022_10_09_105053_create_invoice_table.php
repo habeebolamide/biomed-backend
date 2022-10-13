@@ -23,6 +23,10 @@ class CreateInvoiceTable extends Migration
             $table->integer('product_discount')->default(0);
             $table->integer('coupon_disount')->default(0);
             $table->enum('type', ['paid', 'unpaid'])->default('unpaid');
+            $table->unique([
+                'user_id',
+                'product_id',
+            ]);
             $table->timestamps();
         });
     }

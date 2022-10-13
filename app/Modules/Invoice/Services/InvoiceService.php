@@ -51,7 +51,7 @@ class InvoiceService
 
         Cart::with('product')->where('user_id', $validateUser->id)->delete();
 
-        return $this->success([], "Invoice Generated successfully");
+        return $this->success([$userInvoice], "Invoice Generated successfully");
 
 
     }
