@@ -11,7 +11,7 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ["products","user"];
+    protected $with = ["product","user"];
     /**
      * The attributes that should be cast.
      */
