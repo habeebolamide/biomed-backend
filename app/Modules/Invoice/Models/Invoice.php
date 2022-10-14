@@ -47,7 +47,7 @@ class Invoice extends Model
     public function createdAt() : Attribute
     {
         return new Attribute(
-            get: fn ($value) => Carbon::parse($value)->format('Y-M-d')
+            get: fn ($value) => Carbon::parse($value)->format('D M, Y')
         );
     }
 }
