@@ -34,6 +34,6 @@ class Invoice extends Model
 
     public function coupon()
     {
-        return $this->hasOne(Coupon::class);
+        return $this->belongsTo(Coupon::class);
     }
 }
