@@ -25,25 +25,21 @@ class InvoiceService
         $coupon= false;
         $invoice_id = uniqid('INV');
         if ($data['coupon']) {
-            $coupon = false;
-
-            if (array_key_exists('coupon', $data->toArray())) {
 
                 $coupon = Coupon::where('coupon', $data['coupon'])->first()->coupon ?? null;
                 if ($coupon == null) return $this->badRequest('Invalid Coupon');
-            }
         }
 
         foreach ($userCart as $key => $value) {
 
             $userInvoice = new Invoice;
-            $userInvoice->user_id=  $validateUser->id;
-            $userInvoice->product_id=  $value['product_id'];
-            $userInvoice->quantity=  $value['quantity'];
-            $userInvoice->address_id =  $address->id;
-            $userInvoice->invoice_id=  $invoice_id;
-            $userInvoice->product_price=  $value['product']['discount_price'];
-            $userInvoice->product_discount=  $value['product']['discount'];
+            $userInvoice->user_id = $validateUser->id;
+            $userInvoice->product_id = $value['product_id'];
+            $userInvoice->quantity = $value['quantity'];
+            $userInvoice->address_id = $address->id;
+            $userInvoice->invoice_id = $invoice_id;
+            $userInvoice->product_price = $value['product']['discount_price'];
+            $userInvoice->product_discount = $value['product']['discount'];
 
             if($coupon) 
             $userInvoice->coupon_disount=  $coupon->percent;
@@ -55,7 +51,7 @@ class InvoiceService
 
         Cart::with('product')->where('user_id', $validateUser->id)->delete();
 
-        return $this->success([$userInvoice], "Invoice Generated successfully");
+        return $this->success($userInvoice, "Invoice Generated successfully");
 
 
     }
