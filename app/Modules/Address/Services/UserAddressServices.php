@@ -45,17 +45,18 @@ class UserAddressServices
 
    public function addSingleAddress($data)
    {
-        UserAddress::create([
-            "user_id" => Auth::user()->id,
-            "name" => $data["name"],
-            "email" => $data["email"],
-            "phone" => $data["phone"],
-            "country" => $data["country"],
-            "state" => $data["state"],
-            "city" => $data["city"],
-            "address" => $data["address"],
-        ]);
-        return $this->success([], "Address Added");
+     $address = new UserAddress;
+     
+            $address->user_id = Auth::user()->id;
+            $address->name = $data["name"];
+            $address->email = $data["email"];
+            $address->phone = $data["phone"];
+            $address->country = $data["country"];
+            $address->state = $data["state"];
+            $address->city = $data["city"];
+            $address->address = $data["address"];
+        
+        return $this->success($address, "Address Added");
    }
 
    public function defaultAddress($user_address_id)
