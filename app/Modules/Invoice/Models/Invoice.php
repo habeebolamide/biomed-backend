@@ -31,8 +31,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(UserAddress::class);
     }
+
     public function coupon()
     {
-        return $this->belongsTo(Coupon::class);
+        return $this->hasOne(Coupon::class);
     }
 }
