@@ -6,6 +6,9 @@ use App\Modules\Address\Models\UserAddress;
 use App\Modules\Auth\Models\User;
 use App\Modules\Coupon\Models\Coupon;
 use App\Modules\Product\Models\Product;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +38,12 @@ class Invoice extends Model
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
+    }
+
+    public function createdAt() :Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->diffForHumans()
+        );
     }
 }
