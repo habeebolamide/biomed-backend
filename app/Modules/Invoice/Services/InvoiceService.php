@@ -42,7 +42,7 @@ class InvoiceService
             $userInvoice->quantity=  $value['quantity'];
             $userInvoice->address_id =  $address->id;
             $userInvoice->invoice_id=  $invoice_id;
-            $userInvoice->product_price=  $value['product']['price'];
+            $userInvoice->product_price=  $value['product']['discount_price'];
             $userInvoice->product_discount=  $value['product']['discount'];
 
             if($coupon) 
