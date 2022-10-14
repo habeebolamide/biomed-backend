@@ -26,7 +26,7 @@ class InvoiceService
         $invoice_id = uniqid('INV');
         if ($data['coupon']) {
 
-                $coupon = Coupon::where('coupon', $data['coupon'])->first()->coupon ?? null;
+                $coupon = Coupon::where('coupon', $data['coupon'])->first() ?? null;
                 if ($coupon == null) return $this->badRequest('Invalid Coupon');
         }
 
