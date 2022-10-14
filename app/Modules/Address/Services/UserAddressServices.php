@@ -55,7 +55,7 @@ class UserAddressServices
             $address->state = $data["state"];
             $address->city = $data["city"];
             $address->address = $data["address"];
-        
+               $address->save();
         return $this->success($address, "Address Added");
    }
 
