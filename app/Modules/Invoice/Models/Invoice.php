@@ -4,6 +4,7 @@ namespace App\Modules\Invoice\Models;
 
 use App\Modules\Address\Models\UserAddress;
 use App\Modules\Auth\Models\User;
+use App\Modules\Coupon\Models\Coupon;
 use App\Modules\Product\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,9 @@ class Invoice extends Model
     public function address()
     {
         return $this->belongsTo(UserAddress::class);
+    }
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 }

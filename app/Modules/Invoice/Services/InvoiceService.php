@@ -47,6 +47,7 @@ class InvoiceService
 
             if($coupon) 
             $userInvoice->coupon_disount=  $coupon->percent;
+            $userInvoice->coupon_id =  $coupon->id;
 
             $userInvoice->save();
             
