@@ -39,10 +39,14 @@ class Invoice extends Model
     {
         return $this->belongsTo(Coupon::class);
     }
-
-    public function createdAt() :Attribute
+    /**
+     * Get the user's first name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function createdAt() : Attribute
     {
-        return Attribute::make(
+        return new Attribute(
             get: fn ($value) => Carbon::parse($value)->diffForHumans()
         );
     }
