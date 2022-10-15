@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Modules\Cart\Models\Cart;
+use App\Modules\Invoice\Models\Invoice;
 use App\Modules\Transaction\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\ApiResponseMessagesTrait;
@@ -10,21 +10,22 @@ use Illuminate\Support\Facades\Http;
 
 class Autocredit  implements IGateway {
     use ApiResponseMessagesTrait;
-  public function init()
+  public function init($gateway_type)
   {
-    //    fetch the current cart of the customer then create transaction for Each cart
-    $carts = Cart::where('user_id', Auth::user()->id)->get();
+        // fetch the current cart of the customer then create transaction for Each cart
+        $invoice = Invoice::where('user_id', Auth::user()->id)
+                    ->where('status', 'UNPAID')->get();
         $transaction_reference_no = $this->generateReferenceNumber(30, "Transaction");
         $amount = 0;
-        foreach ($carts as $cart) {
-            $amount += $cart->amount;
-        }
 
         $transaction = Transaction::create([
             "user_id" => Auth::user()->id,
-            "amount" => $$amount,
+            "invoice_id" => $invoice,
+            "amount" => $amount,
+            "expected_amount" => $amount,
             "transaction_reference_no" => $transaction_reference_no,
-            "reference_no" => $cart->reference_no,
+            "gateway_type" => $gateway_type,
+            "reference_no" => $invoice->reference_no,
         ]);
         return [Auth::user(), $transaction];
   }
