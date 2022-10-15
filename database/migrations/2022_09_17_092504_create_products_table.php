@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('product_disease_id')->references('id')->on('product_diseases');
             $table->string('product_name');
             $table->integer('price')->nullable();
+            $table->integer('discount_price')->nullable();
             $table->string('product_slug')->nullable();
             $table->string('code')->nullable();
             $table->longText('description')->nullable();

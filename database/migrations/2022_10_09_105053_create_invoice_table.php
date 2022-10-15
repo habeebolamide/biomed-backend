@@ -17,12 +17,18 @@ class CreateInvoiceTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('coupon_id')->references('id')->on('coupons');
+            $table->foreignId('address_id')->references('id')->on('user_addresses');
             $table->string('invoice_id');
             $table->integer('quantity');
             $table->integer('product_price');
             $table->integer('product_discount')->default(0);
             $table->integer('coupon_disount')->default(0);
-            $table->enum('type', ['paid', 'unpaid'])->default('unpaid');
+            $table->enum('status', ['PAID', 'UNPAID'])->default('UNPAID');
+            $table->unique([
+                'user_id',
+                'product_id',
+            ]);
             $table->timestamps();
         });
     }
