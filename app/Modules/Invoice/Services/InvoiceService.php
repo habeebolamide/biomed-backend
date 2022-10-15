@@ -45,8 +45,7 @@ class InvoiceService
                 $userInvoice->coupon_disount =  $coupon->percent;
                 $userInvoice->coupon_id =  $coupon->id;
             }
-
-            $coupon->save();
+            $userInvoice->save();
         }
 
         Cart::with('product')->where('user_id', $validateUser->id)->delete();
