@@ -13,11 +13,9 @@ class TransactionServices
         $gateway_type = $data['selectedGatewayType'];
         // get the invoice_id
         // get the invoice details
-        $invoiceDetails = Invoice::where('invoice_id', $invoice_id)->sum('product_price');
-        return $invoiceDetails;
-
-
-
-        
+        $invoiceAmount = Invoice::where('invoice_id', $invoice_id)->sum('product_price');
+        $invoice = Invoice::where('invoice_id', $invoice_id)->first();
+        $totalAmount = $invoiceAmount - $invoice->coupon_disount/100 * $invoiceAmount;
+        return $totalAmount;
     }
 }
