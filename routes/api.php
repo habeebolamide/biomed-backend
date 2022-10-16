@@ -13,6 +13,7 @@ use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
+use App\Modules\Transaction\Controllers\TransactionController;
 use App\Modules\UserMessage\Controllers\UserMessageController;
 use App\Modules\WishList\Controllers\WishListController;
 use Illuminate\Http\Request;
@@ -101,6 +102,11 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     //     Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
     //     Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
     // });
+    
+});
+
+Route::prefix('transaction')->middleware('auth:sanctum')->group(function(){
+    Route::post('/initiate-transaction', [TransactionController::class, 'initializeTransaction']);
     
 });
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
