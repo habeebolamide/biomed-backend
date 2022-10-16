@@ -12,7 +12,7 @@ class TransactionServices
     public function initializeTransaction($data, $invoice_id)
     {
         // get the selected gateway_type
-        $gateway_type = $data['selectedGatewayType'];
+        $gateway_type = $data['gateway'];
         // get the invoice_id
         // get the invoice details
         $invoiceAmount = Invoice::where('invoice_id', $invoice_id)->sum('product_price');
