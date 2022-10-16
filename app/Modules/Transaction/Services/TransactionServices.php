@@ -25,7 +25,7 @@ class TransactionServices
         $transaction->invoice_id = $invoice_id;
         $transaction->user_id = $invoice->user_id;
         $transaction->expected_amount = $totalAmount;
-        $transaction->reference_number = $reference_number;
+        $transaction->reference_no = $reference_number;
         $transaction->gateway_type = $gateway_type;
         $transaction->save();
         return $this->success($transaction, "Transaction Record Created");
