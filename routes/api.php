@@ -105,10 +105,7 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     
 });
 
-Route::prefix('transaction')->middleware('auth:sanctum')->group(function(){
-    Route::post('/initiate-transaction', [TransactionController::class, 'initializeTransaction']);
-    
-});
+
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CustomersController::class, 'store']);
@@ -149,7 +146,7 @@ Route::prefix('invoice')->middleware('auth:sanctum')->group(function(){
     Route::post('/generate_invoice', [InvoiceController::class, 'generate_invoice']);
     Route::get('/{invoice_id}', [InvoiceController::class, 'get_invoice']);
     Route::post('/discard_invoice', [InvoiceController::class, 'discard_invoice']);
-    
+    Route::post('/{invoice_id}/pay', [TransactionController::class, 'initializeTransaction']);
 });
 
 Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
