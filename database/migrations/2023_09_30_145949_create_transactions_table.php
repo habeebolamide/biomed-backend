@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('reference_no');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('invoice_id')->constrained('invoices');
+            $table->string('invoice_id');
             $table->integer('amount')->default(0);
             $table->integer('expected_amount');
             $table->enum('gateway_type',['autocredit', 'paystack', 'flutterwave']);
