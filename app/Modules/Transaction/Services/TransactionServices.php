@@ -6,6 +6,7 @@ use App\Modules\Invoice\Models\Invoice;
 use App\Modules\Transaction\Models\Transaction;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class TransactionServices
@@ -32,22 +33,40 @@ class TransactionServices
         $transaction->save();
         return $this->success($transaction, "Transaction Record Created");
     }
-    public function checkTransactionStatus($transaction_id)
+    public function checkTransactionStatus($transaction_id, $invoice_id)
     {
 
         $mk = getenv('MONNIFY_MERCHANT_KEY');
         $response = Http::get("https://sandbox.monnify.com/api/v1/sdk/transactions/query/$mk?paymentReference=$transaction_id");
-        return $response;
-        if ($response['status'] == 'success') {
-            $transaction = Transaction::where('transaction_id', $transaction_id)->update([
-                "status" => 'approved',
-                "raw_response" => $response
-            ]);
-        } else {
-            $transaction = Transaction::where('transaction_id', $transaction_id)->update([
-                "status" => 'declined',
-                "raw_response" => $response
-            ]);
+        $trans = Transaction::where('reference_no', $transaction_id)->first();
+        if ($response['responseMessage'] == "success") {
+            if ($trans->user_id == Auth::user()->id && $trans->invoice_id == $invoice_id && $response['responseBody']['amountPaid'] == $trans->expected_amount) {
+                if ($response['responseBody']['paymentStatus'] == 'PAID') {
+                    $transaction = Transaction::where('reference_no', $transaction_id)->update([
+                        "status" => 'approved',
+                        "raw_response" => $response
+                    ]);
+                    // update the invoice status to paid
+                    $invoice = Invoice::where('invoice_id', $invoice_id)->update([
+                        "status" => 'paid'
+                    ]);
+                    return response()->json([
+                        "status" => "success",
+                        "message" => "Transaction Successful"
+                    ]);
+                } else {
+                    $transaction = Transaction::where('reference_no', $transaction_id)->update([
+                        "status" => 'declined',
+                        "raw_response" => $response
+                    ]);
+                }
+            }else{
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Sope Otilo"
+                ]);Ï
+            }
         }
+
     }
 }

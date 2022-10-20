@@ -150,7 +150,7 @@ Route::prefix('invoice')->middleware('auth:sanctum')->group(function(){
     Route::get('/{invoice_id}', [InvoiceController::class, 'get_invoice']);
     Route::post('/discard_invoice', [InvoiceController::class, 'discard_invoice']);
     Route::post('/{invoice_id}/pay', [TransactionController::class, 'initializeTransaction']);
-    Route::post('/check-status/{transaction_id}', [TransactionController::class, 'checkTransactionStatus']);
+    Route::post('/check-status/{transaction_id}/{invoice_id}', [TransactionController::class, 'checkTransactionStatus']);
 });
 
 Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){
