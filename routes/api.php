@@ -39,10 +39,7 @@ Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware('auth:sanctum');
 Route::get('/auth/logout', [AuthController::class, 'logout']);
-Route::get('/user-details', function()
-{
-    return Auth::user();
-});
+Route::get('/user-details', [AuthController::class, 'userDetails'])->middleware('auth:sanctum');
 
 
 
