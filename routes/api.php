@@ -41,8 +41,9 @@ Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware(
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::get('/user-details', function()
 {
-    return auth()->user();
+    return Auth::user();
 });
+
 
 
 // ADMIN ROUTES
