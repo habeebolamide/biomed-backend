@@ -60,13 +60,12 @@ class TransactionServices
                         "raw_response" => $response
                     ]);
                 }
-            }else{
+            } else {
                 return response()->json([
                     "status" => "error",
                     "message" => "Sope Otilo"
-                ]);Ï
+                ]);
             }
         }
-
     }
 }
