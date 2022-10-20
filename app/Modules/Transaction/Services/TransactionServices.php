@@ -6,6 +6,8 @@ use App\Modules\Invoice\Models\Invoice;
 use App\Modules\Transaction\Models\Transaction;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
 class TransactionServices
 {
     use ApiResponseMessagesTrait;
@@ -17,9 +19,9 @@ class TransactionServices
         // get the invoice details
         $invoiceAmount = Invoice::where('invoice_id', $invoice_id)->sum('product_price');
         $invoice = Invoice::where('invoice_id', $invoice_id)->first();
-        $totalAmount = $invoiceAmount - $invoice->coupon_disount/100 * $invoiceAmount;
+        $totalAmount = $invoiceAmount - $invoice->coupon_disount / 100 * $invoiceAmount;
         $reference_number = uniqid('TRANS');
-        
+
         // Insert all datas into transaction table
         $transaction = new Transaction;
         $transaction->invoice_id = $invoice_id;
@@ -29,6 +31,23 @@ class TransactionServices
         $transaction->gateway_type = $gateway_type;
         $transaction->save();
         return $this->success($transaction, "Transaction Record Created");
+    }
+    public function checkTransactionStatus($transaction_id)
+    {
 
+        $mk = getenv('MONNIFY_MERCHANT_KEY');
+        $response = Http::get("https://sandbox.monnify.com/api/v1/sdk/transactions/query/$mk?paymentReference=$transaction_id");
+        return $response;
+        if ($response['status'] == 'success') {
+            $transaction = Transaction::where('transaction_id', $transaction_id)->update([
+                "status" => 'approved',
+                "raw_response" => $response
+            ]);
+        } else {
+            $transaction = Transaction::where('transaction_id', $transaction_id)->update([
+                "status" => 'declined',
+                "raw_response" => $response
+            ]);
+        }
     }
 }

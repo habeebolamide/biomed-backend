@@ -12,4 +12,9 @@ class TransactionController extends Controller
     {
         return (new TransactionServices)->initializeTransaction($request,$invoice_id);
     }
+
+    public function checkTransactionStatus($transaction_id)
+    {
+        return (new TransactionServices)->checkTransactionStatus($transaction_id);
+    }
 }
