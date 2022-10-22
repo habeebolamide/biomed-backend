@@ -15,7 +15,7 @@ class ProductHistoryService
           $product_history = new ProductHistory;
 
           $product_history->product_id = $data['product_id'];
-          if (array_key_exists("user_id", $data)) {
+          if (array_key_exists("user_id", $data->toArray())) {
                $product_history->user_id = $data['user_id'];
           }
           $product_history->purpose = $data['purpose'];
