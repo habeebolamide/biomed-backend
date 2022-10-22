@@ -19,11 +19,11 @@ class ProductHistoryService
                $product_history->user_id = $data['user_id'];
           }
           $product_history->purpose = $data['purpose'];
-          $product_history->quantity = $data['quantity'];
+          $product_history->quantity = $data['quantity'];;
 
-          $product_history->save();
-
-
-          return $this->success($product_history, "all products");
+          if ($product_history->save()) {
+               return true;
+          }
+          return false;
      }
 }

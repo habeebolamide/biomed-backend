@@ -95,15 +95,13 @@ class ProductService
                'quantity' => $data["quantity"]
           ]);
           // Create history
-          $producthistory = new ProductHistoryController;
 
-          $requestData = new Request([
-               'product_id' => $product["id"],
-               'purpose' => "Admin created a product",
-               'quantity' => $prod['quantity']
-          ]);
-          $producthistory->insert($requestData);
-          return $this->success($product, "Product Created Successfully");
+
+          $inserProductHistory = log_product_histories($product["id"], "Admin created a product", $prod['quantity']);
+          if ($inserProductHistory) {
+               return $this->success($product, "Product Created Successfully");
+          }
+          return $this->badRequest("Something went wrong while creating product history");
      }
 
      public function product($product_id)
