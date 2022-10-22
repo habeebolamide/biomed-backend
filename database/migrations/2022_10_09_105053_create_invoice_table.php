@@ -17,7 +17,7 @@ class CreateInvoiceTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('product_id')->references('id')->on('products');
-            $table->foreignId('coupon_id')->references('id')->on('coupons');
+            $table->foreignId('coupon_id')->nullable()->references('id')->on('coupons');
             $table->foreignId('address_id')->references('id')->on('user_addresses');
             $table->string('invoice_id');
             $table->integer('quantity');
