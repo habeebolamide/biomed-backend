@@ -13,6 +13,7 @@ use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
+use App\Modules\Transaction\Controllers\TransactionController;
 use App\Modules\UserMessage\Controllers\UserMessageController;
 use App\Modules\WishList\Controllers\WishListController;
 use Illuminate\Http\Request;
@@ -38,6 +39,9 @@ Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware('auth:sanctum');
 Route::get('/auth/logout', [AuthController::class, 'logout']);
+Route::get('/user-details', [AuthController::class, 'userDetails'])->middleware('auth:sanctum');
+
+
 
 // ADMIN ROUTES
 Route::prefix('category')->middleware('auth:sanctum')->group(function(){
@@ -103,6 +107,8 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function(){
     // });
     
 });
+
+
 Route::prefix('customers')->middleware('auth:sanctum')->group(function(){
     Route::post('/all', [CustomersController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CustomersController::class, 'store']);
@@ -143,7 +149,8 @@ Route::prefix('invoice')->middleware('auth:sanctum')->group(function(){
     Route::post('/generate_invoice', [InvoiceController::class, 'generate_invoice']);
     Route::get('/{invoice_id}', [InvoiceController::class, 'get_invoice']);
     Route::post('/discard_invoice', [InvoiceController::class, 'discard_invoice']);
-    
+    Route::post('/{invoice_id}/pay', [TransactionController::class, 'initializeTransaction']);
+    Route::post('/check-status/{transaction_id}/{invoice_id}', [TransactionController::class, 'checkTransactionStatus']);
 });
 
 Route::prefix('user-address')->middleware('auth:sanctum')->group(function(){

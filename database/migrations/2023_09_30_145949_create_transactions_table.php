@@ -15,10 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('reference_no')->nullable();
+            $table->string('reference_no');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('invoice_id')->constrained('invoices');
-            $table->integer('amount');
+            $table->string('invoice_id');
+            $table->integer('amount')->default(0);
             $table->integer('expected_amount');
             $table->enum('gateway_type',['autocredit', 'paystack', 'flutterwave']);
             $table->enum('status', ['pending','approved','declined'])->default('pending');

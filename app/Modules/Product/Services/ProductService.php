@@ -6,7 +6,10 @@ use App\Modules\Models\Product\ProductQuantity;
 use App\Modules\Product\Models\Product;
 use App\Modules\Product\Models\ProductQuantity as ModelsProductQuantity;
 use App\Modules\Product\Resources\ProductResource;
+use App\Modules\ProductHistory\Controllers\ProductHistoryController;
+use App\Modules\ProductHistory\Models\ProductHistory;
 use App\Traits\ApiResponseMessagesTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
@@ -32,8 +35,13 @@ class ProductService
           if (!is_null($data["nested_sub_category_id"])) {
                $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           }
+
+
           return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
      }
+
+
+
 
      public function allAdminProducts($data)
      {
@@ -86,7 +94,14 @@ class ProductService
                'product_id' => $product->id,
                'quantity' => $data["quantity"]
           ]);
-          return $this->success($product, "Product Created Successfully");
+          // Create history
+
+
+          $inserProductHistory = log_product_histories($product["id"], "Admin created a product", $prod['quantity']);
+          if ($inserProductHistory) {
+               return $this->success($product, "Product Created Successfully");
+          }
+          return $this->badRequest("Something went wrong while creating product history");
      }
 
      public function product($product_id)
@@ -205,7 +220,16 @@ class ProductService
 
      public function deleteProduct($product_id)
      {
-          Product::where('id', $product_id)->delete();
-          return $this->success([], "Product Deleted Successfully");
+          try {
+               ModelsProductQuantity::where('product_id', $product_id)->delete();
+               // ProductHistory::where('product_id', $product_id)->delete();
+               Product::where('id', $product_id)->delete();
+               return $this->success([], "Product Deleted Successfully");
+
+
+               //code...
+          } catch (\Throwable $th) {
+               return $this->badRequest($th->getMessage(), "Unable to  Delete Product");
+          }
      }
 }
