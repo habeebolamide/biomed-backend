@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserMessagesTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateUserMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_messages', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('sender_id')->references('id')->on('users');
-            $table->enum('has_read', ['yes', 'no'])->default('no');
-            $table->string('messages');
+            $table->string('name');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
@@ -31,6 +28,6 @@ class CreateUserMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_messages');
+        Schema::dropIfExists('locations');
     }
 }
