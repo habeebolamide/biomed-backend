@@ -3,7 +3,7 @@
 namespace App\Modules\UserMessage\Services;
 
 use App\Modules\Auth\Models\User;
-use App\Modules\UserMessage\Models\CustomerMesages;
+use App\Modules\UserMessage\Models\CustomerMessages;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +17,7 @@ class UserMessagesService
           $validate_user = User::where('id', $data['user_id'])->firstOrFail();
           $validate_user2 = User::where('id', $data['sender_id'])->firstOrFail();
 
-          $create_message = CustomerMesages::create([
+          $create_message = CustomerMessages::create([
                'sender_id' => $data["sender_id"],
                'user_id' => $data["user_id"],
                'messages' => $data["messages"],

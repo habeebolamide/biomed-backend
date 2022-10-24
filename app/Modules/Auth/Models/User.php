@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Models;
 
 use App\Modules\Address\Models\UserAddress;
 use App\Modules\Order\Models\Order;
-use App\Modules\UserMessage\Models\CustomerMesages;
+use App\Modules\UserMessage\Models\CustomerMessages;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function customer_messages(): HasMany
     {
-        return $this->hasMany(CustomerMesages::class, 'user_id', 'id');
+        return $this->hasMany(CustomerMessages::class, 'user_id', 'id');
     }
 
     public function addresses()
