@@ -13,7 +13,7 @@ class CustomerService
      use ApiResponseMessagesTrait;
      public function allUser($data)
      {
-          $user = User::with(['orders', 'customer_messages'])->select('*');
+          $user = User::with(['orders', 'customer_messages'])->select('*')->where('user_type', 'user');
           if ($data["filters"]) {
                if (array_key_exists("search", $data["filters"])) {
                     if (!is_null($data["filters"]["search"])) {
