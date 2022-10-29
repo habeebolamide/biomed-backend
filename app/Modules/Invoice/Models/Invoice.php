@@ -16,7 +16,7 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ["product","user","address","coupon"];
+    protected $with = ["product", "user", "address", "coupon"];
     /**
      * The attributes that should be cast.
      */
@@ -35,6 +35,7 @@ class Invoice extends Model
         return $this->belongsTo(UserAddress::class);
     }
 
+
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
@@ -44,7 +45,7 @@ class Invoice extends Model
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function createdAt() : Attribute
+    public function createdAt(): Attribute
     {
         return new Attribute(
             get: fn ($value) => Carbon::parse($value)->format('D d M, Y')

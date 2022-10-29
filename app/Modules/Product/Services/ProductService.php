@@ -232,4 +232,76 @@ class ProductService
                return $this->badRequest($th->getMessage(), "Unable to  Delete Product");
           }
      }
+
+
+
+     // ANALYTICS
+
+     public function admin_sale_report($data)
+     {
+          $days = (int) $data['days'];
+          $amounts = [];
+          $dates = [];
+          $authUser = auth()->user()->active_merchant;
+
+          $data = DB::select("
+            SELECT SUM(expected_amount) as amount_paid, created_at FROM `transactions` 
+            WHERE created_at>= DATE_ADD(CURDATE(), INTERVAL -$days DAY) AND status='APPROVED'
+            GROUP BY created_at;
+       ");
+
+
+          foreach ($data as $key => $value) {
+               $amounts[] = (int) $value->amount_paid;
+               $dates[] = explode(" ", $value->created_at)[0];
+          }
+
+          return response()->json(['success' => true, 'data' => ["dates" => $dates, "amounts" => $amounts]], 200);
+     }
+
+     public function admin_category_purchase_report($data)
+     {
+
+
+          $data = DB::select("
+               SELECT slug as x , 
+               (
+                    select count(orders.id) as total from orders join products p on p.id = orders.product_id
+                    join nested_sub_categories nsc on nsc.id = p.nested_sub_category_id
+                    join sub_categories sbc on sbc.id = nsc.sub_category_id
+                    where category_id = categories.id
+               ) as y FROM `categories`;
+       ");
+
+
+          return response()->json(['success' => true, 'data' => $data], 200);
+     }
+
+     public function categories_by_name($data)
+     {
+
+
+          $data = DB::select("
+               SELECT slug, category_name  FROM `categories`;
+       ");
+
+
+          return response()->json(['success' => true, 'data' => $data], 200);
+     }
+     public function income($data)
+     {
+
+          $data = DB::select("
+               SELECT 
+                    count(IF(tr.status='APPROVED', 1, NULL)) as income,
+                    count(IF(orders.status='completed', 1,NULL)) as delivered_orders,
+                    count(orders.id) as orders
+               FROM `orders` 
+               join invoices on invoices.product_id = orders.product_id
+               join transactions tr on tr.invoice_id = invoices.id;
+       ");
+
+
+          return response()->json(['success' => true, 'data' => $data[0]], 200);
+     }
 }

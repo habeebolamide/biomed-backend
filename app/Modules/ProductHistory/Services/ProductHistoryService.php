@@ -26,4 +26,9 @@ class ProductHistoryService
           }
           return false;
      }
+
+     public function get_histories($data)
+     {
+          return $this->success(ProductHistory::with(['product', 'user'])->orderBy('created_at', 'desc')->paginate(40), "Product Deleted Successfully");
+     }
 }
