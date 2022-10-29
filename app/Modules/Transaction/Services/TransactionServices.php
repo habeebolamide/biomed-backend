@@ -48,7 +48,7 @@ class TransactionServices
                     ]);
                     // update the invoice status to paid
                     $invoice = Invoice::where('invoice_id', $invoice_id)->update([
-                        "status" => 'paid'
+                        "status" => 'PAID'
                     ]);
                     return response()->json([
                         "status" => "success",
