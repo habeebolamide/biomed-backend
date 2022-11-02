@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
-   
+
     public function generate_invoice(InvoiceRequest $request)
     {
-       
+
         return (new InvoiceService)->generateInvoice($request);
     }
 
@@ -36,11 +36,13 @@ class InvoiceController extends Controller
             'reference_id' => 'required',
             'type' => 'required'
         ]);
-       
+
         return (new InvoiceService)->discard_invoice($request);
     }
 
-   
-    
 
+    public function user_invoice(Request $request)
+    {
+        return (new InvoiceService)->all_user_invoice($request);
+    }
 }

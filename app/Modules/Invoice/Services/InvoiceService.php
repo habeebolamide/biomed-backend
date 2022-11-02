@@ -77,4 +77,27 @@ class InvoiceService
             return $this->badRequest($th->getMessage());
         }
     }
+
+
+
+    // ADMIN
+
+
+    public function all_user_invoice($data)
+    {
+        $data = $data->toArray();
+        $Invoicedata = Invoice::query();
+
+        if (array_key_exists("status", $data)) {
+            $Invoicedata->where('status', $data["status"]);
+        }
+        if (array_key_exists("search", $data)) {
+            $Invoicedata->whereHas('product', function ($q) use ($data) {
+
+                $q->where('product_name', 'like', '%' . $data["search"] . '%');
+            });
+        }
+
+        return $this->success($Invoicedata->paginate(40), "All user invoice");
+    }
 }
