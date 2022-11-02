@@ -57,6 +57,11 @@ class InvoiceService
         $invoice = Invoice::where('invoice_id', $invoice_id)->get();
         return $this->success($invoice, "Invoice Received");
     }
+    public function allInvoice()
+    {
+        $invoice = Invoice::where('user_id', Auth::user()->id)->get();
+        return $this->success($invoice, "Invoice Received");
+    }
 
     public function discard_invoice($data)
     {
