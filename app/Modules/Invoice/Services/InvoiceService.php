@@ -59,9 +59,9 @@ class InvoiceService
     }
     public function allInvoice()
     {
-        Invoice::where('invoice_id', '!=', null)->delete();
-        // $invoice = Invoice::where('user_id', Auth::user()->id)->paginate(10);
-        // return $this->success($invoice, "Invoice Received");
+        // Invoice::where('invoice_id', '!=', null)->delete();
+        $invoice = Invoice::where('user_id', Auth::user()->id)->paginate(10);
+        return $this->success($invoice, "Invoice Received");
     }
 
     public function discard_invoice($data)
