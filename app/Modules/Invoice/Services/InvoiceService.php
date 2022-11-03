@@ -61,7 +61,7 @@ class InvoiceService
     {
         // Invoice::where('invoice_id', '!=', null)->delete();
         $invoice = Invoice::where('user_id', Auth::user()->id)->
-                    groupBy('invoice_id')->paginate(10);
+                    groupBy('invoice_id')->sum('product_price')->paginate(10);
         return $this->success($invoice, "Invoice Received");
     }
 
