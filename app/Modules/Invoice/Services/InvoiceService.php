@@ -55,7 +55,7 @@ class InvoiceService
     public function getInvoice($invoice_id)
     {
         $invoice = Invoice::where('invoice_id', $invoice_id)->get();
-        return $this->success($invoice, "Invoice Received");
+        return $this->success($invoice, "Invoice Receiveds");
     }
     public function allInvoice()
     {
