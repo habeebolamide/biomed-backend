@@ -59,6 +59,7 @@ class InvoiceService
     }
     public function allInvoice()
     {
+        return 1;
         $invoice = Invoice::get();
         return $this->success($invoice, "Invoice Received Successfully");
     }
