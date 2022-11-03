@@ -10,6 +10,8 @@ use App\Modules\Invoice\Models\Invoice;
 use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 // require_once './public/BlakeGardner/MacAddress.php';
 // use BlakeGardner\MacAddress;
 class InvoiceService
@@ -61,7 +63,7 @@ class InvoiceService
     {
         // Invoice::where('invoice_id', '!=', null)->delete();
         $invoice = Invoice::where('user_id', Auth::user()->id)
-            ->sum('product_price')
+            ->select('*', DB::raw('SUM(product_price * quantity) as total'))
             ->groupBy('invoice_id')
             ->paginate(10);
         return $this->success($invoice, "Invoice Received");
