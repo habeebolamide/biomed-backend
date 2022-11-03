@@ -33,7 +33,7 @@ class InvoiceService
         foreach ($userCart as $key => $value) {
 
             $userInvoice = new Invoice;
-            $userInvoice->user_id = $validateUser->id;
+            $userInvoice->user_id = Auth::user()->id;
             $userInvoice->product_id = $value['product_id'];
             $userInvoice->quantity = $value['quantity'];
             $userInvoice->address_id = $address->id;
