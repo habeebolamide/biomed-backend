@@ -74,7 +74,7 @@ class InvoiceService
         $invoice = Invoice::where(['user_id' => Auth::user()->id, 'status' => 'UNPAID'])
             ->select('*', DB::raw('SUM(product_price * quantity) as total'))
             ->groupBy('invoice_id')
-            ->paginate(10);
+            ->get();
         return $this->success($invoice, "Invoice Received");
     }
 
