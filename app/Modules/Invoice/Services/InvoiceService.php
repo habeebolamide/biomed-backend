@@ -59,7 +59,7 @@ class InvoiceService
     }
     public function allInvoice()
     {
-        $invoice = Invoice::where('user_id', Auth::user()->id)->get();
+        $invoice = Invoice::where('user_id', Auth::user()->id)->paginate(10);
         return $this->success($invoice, "Invoice Received");
     }
 
