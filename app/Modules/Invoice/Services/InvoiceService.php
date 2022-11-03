@@ -57,12 +57,7 @@ class InvoiceService
         $invoice = Invoice::where('invoice_id', $invoice_id)->get();
         return $this->success($invoice, "Invoice Receiveds");
     }
-    public function allInvoice()
-    {
-        return 1;
-        $invoice = Invoice::get();
-        return $this->success($invoice, "Invoice Received Successfully");
-    }
+    
 
     public function discard_invoice($data)
     {
@@ -78,7 +73,12 @@ class InvoiceService
             return $this->badRequest($th->getMessage());
         }
     }
-
+    public function allInvoice()
+    {
+        return 1;
+        $invoice = Invoice::get();
+        return $this->success($invoice, "Invoice Received Successfully");
+    }
 
 
     // ADMIN

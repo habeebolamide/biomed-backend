@@ -24,6 +24,7 @@ class InvoiceController extends Controller
 
         return (new InvoiceService)->getInvoice($invoice_id);
     }
+    
     public function all_invoice()
     {
 
