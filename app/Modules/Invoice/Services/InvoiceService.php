@@ -60,7 +60,7 @@ class InvoiceService
     public function allInvoice()
     {
         $invoice = Invoice::get();
-        return $this->success($invoice, "Invoice Received");
+        return $this->success($invoice, "Invoice Received Successfully");
     }
 
     public function discard_invoice($data)
