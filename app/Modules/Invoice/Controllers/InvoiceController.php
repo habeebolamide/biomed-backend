@@ -24,11 +24,17 @@ class InvoiceController extends Controller
 
         return (new InvoiceService)->getInvoice($invoice_id);
     }
-    
+
     public function all_invoice()
     {
 
         return (new InvoiceService)->allInvoice();
+    }
+
+    public function unpaid_invoice()
+    {
+
+        return (new InvoiceService)->unpaidInvoice();
     }
 
     public function discard_invoice(Request $request)

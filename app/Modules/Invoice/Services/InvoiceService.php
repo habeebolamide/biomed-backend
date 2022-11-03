@@ -69,6 +69,15 @@ class InvoiceService
         return $this->success($invoice, "Invoice Received");
     }
 
+    public function unpaidInvoice()
+    {
+        $invoice = Invoice::where(['user_id' => Auth::user()->id, 'status' => 'UNPAID'])
+            ->select('*', DB::raw('SUM(product_price * quantity) as total'))
+            ->groupBy('invoice_id')
+            ->paginate(10);
+        return $this->success($invoice, "Invoice Received");
+    }
+
     public function discard_invoice($data)
     {
         try {
