@@ -34,6 +34,11 @@ class CartService
         if($prodQuantity < 1){
             return $this->badRequest("Product Out of Stock");
         }
+        // check if the product already exists in the cart
+        $check = Cart::where(['product_id' => $data['product_id'], 'user_id' => Auth::user()->id])->count();
+        if($check){
+            return $this->badRequest("Product Already added to cart");
+        }
         $cart = Cart::create([  
             'user_id' => Auth::user()->id, 
             'mac_address' => $this->getMAcAddressExec(),
