@@ -4,6 +4,7 @@ namespace App\Modules\Cart\Services;
 
 use App\Modules\Auth\Models\User;
 use App\Modules\Cart\Models\Cart;
+use App\Modules\GenerateUniqueId\Models\GenerateUniqueId;
 use App\Modules\Product\Models\ProductQuantity;
 use App\Traits\ApiResponseMessagesTrait;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +21,13 @@ class CartService
         // substr(shell_exec('getmac'), 159, 20);;
         // dd($shellexec);
 
-        
-       $cart = Cart::where('user_id', Auth::user()->id)
-       ->with(['product'])->get();
+        if(Auth::user()){
+             $cart = Cart::where('user_id', Auth::user()->id)->with(['product'])->get();
+        }else{
+            $unique = GenerateUniqueId::where('unique_id', request()->unique_id)->first();
+            $cart = Cart::where('mac_address', $unique->id.'|'.$unique->unique_id)->with(['product'])->get();
+        }
+      
        return $this->success($cart, "all users Carts");
     }
 
@@ -34,17 +39,39 @@ class CartService
         if($prodQuantity < 1){
             return $this->badRequest("Product Out of Stock");
         }
-        // check if the product already exists in the cart
-        $check = Cart::where(['product_id' => $data['product_id'], 'user_id' => Auth::user()->id])->count();
-        if($check){
-            return $this->badRequest("Product Already added to cart");
+      
+        if(Auth::user()){
+            $check = Cart::where(['product_id' => $data['product_id'], 'user_id' => Auth::user()->id])->count();
+            if($check){
+                return $this->badRequest("Product Already added to cart");
+            }
+            $cart = Cart::create([  
+                'user_id' => Auth::user()->id, 
+                'mac_address' => $this->getMAcAddressExec(),
+                'product_id' => $data['product_id'],
+                'quantity' => $data['quantity']??1,
+            ]); 
+        }else{
+            // check if the unique_id exists in the db
+            $checkUniqueId = GenerateUniqueId::where("unique_id", $data['unique_id'])->first();
+            if(!$checkUniqueId){
+                $checkUniqueId = GenerateUniqueId::create([
+                    'unique_id' => $data['unique_id']
+                ]);
+            }
+
+            // check if the product has already been added to cart
+            $check = Cart::where(['product_id' => $data['product_id'], 'mac_address' => $checkUniqueId->id.'|'.$data['unique_id']])->count();
+            if($check){
+                return $this->badRequest("Product Already added to cart");
+            }
+           $cart = Cart::create([  
+                'mac_address' => $checkUniqueId->id.'|'.$data['unique_id'],
+                'product_id' => $data['product_id'],
+                'quantity' => $data['quantity']??1,
+            ]); 
         }
-        $cart = Cart::create([  
-            'user_id' => Auth::user()->id, 
-            'mac_address' => $this->getMAcAddressExec(),
-            'product_id' => $data['product_id'],
-            'quantity' => $data['quantity']??1,
-        ]);
+        
         
         return $this->success($cart, "Items Added to carts succcesslfy");
     }
@@ -83,22 +110,40 @@ class CartService
 
     public function increment($data, $cart_id)
     {
-        $cart = Cart::where('id', $cart_id)->first();
+        $unique = GenerateUniqueId::where('unique_id', request()->unique_id)->first();
+        if(!Auth::user()){
+            // check if the cart belongs to the PC
+            $cart = Cart::where(['id'=> $cart_id, 'mac_address' => $unique->id.'|'.$unique->unique_id])->first();
+        }else{
+             $cart = Cart::where(['id' => $cart_id, 'user_id' => Auth::user()->id])->first();
+        }
+       
         $quantity = ProductQuantity::where('product_id', $cart->product_id)->first()->quantity;
         if($quantity > 1){
             if ($data['action'] == 'in') {
                 $cart->quantity = $cart->quantity + 1;
                 $cart->save();
-                $carts = Cart::where('user_id', '=', Auth::user()->id)
-                ->with(['product'])
-                ->orWhere('mac_address', $this->getMAcAddressExec())->get();
+                if(!Auth::user()){
+                $carts = Cart::where('mac_address', $unique->id.'|'.$unique->unique_id)
+                                ->with(['product'])->get();
+                }else{
+                    $carts = Cart::where('user_id', '=', Auth::user()->id)
+                        ->with(['product'])
+                        ->orWhere('mac_address', $unique->id.'|'.$unique->unique_id)->get();
+                }
+                
                 return $this->success($carts, "Cart Updated");
             } else {
                 $cart->quantity = $cart->quantity - 1;
                 $cart->save();
-                $carts = Cart::where('user_id', '=', Auth::user()->id)
-                ->with(['product'])
-                ->orWhere('mac_address', $this->getMAcAddressExec())->get();
+                if(!Auth::user()){
+                    $carts = Cart::where('mac_address', $unique->id.'|'.$unique->unique_id)
+                                    ->with(['product'])->get();
+                    }else{
+                        $carts = Cart::where('user_id', '=', Auth::user()->id)
+                            ->with(['product'])
+                            ->orWhere('mac_address', $unique->id.'|'.$unique->unique_id)->get();
+                    }
                 return $this->success($carts, "Cart Updated");
             }
         }

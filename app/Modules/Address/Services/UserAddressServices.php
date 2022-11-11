@@ -13,6 +13,9 @@ class UserAddressServices
     use ApiResponseMessagesTrait;
    public function getUserAddresses()
    {
+     if(!Auth::user()){
+          return $this->success([], "User Addresses");
+     }
         $user = UserAddress::where('user_id', '=',Auth::user()->id)->get();
         return $this->success($user, "User Addresses");
    }

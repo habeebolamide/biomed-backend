@@ -132,20 +132,20 @@ Route::prefix('customers')->middleware('auth:sanctum')->group(function () {
 
 // CLIENT ROUTES
 Route::prefix('wish-list')->middleware('auth:sanctum')->group(function () {
-    Route::get('/', [WishListController::class, 'index']);
-    Route::get('/{wish_list_id}', [WishListController::class, 'show']);
-    Route::patch('/{wish_list_id}', [WishListController::class, 'update']);
-    Route::get('/remove/{wish_list_id}', [WishListController::class, 'remove']);
-    Route::post('/', [WishListController::class, 'store']);
+    Route::match(['get', 'post'],'get/', [WishListController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::get('/{wish_list_id}', [WishListController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    Route::patch('/{wish_list_id}', [WishListController::class, 'update'])->withoutMiddleware('auth:sanctum');
+    Route::get('/remove/{wish_list_id}', [WishListController::class, 'remove'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [WishListController::class, 'store'])->withoutMiddleware('auth:sanctum');
 });
 
 Route::prefix('cart')->middleware('auth:sanctum')->group(function () {
-    Route::get('/', [CartController::class, 'getCarts']);
+    Route::match(['get', 'post'],'get/', [CartController::class, 'getCarts'])->withoutMiddleware('auth:sanctum');
     Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
     Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
-    Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
-    Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
-    Route::post('/', [CartController::class, 'addToCart']);
+    Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity'])->withoutMiddleware('auth:sanctum');
+    Route::get('/remove/{cart_id}', [CartController::class, 'removeCart'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [CartController::class, 'addToCart'])->withoutMiddleware('auth:sanctum');
     Route::post('/generate_invoice', [CartController::class, 'generate_invoice']);
     Route::post('/clear-cart', [CartController::class, 'clearCart']);
 });
@@ -162,7 +162,7 @@ Route::prefix('invoice')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('user-address')->middleware('auth:sanctum')->group(function () {
-    Route::get('/', [UserAddressController::class, 'getUserAddress']);
+    Route::get('/', [UserAddressController::class, 'getUserAddress'])->withoutMiddleware('auth:sanctum');
     Route::get('/{user_address_id}', [UserAddressController::class, 'getSingleUserAddress']);
     Route::patch('/{user_address_id}', [UserAddressController::class, 'updateUserAddress']);
     Route::patch('/make-default/{user_address_id}', [UserAddressController::class, 'defaultAddress']);
