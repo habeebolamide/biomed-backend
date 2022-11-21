@@ -37,7 +37,7 @@ class ProductService
           }
 
 
-          return $this->success(ProductResource::collection($products->orderBy('created_at', 'desc')->paginate(30)), "all products");
+          return $this->success($products->paginate(30));
      }
 
 
