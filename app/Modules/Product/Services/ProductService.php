@@ -35,7 +35,7 @@ class ProductService
           if (!is_null($data["nested_sub_category_id"])) {
                $products->where('nested_sub_category_id', $data["nested_sub_category_id"]);
           }
-          return $this->success($products->paginate(30));
+          return $this->success($products->paginate(8));
      }
 
 
