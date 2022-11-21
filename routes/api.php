@@ -84,7 +84,7 @@ Route::prefix('disease')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('product')->middleware('auth:sanctum')->group(function () {
-    Route::post('/all', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/all/all-products', [ProductController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [ProductController::class, 'store']);
     Route::get('/{product_id}', [ProductController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::get('/product-search/{category_id?}/{sub_category_id?}/{inner_category_id?}', [ProductController::class, 'showProduct'])->withoutMiddleware('auth:sanctum');
