@@ -133,7 +133,7 @@ class ProductService
                $product->where('disease_id', $disease_id);
           }
           // return $product->toSql();
-          return $this->success($product->paginate(30), "Product");
+          return $this->success(ProductResource::collection($product->paginate(30)), "Product");
      }
 
      public function filterProduct()
