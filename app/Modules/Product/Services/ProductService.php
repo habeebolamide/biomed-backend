@@ -112,9 +112,10 @@ class ProductService
      {
           $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
                ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
+               ->join('picture_products', 'picture_products.product_id', 'products.id')
                ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
                ->join('categories', 'categories.id', 'sub_categories.category_id')
-               ->select('products.*', 'products.id');
+               ->select('products.*', 'products.id','picture_products as picture');
           if (!is_null($category_id)) {
                $product->where('category_id', $category_id);
           }
@@ -133,7 +134,7 @@ class ProductService
                $product->where('disease_id', $disease_id);
           }
           // return $product->toSql();
-          return $this->success("mfjjfjfj", "Product"); 
+          return $this->success($product->paginate(30), "Product");
      }
 
      public function filterProduct()
