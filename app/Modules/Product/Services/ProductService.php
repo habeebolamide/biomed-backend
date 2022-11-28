@@ -116,18 +116,14 @@ class ProductService
                ->join('pictures', 'pictures.id', 'picture_products.picture_id')
                ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
                ->join('categories', 'categories.id', 'sub_categories.category_id')
-               ->select('*', 'products.id');
+               ->select('*', 'products.id', 'pictures');
           if (!is_null($category_id)) {
-               $product->where('category_id', $category_id);
+               $product->where('categories.id', $category_id);
           }
           if (!is_null($sub_category_id)) {
-               $product->where('sub_category_id', $sub_category_id);
+               $product->where('sub_categories.id', $sub_category_id);
           }
-          if (!is_null($price_range)) {
-               if ($price_range == 1000) {
-                    $product->where('price', '<', $price_range);
-               }
-          }
+
           if (!is_null($nested_sub_category_id)) {
                $product->where('nested_sub_category_id', $nested_sub_category_id);
           }
