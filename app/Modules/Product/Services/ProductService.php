@@ -116,7 +116,7 @@ class ProductService
                ->leftJoin('pictures', 'pictures.id', 'picture_products.picture_id')
                ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
                ->join('categories', 'categories.id', 'sub_categories.category_id')
-               ->select('*', 'products.id', 'pictures');
+               ->select('*', 'products.id', 'pictures.picture');
           if (!is_null($category_id)) {
                $product->where('categories.id', $category_id);
           }
