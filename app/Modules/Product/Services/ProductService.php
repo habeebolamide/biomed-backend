@@ -112,24 +112,24 @@ class ProductService
      {
           $product = DB::table('products')->join('product_diseases', 'product_diseases.id', 'products.product_disease_id')
                ->join('nested_sub_categories', 'nested_sub_categories.id', 'products.nested_sub_category_id')
-               ->join('picture_products', 'picture_products.producdft_id', 'products.id')
+               ->join('picture_products', 'picture_products.product_id', 'products.id')
                ->join('pictures', 'pictures.id', 'picture_products.picture_id')
                ->join('sub_categories', 'sub_categories.id', 'nested_sub_categories.sub_category_id')
                ->join('categories', 'categories.id', 'sub_categories.category_id')
                ->select('*', 'products.id', 'pictures');
-          if (!is_null($category_id)) {
-               $product->where('categories.id', $category_id);
-          }
-          if (!is_null($sub_category_id)) {
-               $product->where('sub_categories.id', $sub_category_id);
-          }
+          // if (!is_null($category_id)) {
+          //      $product->where('categories.id', $category_id);
+          // }
+          // if (!is_null($sub_category_id)) {
+          //      $product->where('sub_categories.id', $sub_category_id);
+          // }
 
-          if (!is_null($nested_sub_category_id)) {
-               $product->where('nested_sub_category_id', $nested_sub_category_id);
-          }
-          if (!is_null($disease_id)) {
-               $product->where('disease_id', $disease_id);
-          }
+          // if (!is_null($nested_sub_category_id)) {
+          //      $product->where('nested_sub_category_id', $nested_sub_category_id);
+          // }
+          // if (!is_null($disease_id)) {
+          //      $product->where('disease_id', $disease_id);
+          // }
           // return $product->toSql();
           return $product->paginate(30);
      }
