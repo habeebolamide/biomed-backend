@@ -26,7 +26,7 @@ class CategoryService
    public function category($category_id)
    {
         try {
-            $category = Category::with('subCategory')->where('id', $category_id)->firstOrFail();
+            $category = Category::with('subCategory', 'picture')->where('id', $category_id)->firstOrFail();
             return $this->success($category, "all categories");
         } catch (\Throwable $th) {
             return $this->badRequest("Category Does not exist");
