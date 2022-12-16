@@ -104,7 +104,7 @@ class ProductService
 
      public function product($product_id)
      {
-          $product = Product::with('nestedSubCategory.sub_category')->find($product_id);
+          $product = Product::with(['nestedSubCategory.sub_category', 'picture'])->find($product_id);
           return $this->success(new ProductResource($product), "Product");
      }
 
