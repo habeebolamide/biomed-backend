@@ -26,6 +26,12 @@ class CategorySeeder extends Seeder
             array('category_name' => 'Cell Culture, Cytology & Histology', 'slug' => 'CCH', 'status' => 'active', 'description' => "In this section you will find our wide range of Liquid and Powder Media provides the nutrients for all your cell culture applications. Each of these high-quality Cell Culture Media is manufactured according to the originally published formula, or is further developed and designed to meet highest expectations.
             <br />
             Apart from our Classic Media, such as DMEM or RPMI, we offer various ready-to-use Special Cell Culture Media and Cryopreservation Media. Our Special Media are specifically tailored to an application or cell type."),
+            array('category_name' => 'Just Good', 'slug' => 'CCH', 'status' => 'active', 'description' => "In this section you will find our wide range of Liquid and Powder Media provides the nutrients for all your cell culture applications. Each of these high-quality Cell Culture Media is manufactured according to the originally published formula, or is further developed and designed to meet highest expectations.
+            <br />
+            Apart from our Classic Media, such as DMEM or RPMI, we offer various ready-to-use Special Cell Culture Media and Cryopreservation Media. Our Special Media are specifically tailored to an application or cell type."),
+            array('category_name' => 'Josba', 'slug' => 'CCH', 'status' => 'active', 'description' => "In this section you will find our wide range of Liquid and Powder Media provides the nutrients for all your cell culture applications. Each of these high-quality Cell Culture Media is manufactured according to the originally published formula, or is further developed and designed to meet highest expectations.
+            <br />
+            Apart from our Classic Media, such as DMEM or RPMI, we offer various ready-to-use Special Cell Culture Media and Cryopreservation Media. Our Special Media are specifically tailored to an application or cell type."),
         );
     }
 }

@@ -14,7 +14,7 @@ class CreateUserAddressesTable extends Migration
     public function up()
     {
         Schema::create('user_addresses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->string('name');
             $table->string('email');

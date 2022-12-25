@@ -14,7 +14,7 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->foreignId('user_id')->nullable()->references('id')->on('users');
             $table->string('mac_address')->nullable();
             $table->string('reference_no')->nullable();

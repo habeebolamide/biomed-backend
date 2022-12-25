@@ -14,7 +14,7 @@ class CreateNestedSubCategoriesTable extends Migration
     public function up()
     {
         Schema::create('nested_sub_categories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->foreignId('sub_category_id')->references('id')->on('sub_categories');
             $table->string('name');
             $table->string('slug')->nullable();

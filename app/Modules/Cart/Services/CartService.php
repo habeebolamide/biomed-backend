@@ -17,10 +17,6 @@ class CartService
     public function getCarts()
     {
 
-        // $shellexec =
-        // substr(shell_exec('getmac'), 159, 20);;
-        // dd($shellexec);
-
         if(Auth::user()){
              $cart = Cart::where('user_id', Auth::user()->id)->with(['product'])->get();
         }else{
