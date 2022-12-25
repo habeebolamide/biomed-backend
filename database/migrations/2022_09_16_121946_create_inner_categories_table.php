@@ -14,7 +14,7 @@ class CreateInnerCategoriesTable extends Migration
     public function up()
     {
         Schema::create('inner_categories', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->id();
             $table->foreignId('sub_category_id')->references('id')->on('sub_categories');
             $table->string('inner_category_name');
             $table->string('slug')->nullable();

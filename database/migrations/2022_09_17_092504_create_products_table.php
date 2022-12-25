@@ -14,7 +14,7 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->id();
             $table->foreignId('nested_sub_category_id')->references('id')->on('nested_sub_categories');
             $table->foreignId('product_disease_id')->references('id')->on('product_diseases');
             $table->string('product_name');
