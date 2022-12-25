@@ -107,13 +107,13 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function () {
 
 });
 
-Route::prefix('dashboard')->middleware('auth:sanctum')->group(function () {
+// Route::prefix('dashboard')->middleware('auth:sanctum')->group(function () {
 
-    Route::post('/chart_data', [ProductController::class, 'admin_sale_report'])->name("chart_data");
-    Route::post('/chart_data1', [ProductController::class, 'admin_category_purchase_report'])->name("chart_data1");
-    Route::post('/categories_by_name', [ProductController::class, 'categories_by_name'])->name("categories_by_name");
-    Route::post('/income', [ProductController::class, 'income'])->name("income");
-});
+//     Route::post('/chart_data', [ProductController::class, 'admin_sale_report'])->name("chart_data");
+//     Route::post('/chart_data1', [ProductController::class, 'admin_category_purchase_report'])->name("chart_data1");
+//     Route::post('/categories_by_name', [ProductController::class, 'categories_by_name'])->name("categories_by_name");
+//     Route::post('/income', [ProductController::class, 'income'])->name("income");
+// });
 
 
 Route::prefix('customers')->middleware('auth:sanctum')->group(function () {
