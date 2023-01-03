@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Modules\Address\Controllers\UserAddressController;
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
@@ -41,6 +42,7 @@ Route::get('/auth/user_type', [AuthController::class, 'user_type'])->middleware(
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::get('/user-details', [AuthController::class, 'userDetails'])->middleware('auth:sanctum');
 
+Route::post('/contact', [ContactController::class, 'store']);
 
 
 // ADMIN ROUTES
