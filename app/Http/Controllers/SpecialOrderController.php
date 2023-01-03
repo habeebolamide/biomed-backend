@@ -43,6 +43,10 @@ class SpecialOrderController extends Controller
                 'quantity' => $spec['quantity']
             ]);
         }
+
+        return response()->json([
+            'message' => 'Order Placed'
+        ], 200);
     }
 
     /**

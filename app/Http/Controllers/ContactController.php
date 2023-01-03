@@ -52,6 +52,10 @@ class ContactController extends Controller
             'phone' => $request->phone,
             'message' => $request->message,
         ]);
+
+        return response()->json([
+            'message' => 'Message Sent'
+        ], 200);
         
     }
 
