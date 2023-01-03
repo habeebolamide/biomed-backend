@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SpecialOrderController;
+use App\Models\SpecialOrder;
 use App\Modules\Address\Controllers\UserAddressController;
 use App\Modules\Auth\Controllers\AuthController;
 use App\Modules\Cart\Controllers\CartController;
@@ -43,6 +45,7 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::get('/user-details', [AuthController::class, 'userDetails'])->middleware('auth:sanctum');
 
 Route::post('/contact', [ContactController::class, 'store']);
+Route::post('/special-order', [SpecialOrderController::class, 'store']);
 
 
 // ADMIN ROUTES
