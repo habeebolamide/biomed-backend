@@ -38,4 +38,9 @@ class SubCategoryController extends Controller
     {
         return (new SubCategoryService)->deleteSubCategory($category_id);
     }
+
+    public function get_sub_category_by_cat_id(Request $request)
+    {
+        return (new SubCategoryService)->get_sub_category_by_cat_id($request->all());
+    }
 }

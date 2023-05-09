@@ -12,7 +12,7 @@ class SubCategory extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ['category', 'nestedSubCategory'];
+    protected $with = ['nestedSubCategory'];
 
     public function category()
     {
@@ -22,8 +22,8 @@ class SubCategory extends Model
      {
         return $this->hasMany(NestedSubCategory::class);
      }
-    public function products()
-    {
-       return $this->hasMany(Product::class);
-    }
+    // public function products()
+    // {
+    //    return $this->hasMany(Product::class);
+    // }
 }

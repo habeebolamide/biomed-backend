@@ -13,15 +13,15 @@ class RegisterUserService
    {
     try {
         $user = User::create([
-            'name' =>$data['name'],
-            'username' =>$data['username'],
+            'first_name' =>$data['first_name'],
+            'last_name' =>$data['last_name'],
             'email' =>$data['email'],
-            'phone' =>$data['phone'],
+            // 'phone' => phone($data['phone'],$data['country_code']),
+            'phone' => $data['phone'],
             'status' => 'active',
             'password' => Hash::make($data['password'])
         ]);
         return $this->success(['user' => $user, 'token' => $user->createToken("API TOKEN")->plainTextToken], 'Account created Successfully');
-
     } catch (\Throwable $th) {
         return $this->badRequest($th->getMessage());
     }

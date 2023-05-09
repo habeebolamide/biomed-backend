@@ -13,16 +13,22 @@ class NestedSubCategory extends Model
     use HasFactory;
     protected $guarded = [];
     protected $appends = ['full_name'];
-   //  protected $with = ['products', 'sub_category'];
+    protected $with = ['products'];
     
     public function sub_category()
      {
         return $this->belongsTo(SubCategory::class);
      }
+     
     public function products()
     {
-       return $this->hasMany(Product::class);
+      return $this->hasMany(Product::class);
     }
+
+   //  public function paginatedProducts($perPage = 10)
+   //  {
+   //    return $this->products->paginate($perPage);
+   //  }
 
     public function getFullNameAttribute()
     {

@@ -11,22 +11,48 @@ class CategoryService
     use ApiResponseMessagesTrait;
    public function allCategories($data)
    {
+    // dd($data);
         $category = Category::with(['subCategory', 'picture']);
-
         if($data["filters"]) {
             if(!is_null($data["filters"]["search"])) {
                 $category->where('category_name', "like", "%".$data["filters"]["search"]."%");
             }
-
         }
-        
         return $this->success($category->orderBy('created_at', 'desc')->get(), "all categories");
    }
 
    public function category($category_id)
    {
+    // dd($category_id);
         try {
-            $category = Category::with('subCategory', 'picture')->where('id', $category_id)->firstOrFail();
+            $category = Category::with('subCategory','picture')->where('id',$category_id)->firstOrFail();
+            return $this->success($category, "all categories");
+        } catch (\Throwable $th) {
+            return $this->badRequest("Category Does not exist");
+        }
+        
+   }
+   //to get category with product and ...
+   public function categoryDetail($data)
+   {
+        try {
+            $category = Category::with('subCategory','picture')->where('id',$data['id'])->firstOrFail();
+            if($data["filters"]) {
+                if(!is_null($data["filters"]["search"])) {
+                    $category->whereHas('subCategory',function ($query) use($data) {
+                        $query->where('name', "like", "%".$data["filters"]["search"]."%");
+                    })->firstOrFail();
+                }
+
+                if(!is_null($data["filters"]["search_sub_cat_name"])) {
+                    $category->whereHas('subCategory',function ($query) use($data) {
+                        $query->whereHas('nested_sub_category',function ($query) use($data){
+                            $query[0]->whereIn('name', "like", "%".$data["filters"]["search_sub_cat_name"]."%");
+                        });
+                    })->firstOrFail();
+                }
+                
+            }
             return $this->success($category, "all categories");
         } catch (\Throwable $th) {
             return $this->badRequest("Category Does not exist");
@@ -34,8 +60,11 @@ class CategoryService
         
    }
 
+   //
+
    public function createCategory($data)
    {
+    // dd($data);
         $category_image = null;
         if ($data['category_image']) {
             $image_parts = explode(';base64,', $data['category_image']);

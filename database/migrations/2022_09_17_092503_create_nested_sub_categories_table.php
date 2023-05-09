@@ -19,7 +19,7 @@ class CreateNestedSubCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable();
             $table->string('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
         });
     }

@@ -19,6 +19,11 @@ class CategoryController extends Controller
         return (new CategoryService)->category($category_id);
     }
 
+    public function categoryDetail(Request $request)
+    {
+        return (new CategoryService)->categoryDetail($request->all());
+    }
+
     public function store(CreateCategoryRequest $request)
     {
         return (new CategoryService)->createCategory($request->validated());

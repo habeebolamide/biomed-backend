@@ -38,4 +38,18 @@ class NestedSubCategoryController extends Controller
     {
         return (new NestedSubCategoryService)->deleteSubCategory($category_id);
     }
+
+    ///
+    // public function allPathogens()
+    // {
+    //     // dd(12);
+    //     return (new NestedSubCategoryService)->Pathogens();
+    // }
+
+    /// get nested-category-by-id(technology)
+    public function get_nested_category_by_id_as_technology(Request $request)
+    {
+        return (new NestedSubCategoryService)->get_nested_category_by_id_as_technology($request->all());
+    }
+
 }

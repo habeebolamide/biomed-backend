@@ -18,8 +18,12 @@ class SubCategoryService
         if($data["active"]) {
             if(!is_null($data["active"])) {
                 $category->where('status', "like", "active");
-                
             }
+            // "id":1,
+            // "filters":{
+            //     "search":"",
+            //     "search_sub_cat_name":""
+            // }
 
         }
         return $this->success($category->orderBy('created_at', 'desc')->get(), "all sub-categories");
@@ -90,4 +94,15 @@ class SubCategoryService
         return $this->badRequest("Category Can'\t be deleted, it has been attached to a product");
     }
    }
+   ///
+   public function get_sub_category_by_cat_id($data)
+   {
+    try {
+        $category_product = SubCategory::where('category_id', $data['cate_id'])->get();
+        return $this->success($category_product,"Sub Category details");
+    } catch (\Throwable $th) {
+        return $this->badRequest("Not exist");
+    }
+   }
+   ///
 }

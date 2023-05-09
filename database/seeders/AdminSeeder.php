@@ -16,8 +16,8 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $superAdmin=[
-            "name" => "Admin User",
-            "username" => "myadmin",
+            "first_name" => "Admin",
+            "last_name" => "myadmin",
             "email" => "myadmin@app.com",
             "phone" => "0818181818",
             'user_type' =>'admin',
@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
         ];
 
         DB::table("users")->updateOrInsert(
-            ["name" => $superAdmin["name"], "username" => $superAdmin["username"], "email"  => $superAdmin["email"]],
+            ["first_name" => $superAdmin["first_name"], "last_name" => $superAdmin["last_name"], "email"  => $superAdmin["email"]],
             $superAdmin,
         );
         

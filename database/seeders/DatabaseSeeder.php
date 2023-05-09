@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(SubCategorySeeder::class);
         $this->call(InnerCategorySeeder::class);
+        $this->call(PathogenSeeder::class);
         $this->call(DiseaseSeeder::class);
         $this->call(ProductsSeeder::class);
+        // $this->call(ProductsSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }

@@ -50,9 +50,12 @@ Route::post('/special-order', [SpecialOrderController::class, 'store']);
 
 // ADMIN ROUTES
 Route::prefix('category')->middleware('auth:sanctum')->group(function () {
-    Route::post('/all', [CategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
-    Route::post('/', [CategoryController::class, 'store'])->withoutMiddleware('auth:sanctum');
+    Route::post('/', [CategoryController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/store', [CategoryController::class, 'store'])->withoutMiddleware('auth:sanctum');
     Route::get('/{category_id}', [CategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
+    //
+    Route::post('/detail', [CategoryController::class, 'categoryDetail'])->withoutMiddleware('auth:sanctum');
+   //
     Route::patch('/{category_id}', [CategoryController::class, 'update']);
     Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
     Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
@@ -69,6 +72,11 @@ Route::prefix('nested-sub-category')->middleware('auth:sanctum')->group(function
     Route::post('/sub-category/{sub_category_id}', [NestedSubCategoryController::class, 'showSubCategory']);
     Route::patch('/{sub_category_id}', [NestedSubCategoryController::class, 'update']);
     Route::delete('/{sub_category_id}', [NestedSubCategoryController::class, 'destroy']);
+
+    //technology
+    Route::post('/technology', [NestedSubCategoryController::class,'get_nested_category_by_id_as_technology'])->withoutMiddleware('auth:sanctum');
+    // end
+
 });
 
 Route::prefix('sub-category')->middleware('auth:sanctum')->group(function () {
@@ -78,6 +86,11 @@ Route::prefix('sub-category')->middleware('auth:sanctum')->group(function () {
     Route::post('/category/{category_id}', [SubCategoryController::class, 'showSubCategory']);
     Route::patch('/{sub_category_id}', [SubCategoryController::class, 'update']);
     Route::delete('/{sub_category_id}', [SubCategoryController::class, 'destroy']);
+
+    /// get sub category by id
+    Route::post('/sub_category_by_id', [SubCategoryController::class, 'get_sub_category_by_cat_id'])->withoutMiddleware('auth:sanctum');
+    /// end
+
 });
 
 Route::prefix('disease')->middleware('auth:sanctum')->group(function () {
@@ -105,6 +118,7 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function () {
         Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
         Route::delete('/remove-product-pics/{picture_id}', [PictureController::class, 'removeProductPicture']);
     });
+    
     // Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
     //     Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
     //     Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
