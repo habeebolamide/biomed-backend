@@ -69,7 +69,7 @@ class CategoryService
         if ($data['category_image']) {
             $image_parts = explode(';base64,', $data['category_image']);
             $image_type = 'png';
-            $image_base64 = base64_decode($image_parts[1]);
+            $image_base64 = base64_decode($image_parts[0]);
             $filename = $data['slug']??time().'.'.$image_type;
 
              //here you can define any directory name whatever you want, if dir is not exist it will created automatically.

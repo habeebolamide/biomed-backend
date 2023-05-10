@@ -15,7 +15,7 @@ class CreateBackgroundSlidersTable extends Migration
     {
         Schema::create('background_sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('slider_text');
+            $table->string('slider_text')->nullable();
             $table->string('slider_image');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

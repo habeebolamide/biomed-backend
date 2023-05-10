@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\BackgroundSliderController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FeatureSliderController;
 use App\Http\Controllers\SpecialOrderController;
 use App\Models\SpecialOrder;
 use App\Modules\Address\Controllers\UserAddressController;
 use App\Modules\Auth\Controllers\AuthController;
+use App\Modules\BackgroundSlider\Controllers\BackgroundSliderController as ControllersBackgroundSliderController;
+use App\Modules\BackgroundSlider\Models\BackgroundSlider;
+// use App\Modules\Banner\Controllers\BannerController;
 use App\Modules\Cart\Controllers\CartController;
 use App\Modules\Category\Controllers\CategoryController;
 use App\Modules\Coupon\Controllers\CouponController;
@@ -12,6 +17,7 @@ use App\Modules\Customers\Controllers\CustomersController;
 use App\Modules\Invoice\Controllers\InvoiceController;
 use App\Modules\NestedSubCategory\Controllers\NestedSubCategoryController;
 use App\Modules\Order\Controllers\OrderController;
+use App\Modules\Pathogen\Controllers\PathogenController;
 use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
@@ -19,6 +25,8 @@ use App\Modules\SubCategory\Controllers\SubCategoryController;
 use App\Modules\Transaction\Controllers\TransactionController;
 use App\Modules\UserMessage\Controllers\UserMessageController;
 use App\Modules\WishList\Controllers\WishListController;
+//
+// use App\Modules\BackgroundSlider\Controllers\BackgroundSliderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -214,3 +222,14 @@ Route::prefix('coupon')->middleware('auth:sanctum')->group(function () {
     Route::post('/attach-coupon-to-user/{id}/{user_id}', [CouponController::class, 'attatchToUser']);
     Route::post('/user/{user_id}', [CouponController::class, 'userCoupon']);
 });
+/// pathogens
+Route::prefix('pathogen')->middleware('auth:sanctum')->group(function () {
+    Route::get('/get-pathogen', [PathogenController::class, 'getPathogen'])->withoutMiddleware('auth:sanctum');
+});
+
+/// banners|sliders
+Route::prefix('banner')->middleware('auth:sanctum')->group(function () {
+    Route::get('/get-banner', [ControllersBackgroundSliderController::class,'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/submit-banner', [ControllersBackgroundSliderController::class,'store'])->withoutMiddleware('auth:sanctum');
+});
+
