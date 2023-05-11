@@ -12,7 +12,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $with = ['ProductDisease','ProductQuantity'];
+    protected $with = ['ProductDisease','ProductQuantity','picture'];
     public function nestedSubCategory()
     {
         return $this->belongsTo(NestedSubCategory::class);

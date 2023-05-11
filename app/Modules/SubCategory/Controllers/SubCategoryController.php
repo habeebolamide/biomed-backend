@@ -16,6 +16,7 @@ class SubCategoryController extends Controller
 
     public function show($sub_category_id)
     {
+        // dd($sub_category_id);
         return (new SubCategoryService)->subCategory($sub_category_id);
     }
 
