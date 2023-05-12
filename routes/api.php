@@ -63,7 +63,7 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function () {
     Route::get('/{category_id}', [CategoryController::class, 'show'])->withoutMiddleware('auth:sanctum');
     //
     Route::post('/detail', [CategoryController::class, 'categoryDetail'])->withoutMiddleware('auth:sanctum');
-   //
+    //
     Route::patch('/{category_id}', [CategoryController::class, 'update']);
     Route::delete('/{category_id}', [CategoryController::class, 'destroy']);
     Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
@@ -82,7 +82,7 @@ Route::prefix('nested-sub-category')->middleware('auth:sanctum')->group(function
     Route::delete('/{sub_category_id}', [NestedSubCategoryController::class, 'destroy']);
 
     //technology
-    Route::post('/technology', [NestedSubCategoryController::class,'get_nested_category_by_id_as_technology'])->withoutMiddleware('auth:sanctum');
+    Route::post('/technology', [NestedSubCategoryController::class, 'get_nested_category_by_id_as_technology'])->withoutMiddleware('auth:sanctum');
     // end
 
 });
@@ -126,7 +126,7 @@ Route::prefix('product')->middleware('auth:sanctum')->group(function () {
         Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
         Route::delete('/remove-product-pics/{picture_id}', [PictureController::class, 'removeProductPicture']);
     });
-    
+
     // Route::prefix('pictures')->middleware('auth:sanctum')->group(function(){
     //     Route::post('/product-pics/{product_id}', [PictureController::class, 'productPicture']);
     //     Route::post('/category-pics/{category_id}', [PictureController::class, 'categoryPicture']);
@@ -159,7 +159,7 @@ Route::prefix('customers')->middleware('auth:sanctum')->group(function () {
 
 // CLIENT ROUTES
 Route::prefix('wish-list')->middleware('auth:sanctum')->group(function () {
-    Route::match(['get', 'post'],'get/', [WishListController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::match(['get', 'post'], 'get/', [WishListController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::get('/{wish_list_id}', [WishListController::class, 'show'])->withoutMiddleware('auth:sanctum');
     Route::patch('/{wish_list_id}', [WishListController::class, 'update'])->withoutMiddleware('auth:sanctum');
     Route::get('/remove/{wish_list_id}', [WishListController::class, 'remove'])->withoutMiddleware('auth:sanctum');
@@ -167,10 +167,10 @@ Route::prefix('wish-list')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('cart')->middleware('auth:sanctum')->group(function () {
-    Route::match(['get', 'post'],'get/', [CartController::class, 'getCarts'])->withoutMiddleware('auth:sanctum');
+    Route::match(['get', 'post'], 'get/', [CartController::class, 'getCarts']);
     Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
     Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
-    Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity'])->withoutMiddleware('auth:sanctum');
+    Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
     Route::get('/remove/{cart_id}', [CartController::class, 'removeCart'])->withoutMiddleware('auth:sanctum');
     Route::post('/', [CartController::class, 'addToCart'])->withoutMiddleware('auth:sanctum');
     Route::post('/generate_invoice', [CartController::class, 'generate_invoice']);
@@ -229,7 +229,6 @@ Route::prefix('pathogen')->middleware('auth:sanctum')->group(function () {
 
 /// banners|sliders
 Route::prefix('banner')->middleware('auth:sanctum')->group(function () {
-    Route::get('/get-banner', [ControllersBackgroundSliderController::class,'index'])->withoutMiddleware('auth:sanctum');
-    Route::post('/submit-banner', [ControllersBackgroundSliderController::class,'store'])->withoutMiddleware('auth:sanctum');
+    Route::get('/get-banner', [ControllersBackgroundSliderController::class, 'index'])->withoutMiddleware('auth:sanctum');
+    Route::post('/submit-banner', [ControllersBackgroundSliderController::class, 'store'])->withoutMiddleware('auth:sanctum');
 });
-
