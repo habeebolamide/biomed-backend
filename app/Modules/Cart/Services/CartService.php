@@ -37,39 +37,16 @@ class CartService
             return $this->badRequest("Product Out of Stock");
         }
 
-        if (Auth::user()) {
-            $check = Cart::where(['product_id' => $data['product_id'], 'user_id' => Auth::user()->id])->count();
-            if ($check) {
-                return $this->badRequest("Product Already added to cart");
-            }
-            $cart = Cart::create([
-                'user_id' => Auth::user()->id,
-                'mac_address' => $this->getMAcAddressExec(),
-                'product_id' => $data['product_id'],
-                'quantity' => $data['quantity'] ?? 1,
-            ]);
-        } else {
-            // check if the unique_id exists in the db
-            $checkUniqueId = GenerateUniqueId::where("unique_id", $data['unique_id'])->first();
-            if (!$checkUniqueId) {
-                $checkUniqueId = GenerateUniqueId::create([
-                    'unique_id' => $data['unique_id']
-                ]);
-            }
-
-            // check if the product has already been added to cart
-            $check = Cart::where(['product_id' => $data['product_id'], 'mac_address' => $checkUniqueId->id . '|' . $data['unique_id']])->count();
-            if ($check) {
-                return $this->badRequest("Product Already added to cart");
-            }
-            $cart = Cart::create([
-                'mac_address' => $checkUniqueId->id . '|' . $data['unique_id'],
-                'product_id' => $data['product_id'],
-                'quantity' => $data['quantity'] ?? 1,
-            ]);
+        $check = Cart::where(['product_id' => $data['product_id'], 'user_id' => Auth::user()->id])->count();
+        if ($check) {
+            return $this->badRequest("Product Already added to cart");
         }
-
-
+        $cart = Cart::create([
+            'user_id' => Auth::user()->id,
+            'mac_address' => $this->getMAcAddressExec(),
+            'product_id' => $data['product_id'],
+            'quantity' => $data['quantity'] ?? 1,
+        ]);
         return $this->success($cart, "Items Added to carts succcesslfy");
     }
 

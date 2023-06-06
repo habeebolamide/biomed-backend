@@ -19,7 +19,9 @@ class Category extends Model
 
     public function picture()
     {
-        return $this->hasMany(Picture::class,'pictureable_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Picture::class, 'pictureable_id', 'id')
+        ->where('pictureable_type', '=', self::class)
+        ->orderBy('created_at', 'desc');
 
     }
     

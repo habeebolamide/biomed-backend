@@ -169,10 +169,10 @@ Route::prefix('wish-list')->middleware('auth:sanctum')->group(function () {
 Route::prefix('cart')->middleware('auth:sanctum')->group(function () {
     Route::match(['get', 'post'], 'get/', [CartController::class, 'getCarts']);
     Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
-    Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
-    Route::patch('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
-    Route::get('/remove/{cart_id}', [CartController::class, 'removeCart'])->withoutMiddleware('auth:sanctum');
-    Route::post('/', [CartController::class, 'addToCart'])->withoutMiddleware('auth:sanctum');
+    // Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
+    Route::put('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
+    Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
+    Route::post('/', [CartController::class, 'addToCart']);
     Route::post('/generate_invoice', [CartController::class, 'generate_invoice']);
     Route::post('/clear-cart', [CartController::class, 'clearCart']);
 });
