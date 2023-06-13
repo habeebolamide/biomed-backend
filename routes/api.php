@@ -21,6 +21,7 @@ use App\Modules\Pathogen\Controllers\PathogenController;
 use App\Modules\Pictures\Controllers\PictureController;
 use App\Modules\Product\Controllers\ProductController;
 use App\Modules\Product\Controllers\ProductDiseaseController;
+use App\Modules\Quotes\Controllers\QuoteController;
 use App\Modules\SubCategory\Controllers\SubCategoryController;
 use App\Modules\Transaction\Controllers\TransactionController;
 use App\Modules\UserMessage\Controllers\UserMessageController;
@@ -167,8 +168,9 @@ Route::prefix('wish-list')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('cart')->middleware('auth:sanctum')->group(function () {
-    Route::match(['get', 'post'], 'get/', [CartController::class, 'getCarts']);
-    Route::get('/{cart_id}', [CartController::class, 'getSingleCart']);
+    Route::match(['get', 'post'], 'get', [CartController::class, 'getCarts']);
+    Route::get('/f/{cart_id}', [CartController::class, 'getSingleCart']);
+    Route::get('/count', [CartController::class, 'getCount']);
     // Route::patch('/{cart_id}', [CartController::class, 'updateCart']);
     Route::put('/update-quantity/{cart_id}', [CartController::class, 'incrementQuantity']);
     Route::get('/remove/{cart_id}', [CartController::class, 'removeCart']);
@@ -231,4 +233,10 @@ Route::prefix('pathogen')->middleware('auth:sanctum')->group(function () {
 Route::prefix('banner')->middleware('auth:sanctum')->group(function () {
     Route::get('/get-banner', [ControllersBackgroundSliderController::class, 'index'])->withoutMiddleware('auth:sanctum');
     Route::post('/submit-banner', [ControllersBackgroundSliderController::class, 'store'])->withoutMiddleware('auth:sanctum');
+});
+
+Route::prefix('quote')->middleware('auth:sanctum')->group(function () {
+    Route::post('/', [QuoteController::class, 'createQuote']);
+    Route::post('/getquote', [QuoteController::class, 'getQuote']);
+    Route::put('/updateprice/{reference_id}', [QuoteController::class, 'UpdatePrice']);
 });

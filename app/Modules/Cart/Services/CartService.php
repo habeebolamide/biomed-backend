@@ -16,16 +16,23 @@ class CartService
 
     public function getCarts()
     {
+        $carts =[];
 
-        if (Auth::user()) {
-            $cart = Cart::where('user_id', Auth::user()->id)->with(['product'])->get();
+        $carts['quoted'] =  Cart::where('user_id', Auth::user()->id)
+        ->where('status', 'quoted')
+        ->with(['product'])
+        ->get();
+
+        $carts['pending'] =  Cart::where('user_id', Auth::user()->id)
+        ->where('status', 'pending')
+        ->with(['product'])
+        ->get();
+
+        $price =   Cart::where('user_id', Auth::user()->id)->sum('price');
+        if ($carts) {
+            return response()->json(["carts" => $carts, 'price' => $price, "message" => "Succesfull Operation", 'status' => true], 200);
         }
-        // else{
-        //     $unique = GenerateUniqueId::where('unique_id', request()->unique_id)->first();
-        //     $cart = Cart::where('mac_address', $unique->id.'|'.$unique->unique_id)->with(['product'])->get();
-        // }
-
-        return $this->success($cart, "all users Carts");
+        return response()->json(["message" => "An error Occured", 'status' => false], 400);
     }
 
 
@@ -46,6 +53,7 @@ class CartService
             'mac_address' => $this->getMAcAddressExec(),
             'product_id' => $data['product_id'],
             'quantity' => $data['quantity'] ?? 1,
+            'reference_id' => $data['reference_id'],
         ]);
         return $this->success($cart, "Items Added to carts succcesslfy");
     }
@@ -59,7 +67,7 @@ class CartService
             'prduct_id' => $data['prduct_id'],
             'quantity' => $data['quantity'] ?? 1,
         ]);
-        return $this->success($cart, "Items Added to cars succcesslfy");
+        return $this->success($cart, "Items Added to cart succcesslfy");
     }
 
     public function removeCart($cart_id)
@@ -122,5 +130,11 @@ class CartService
             }
         }
         return $this->badRequest("Product Out of Stock");
+    }
+
+    public function getCount()
+    {
+        $cartcount = Cart::where('user_id', Auth::user()->id)->count();
+        return response()->json([ 'cartcount' => $cartcount], 200);
     }
 }

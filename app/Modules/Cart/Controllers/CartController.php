@@ -44,7 +44,7 @@ class CartController extends Controller
         return (new CartService())->increment($request, $cart_id);
     }
 
-   
-    
-
+    public function getCount(Request $request){
+        return (new CartService())->getCount($request);
+    }
 }
