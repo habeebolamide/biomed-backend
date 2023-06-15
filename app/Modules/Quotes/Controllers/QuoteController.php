@@ -38,4 +38,11 @@ class QuoteController extends Controller
     {
         return (new QuoteService)->UpdatePrice($request, $reference_id);
     }
+
+    public function getSingleQuote(Request $request, $reference_id)
+    {
+        return (new QuoteService)->getSingleQuote($request, $reference_id);
+    }
+
+    
 }

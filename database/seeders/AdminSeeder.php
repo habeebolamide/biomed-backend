@@ -25,11 +25,24 @@ class AdminSeeder extends Seeder
             "password" => Hash::make("12345678"),
         ];
 
+        $testuser=[
+            "first_name" => "Test",
+            "last_name" => "User",
+            "email" => "testuser@app.com",
+            "phone" => "0818181818",
+            'user_type' =>'user',
+            'status' => 'active',
+            "password" => Hash::make("12345678"),
+        ];
+
         DB::table("users")->updateOrInsert(
             ["first_name" => $superAdmin["first_name"], "last_name" => $superAdmin["last_name"], "email"  => $superAdmin["email"]],
             $superAdmin,
         );
         
-
+        DB::table("users")->updateOrInsert(
+            ["first_name" => $testuser["first_name"], "last_name" => $testuser["last_name"], "email"  => $testuser["email"]],
+            $testuser,
+        );
     }
 }

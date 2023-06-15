@@ -46,7 +46,7 @@ class CartService
 
         $check = Cart::where(['product_id' => $data['product_id'], 'user_id' => Auth::user()->id])->count();
         if ($check) {
-            return $this->badRequest("Product Already added to cart");
+            return response()->json(["message" => "Product Already added to cart", 'status' => false], 400);
         }
         $cart = Cart::create([
             'user_id' => Auth::user()->id,

@@ -238,5 +238,6 @@ Route::prefix('banner')->middleware('auth:sanctum')->group(function () {
 Route::prefix('quote')->middleware('auth:sanctum')->group(function () {
     Route::post('/', [QuoteController::class, 'createQuote']);
     Route::post('/getquote', [QuoteController::class, 'getQuote']);
+    Route::get('/getquote/{reference_id}', [QuoteController::class, 'getSingleQuote']);
     Route::put('/updateprice/{reference_id}', [QuoteController::class, 'UpdatePrice']);
 });

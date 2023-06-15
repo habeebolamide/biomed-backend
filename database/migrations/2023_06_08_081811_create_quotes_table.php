@@ -16,10 +16,12 @@ class CreateQuotesTable extends Migration
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
             $table->string('product_name');
+            $table->string('product_id');
             $table->string('quantity');
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('company');
+            $table->string('company')->nullable();
+            $table->string('user_id');
             $table->string('phone');
             $table->string('email');
             $table->string('address1');
@@ -31,7 +33,7 @@ class CreateQuotesTable extends Migration
             $table->string('VAT/MwSt Number/Tax ID');
             $table->string('deliverycountry');
             $table->string('deliveryoption');
-            $table->string('nearBranch');
+            $table->string('nearBranch')->nullable();
             $table->string('comment')->nullable();
             $table->string('reference_id');
             $table->string('price')->nullable();
