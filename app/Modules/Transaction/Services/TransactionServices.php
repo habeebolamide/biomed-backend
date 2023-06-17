@@ -2,6 +2,7 @@
 
 namespace App\Modules\Transaction\Services;
 
+use App\Modules\Cart\Models\Cart;
 use App\Modules\Invoice\Models\Invoice;
 use App\Modules\Transaction\Models\Transaction;
 use App\Traits\ApiResponseMessagesTrait;
@@ -33,6 +34,23 @@ class TransactionServices
         $transaction->save();
         return $this->success($transaction, "Transaction Record Created");
     }
+
+    public function createTransaction($data)
+    {
+        $transaction = Transaction::create([
+            'reference_no' => $data['reference_no'],
+            'email' => $data['email'],
+            'user_id' => Auth::user()->id,
+            'amount' => $data['amt'],
+            'expected_amount' => $data['amt'],
+            'status' => 'approved'
+       ]);
+       if ($transaction) {
+            Cart::where('user_id', Auth::user()->id)->where('status', 'quoted')->delete();
+       }
+       return response()->json(['status' => true, 'transaction' => $transaction, "message" => "Succesfully Operation"], 200);
+    }
+
     public function checkTransactionStatus($transaction_id, $invoice_id)
     {
 

@@ -28,6 +28,8 @@ class CreateProductsTable extends Migration
             $table->string('keyword')->nullable();
             $table->string('model')->nullable();
             $table->string('youtube_id')->nullable();
+            $table->string('technology')->nullable();
+            $table->string('volume')->nullable();
             $table->string('measurement')->nullable();
             $table->integer('discount')->nullable();
             $table->enum('is_variant', ['yes', 'no'])->default('no');

@@ -19,12 +19,12 @@ class QuoteController extends Controller
     {
         if ($request->has('filter.status')) {
             $keyword = $request->input('filter.status');
-            $quote = Quote::where(function ($query) use ($keyword) {
+            $quote = Quote::with('product')->where(function ($query) use ($keyword) {
                 $query->where('status', 'LIKE', "%$keyword%");
             })
-            ->paginate(50);
+            ->paginate(5);
             if ($quote->isEmpty()) {
-                return response()->json(['status' => false]);
+                return response()->json([ 'quotes' => [],'status' => false]);
             }
             else{
                 return response()->json([ 'quotes' => $quote], 200);

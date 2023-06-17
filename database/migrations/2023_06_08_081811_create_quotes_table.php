@@ -31,7 +31,7 @@ class CreateQuotesTable extends Migration
             $table->string('region');
             $table->string('country');
             $table->string('VAT/MwSt Number/Tax ID');
-            $table->string('deliverycountry');
+            $table->string('deliverycountry')->nullable();
             $table->string('deliveryoption');
             $table->string('nearBranch')->nullable();
             $table->string('comment')->nullable();

@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    
     public function initializeTransaction(Request $request, $invoice_id)
     {
         return (new TransactionServices)->initializeTransaction($request,$invoice_id);
+    }
+
+    public function createTransaction(Request $request)
+    {
+        return (new TransactionServices)->createTransaction($request);
     }
 
     public function checkTransactionStatus($transaction_id, $invoice_id)

@@ -52,7 +52,7 @@ class QuoteService
 
    public function getQuote()
    {
-        $quote = Quote::paginate(50);
+        $quote = Quote::with('product')->paginate(50);
 
         return response()->json([ 'quotes' => $quote], 200);
    }

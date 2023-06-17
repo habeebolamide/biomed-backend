@@ -17,10 +17,11 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('reference_no');
             $table->foreignId('user_id')->constrained('users');
-            $table->string('invoice_id');
+            $table->string('email')->nullable();
+            $table->string('invoice_id')->nullable();
             $table->integer('amount')->default(0);
             $table->integer('expected_amount');
-            $table->enum('gateway_type',['autocredit', 'paystack', 'flutterwave']);
+            $table->enum('gateway_type',['autocredit', 'paystack', 'flutterwave'])->nullable();
             $table->enum('status', ['pending','approved','declined'])->default('pending');
             $table->json('raw_response')->nullable();
             $table->timestamps();

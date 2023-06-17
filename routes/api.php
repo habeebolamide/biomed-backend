@@ -190,6 +190,10 @@ Route::prefix('invoice')->middleware('auth:sanctum')->group(function () {
     Route::post('/check-status/{transaction_id}/{invoice_id}', [TransactionController::class, 'checkTransactionStatus']);
 });
 
+Route::prefix('transactions')->middleware('auth:sanctum')->group(function () {
+    Route::post('/create', [TransactionController::class, 'createTransaction']);
+});
+
 Route::prefix('user-address')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [UserAddressController::class, 'getUserAddress'])->withoutMiddleware('auth:sanctum');
     Route::get('/{user_address_id}', [UserAddressController::class, 'getSingleUserAddress']);

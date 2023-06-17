@@ -74,6 +74,7 @@ class ProductService
                "nested_sub_category_id" => $data["nested_sub_category_id"],
                "product_disease_id" => $data["product_disease_id"],
                "product_name" => $data["product_name"],
+               "technology" => $data["technology"],
                "product_slug" => $data["product_slug"],
                "keyword" => $data["keyword"],
                "model" => $data["model"],
